@@ -26,5 +26,7 @@ namespace YATA
         {
             this.InitializeComponent();
         }
+
+       
     }
 }
