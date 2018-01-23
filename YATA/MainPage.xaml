@@ -19,7 +19,8 @@
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="24"
-                       FontWeight="SemiBold"/>
+                       FontWeight="SemiBold"
+                       Foreground="White"/>
         </Grid>
         <Grid Grid.Row="1">
 

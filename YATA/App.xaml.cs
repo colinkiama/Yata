@@ -7,6 +7,8 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,6 +16,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using YATA.Core;
+using YATA.Enums;
 
 namespace YATA
 {
@@ -39,6 +43,25 @@ namespace YATA
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            var TopBarColor = (Color)Application.Current.Resources["SystemAccentColor"];
+            if (DeviceDetection.DetectDeviceType() == DeviceType.Phone)
+            {
+                var statusBar = StatusBar.GetForCurrentView();
+                statusBar.BackgroundColor = TopBarColor;
+                statusBar.BackgroundOpacity = 1;
+                statusBar.ForegroundColor = Colors.White;
+            }
+
+            else
+            {
+                var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                titleBar.BackgroundColor = TopBarColor;
+                titleBar.ForegroundColor = Colors.White;
+                titleBar.ButtonBackgroundColor = TopBarColor;
+                titleBar.InactiveBackgroundColor = TopBarColor;
+                titleBar.ButtonInactiveBackgroundColor = TopBarColor;
+                
+            }
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
