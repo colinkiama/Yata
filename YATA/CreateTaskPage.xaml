@@ -26,9 +26,12 @@
                        Foreground="White"/>
             </Grid>
             <Grid Grid.Row="1"
-                  Padding="20">
-                <TextBox Width="auto"
-                         MinWidth="300"
+                  Padding="20"
+                  Name="myGrid"
+                  Background="Transparent"
+                  Tapped="myGrid_OnTapped">
+                <TextBox 
+                    MinWidth="300"
                          Height="auto"
                          PlaceholderText="What do you want to do?"
                          VerticalAlignment="Top"
@@ -36,7 +39,9 @@
                          AcceptsReturn="True"
                          TextWrapping="Wrap"
                          BorderThickness="0"
-                         Padding="8,8,12,8">
+                         Padding="8,8,12,8"
+                         Name="taskDetailsTextBox"
+                        >
                     <TextBox.Style>
                         <!-- Default style for Windows.UI.Xaml.Controls.TextBox -->
                         <Style TargetType="TextBox">

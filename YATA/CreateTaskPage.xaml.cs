@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -23,10 +24,18 @@ namespace YATA
     public sealed partial class CreateTaskPage : Page
     {
         private string title = "Creating a new Task...";
+        
 
         public CreateTaskPage()
         {
             this.InitializeComponent();
         }
+
+        private void myGrid_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            taskDetailsTextBox.Focus(FocusState.Pointer);
+        }
+
+
     }
 }
