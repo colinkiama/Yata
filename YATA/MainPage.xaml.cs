@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -27,6 +28,13 @@ namespace YATA
             this.InitializeComponent();
         }
 
-       
+        private void AddTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.ContentTransitions = new TransitionCollection();
+            var navThemeTransition = new NavigationThemeTransition();
+            navThemeTransition.DefaultNavigationTransitionInfo = new EntranceNavigationTransitionInfo();
+            Frame.ContentTransitions.Add(navThemeTransition);
+            Frame.Navigate(typeof(CreateTaskPage));
+        }
     }
 }
