@@ -25,8 +25,8 @@
                        FontWeight="SemiBold"
                        Foreground="White"/>
             </Grid>
-            <Grid Grid.Row="1"
-                  Padding="20"
+            <ScrollViewer Grid.Row="1">
+            <Grid Padding="20"
                   Name="myGrid"
                   Background="Transparent"
                   Tapped="myGrid_OnTapped">
@@ -250,6 +250,7 @@
                     </TextBox.Style>
                 </TextBox>
             </Grid>
+            </ScrollViewer>
             <Grid Grid.Row="2">
                 <Grid.Resources>
                     <Style x:Key="ButtonCircleStyle"

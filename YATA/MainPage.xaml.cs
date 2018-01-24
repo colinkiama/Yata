@@ -23,6 +23,7 @@ namespace YATA
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private string title = "Notes";
         public MainPage()
         {
             this.InitializeComponent();

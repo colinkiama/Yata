@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
               Background="{ThemeResource SystemControlBackgroundAccentBrush}">
-            <TextBlock Text="Notes"
+            <TextBlock Text="{x:Bind title}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="24"

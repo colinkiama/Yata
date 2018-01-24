@@ -23,7 +23,7 @@ namespace YATA
     /// </summary>
     public sealed partial class CreateTaskPage : Page
     {
-        private string title = "Creating a new Task...";
+        private string title = "Creating a New Task...";
         
 
         public CreateTaskPage()
