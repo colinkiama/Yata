@@ -95,6 +95,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\ListedTask.xaml.cs">
+      <DependentUpon>ListedTask.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Core\DeviceDetection.cs" />
     <Compile Include="CreateTaskPage.xaml.cs">
       <DependentUpon>CreateTaskPage.xaml</DependentUpon>
@@ -127,6 +130,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Control\ListedTask.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CreateTaskPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

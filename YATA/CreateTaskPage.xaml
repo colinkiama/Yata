@@ -490,18 +490,21 @@
                     BorderThickness="2"
                     BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                     HorizontalAlignment="Center"
-                    Margin="4">
+                    Margin="4"
+                        Name="CreateTaskButton"
+                        Click="CreateTaskButton_Click">
                     <Button.Content>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE0E7;" />
                     </Button.Content>
 
                 </Button>
-                <TextBlock Text="Add a Task"
+                <TextBlock Text="Finish Creating Task"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"
                        Margin="0,4,0,16"
                        Grid.Row="1"
                        FontWeight="SemiBold"
+                       
                        />
             </Grid>
 

@@ -5,6 +5,7 @@
     xmlns:local="using:YATA"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Control="using:YATA.Control"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -23,7 +24,17 @@
                        Foreground="White"/>
         </Grid>
         <Grid Grid.Row="1">
-
+            <ListView Name="tasksListView"
+                      ItemClick="tasksListView_ItemClick"
+                      ItemsSource="{x:Bind localListOfTasks}"
+                      IsItemClickEnabled="True"
+                      SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Control:ListedTask/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.Resources>
