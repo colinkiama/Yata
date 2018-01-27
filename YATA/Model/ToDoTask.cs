@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace YATA.Model
 {
-    public class Note
+    public class ToDoTask
     {
         public DateTime DateCreated { get; set; }
         public string Content { get; set; }
         public bool isCompleted { get; set; }
 
-        public static ObservableCollection<Note> listOfTasks = new ObservableCollection<Note>();
+        public static ObservableCollection<ToDoTask> listOfTasks = new ObservableCollection<ToDoTask>();
 
         public event EventHandler isCompletedChanged;
 
       
         public static void CreateNote(string content)
         {
-            Note noteToCreate = new Note();
+            ToDoTask noteToCreate = new ToDoTask();
             noteToCreate.Content = content;
             noteToCreate.DateCreated = DateTime.Now;
             noteToCreate.isCompleted = false;

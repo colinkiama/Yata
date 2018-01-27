@@ -25,12 +25,12 @@ namespace YATA
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public ObservableCollection<Note> localListOfTasks;
-        private string title = "Notes";
+        public ObservableCollection<ToDoTask> localListOfTasks;
+        private string title = "Tasks";
         public MainPage()
         {
             this.InitializeComponent();
-            localListOfTasks = Note.listOfTasks;
+            localListOfTasks = ToDoTask.listOfTasks;
         }
 
         private void AddTaskButton_Click(object sender, RoutedEventArgs e)
@@ -44,7 +44,7 @@ namespace YATA
 
         private void tasksListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var clickedTask = (Note)e.ClickedItem;
+            var clickedTask = (ToDoTask)e.ClickedItem;
             clickedTask.changeIsCompletedState();
             
         }

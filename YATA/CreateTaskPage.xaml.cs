@@ -39,7 +39,7 @@ namespace YATA
 
         private void CreateTaskButton_Click(object sender, RoutedEventArgs e)
         {
-           Note.CreateNote(taskDetailsTextBox.Text);
+           ToDoTask.CreateNote(taskDetailsTextBox.Text);
             Frame.Navigate(typeof(MainPage));
         }
     }

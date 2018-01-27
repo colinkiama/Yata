@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -21,7 +22,7 @@ namespace YATA.Control
 {
     public sealed partial class ListedTask : UserControl
     {
-        public Note TaskItem { get { return DataContext as Note; } }
+        public ToDoTask TaskItem { get { return DataContext as ToDoTask; } }
         public ListedTask()
         {
             this.InitializeComponent();
@@ -35,12 +36,13 @@ namespace YATA.Control
         {
             if (TaskItem.isCompleted)
             {
-                this.taskTextBlock.TextDecorations = TextDecorations.Strikethrough;
+                this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["TextBoxDisabledForegroundThemeBrush"];
+                TaskCompleteTag.Visibility = Visibility.Visible;
             }
             else
             {
-                this.taskTextBlock.TextDecorations = TextDecorations.None;
-                
+                this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["DefaultTextForegroundThemeBrush"];
+                TaskCompleteTag.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -49,7 +51,8 @@ namespace YATA.Control
         {
             if (TaskItem.isCompleted)
             {
-                this.taskTextBlock.TextDecorations = TextDecorations.Strikethrough;
+                this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["TextBoxDisabledForegroundThemeBrush"];
+                TaskCompleteTag.Visibility = Visibility.Visible;
             }
             TaskItem.isCompletedChanged += TaskItem_isCompletedChanged;
         }

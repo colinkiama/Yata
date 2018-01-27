@@ -10,6 +10,17 @@
     d:DesignWidth="400"
     Loaded="UserControl_Loaded">
 
-    <TextBlock Name="taskTextBlock" Text="{x:Bind TaskItem.Content}"
-               /> 
+    <RelativePanel Background="Transparent"
+                   Padding="8"
+                   >
+    <TextBlock Name="TaskTextBlock" Text="{x:Bind TaskItem.Content}"
+               Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
+               FontSize="20"
+               Margin="0,0,0,4"/>
+        <TextBlock Name="TaskCompleteTag" Text="COMPLETED"
+                   Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+                   FontWeight="SemiBold"
+                   RelativePanel.Below="TaskTextBlock"                   
+                   Visibility="Collapsed"/>
+    </RelativePanel>
 </UserControl>
