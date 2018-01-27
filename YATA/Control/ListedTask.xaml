@@ -16,11 +16,13 @@
     <TextBlock Name="TaskTextBlock" Text="{x:Bind TaskItem.Content}"
                Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
                FontSize="20"
-               Margin="0,0,0,4"/>
+               Margin="0,8,0,4"
+               TextWrapping="WrapWholeWords"/>
         <TextBlock Name="TaskCompleteTag" Text="COMPLETED"
                    Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
                    FontWeight="SemiBold"
                    RelativePanel.Below="TaskTextBlock"                   
-                   Visibility="Collapsed"/>
+                   Visibility="Collapsed"
+                   TextWrapping="WrapWholeWords"/>
     </RelativePanel>
 </UserControl>
