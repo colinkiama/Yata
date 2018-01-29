@@ -9,11 +9,14 @@ namespace YATA.Core
    public class PageStuff
     {
         public static event EventHandler pageSizeChanged;
-
+        public static double currentWidth = 0;
         public static void OnPageSizeChanged(Double pageWidth)
         {
-            pageSizeChanged?.Invoke(pageWidth, EventArgs.Empty);
+            currentWidth = pageWidth;
+            pageSizeChanged?.Invoke(null, EventArgs.Empty);
         }
+
+
 
     }
 }

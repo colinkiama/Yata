@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using YATA.Model;
+using YATA.Phone;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -39,6 +40,7 @@ namespace YATA
 
         private void CreateTaskButton_Click(object sender, RoutedEventArgs e)
         {
+            Haptics.ApplyCreateTaskButtonPressHaptics();
            ToDoTask.CreateNote(taskDetailsTextBox.Text);
             Frame.Navigate(typeof(MainPage));
         }

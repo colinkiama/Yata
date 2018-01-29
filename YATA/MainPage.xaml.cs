@@ -37,7 +37,7 @@ namespace YATA
 
         private void AddTaskButton_Click(object sender, RoutedEventArgs e)
         {
-            Haptics.ApplyCompletedStampHaptics();
+            Haptics.ApplyAddTaskButtonPressHaptics();
             Frame.ContentTransitions = new TransitionCollection();
             var navThemeTransition = new NavigationThemeTransition();
             navThemeTransition.DefaultNavigationTransitionInfo = new EntranceNavigationTransitionInfo();

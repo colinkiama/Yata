@@ -31,12 +31,13 @@ namespace YATA.Control
             this.InitializeComponent();
             this.DataContextChanged += (s, e) => Bindings.Update();
             PageStuff.pageSizeChanged += PageStuff_pageSizeChanged;
+            mainPanel.Width = PageStuff.currentWidth - (mainPanel.Padding.Left + mainPanel.Padding.Right);
         }
 
         private void PageStuff_pageSizeChanged(object sender, EventArgs e)
         {
-            double width = (double)sender;
-            mainPanel.Width = width - (mainPanel.Padding.Left + mainPanel.Padding.Right);
+            
+            mainPanel.Width = PageStuff.currentWidth - (mainPanel.Padding.Left + mainPanel.Padding.Right);
         }
 
         private void TaskItem_isCompletedChanged(object sender, EventArgs e)
