@@ -32,8 +32,8 @@
                       IsItemClickEnabled="True"
                       SelectionMode="None">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Control:ListedTask/>
+                    <DataTemplate x:DataType="model:ToDoTask">
+                        <Control:ListedTask Width="{}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using YATA.Model;
+using YATA.Phone;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -35,17 +36,19 @@ namespace YATA
 
         private void AddTaskButton_Click(object sender, RoutedEventArgs e)
         {
+            Haptics.CompletedStampHaptics();
             Frame.ContentTransitions = new TransitionCollection();
             var navThemeTransition = new NavigationThemeTransition();
             navThemeTransition.DefaultNavigationTransitionInfo = new EntranceNavigationTransitionInfo();
             Frame.ContentTransitions.Add(navThemeTransition);
             Frame.Navigate(typeof(CreateTaskPage));
+            
         }
 
         private void tasksListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var clickedTask = (ToDoTask)e.ClickedItem;
-            clickedTask.changeIsCompletedState();
+            //var clickedTask = (ToDoTask)e.ClickedItem;
+            //clickedTask.changeIsCompletedState();
             
         }
     }

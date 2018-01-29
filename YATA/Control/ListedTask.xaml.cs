@@ -53,8 +53,14 @@ namespace YATA.Control
             {
                 this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["TextBoxDisabledForegroundThemeBrush"];
                 TaskCompleteTag.Visibility = Visibility.Visible;
+                CompletedStampToggleButton.IsChecked = true;
             }
             TaskItem.isCompletedChanged += TaskItem_isCompletedChanged;
+        }
+
+        private void CompletedStampToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.TaskItem.changeIsCompletedState();
         }
     }
 }
