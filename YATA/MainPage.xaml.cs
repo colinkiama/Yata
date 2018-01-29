@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using YATA.Core;
 using YATA.Model;
 using YATA.Phone;
 
@@ -36,7 +37,7 @@ namespace YATA
 
         private void AddTaskButton_Click(object sender, RoutedEventArgs e)
         {
-            Haptics.CompletedStampHaptics();
+            Haptics.ApplyCompletedStampHaptics();
             Frame.ContentTransitions = new TransitionCollection();
             var navThemeTransition = new NavigationThemeTransition();
             navThemeTransition.DefaultNavigationTransitionInfo = new EntranceNavigationTransitionInfo();
@@ -50,6 +51,15 @@ namespace YATA
             //var clickedTask = (ToDoTask)e.ClickedItem;
             //clickedTask.changeIsCompletedState();
             
+        }
+
+        private void CurrentPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize != null)
+            {
+                var widthToSend = e.NewSize.Width;
+                PageStuff.OnPageSizeChanged(widthToSend);
+            }
         }
     }
 }

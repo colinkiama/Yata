@@ -13,15 +13,15 @@ namespace YATA.Phone
     public class Haptics
     {
 
-        public static void CompletedStampHaptics()
+        public static void ApplyCompletedStampHaptics()
         {
-            VibrateDevice(TimeSpan.FromMilliseconds(150));
+            VibrateDevice(TimeSpan.FromMilliseconds(30));
         }
 
 
-        public static void CancelCompletedStampHaptics()
+        public static void ApplyEraseCompletedStampHaptics()
         {
-            VibrateDevice(TimeSpan.FromMilliseconds(80));
+            VibrateDevice(TimeSpan.FromMilliseconds(5));
         }
 
         static void VibrateDevice(TimeSpan VibrationTime)

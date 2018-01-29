@@ -14,7 +14,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using YATA.Core;
 using YATA.Model;
+using YATA.Phone;
+
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -27,10 +30,14 @@ namespace YATA.Control
         {
             this.InitializeComponent();
             this.DataContextChanged += (s, e) => Bindings.Update();
-            
+            PageStuff.pageSizeChanged += PageStuff_pageSizeChanged;
         }
 
-        
+        private void PageStuff_pageSizeChanged(object sender, EventArgs e)
+        {
+            double width = (double)sender;
+            mainPanel.Width = width - (mainPanel.Padding.Left + mainPanel.Padding.Right);
+        }
 
         private void TaskItem_isCompletedChanged(object sender, EventArgs e)
         {
@@ -61,6 +68,16 @@ namespace YATA.Control
         private void CompletedStampToggleButton_Click(object sender, RoutedEventArgs e)
         {
             this.TaskItem.changeIsCompletedState();
+        }
+
+        private void CompletedStampToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            Haptics.ApplyCompletedStampHaptics();
+        }
+
+        private void CompletedStampToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Haptics.ApplyEraseCompletedStampHaptics();
         }
     }
 }

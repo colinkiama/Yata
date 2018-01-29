@@ -11,15 +11,20 @@
     Loaded="UserControl_Loaded"
     >
 
-    
-    <RelativePanel Background="Transparent"
-                   Padding="8"
-                   >
+    <Grid Padding="8" Background="Transparent"
+         Name="mainPanel">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+   
+    <RelativePanel>
     <TextBlock Name="TaskTextBlock" Text="{x:Bind TaskItem.Content}"
                Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
                FontSize="20"
                Margin="0,8,0,4"
-               TextWrapping="WrapWholeWords"/>
+               TextWrapping="WrapWholeWords"
+               />
         <TextBlock Name="TaskCompleteTag" Text="COMPLETED"
                    Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
                    FontWeight="SemiBold"
@@ -27,13 +32,21 @@
                    Visibility="Collapsed"
                    TextWrapping="WrapWholeWords"/>
 
-        <ToggleButton RelativePanel.AlignRightWithPanel="True"
-                      RelativePanel.AlignVerticalCenterWith="TaskTextBlock"
-                      Width="20"
-                      Height="20"
-                      Margin="0,0,0,0"
+       
+    </RelativePanel>
+
+
+        <ToggleButton Grid.Column="1"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Top"
+                      Width="28"
+                      Height="28"
+                      Margin="0,8,0,0"
                       Name="CompletedStampToggleButton"
-                      Click="CompletedStampToggleButton_Click">
+                      Click="CompletedStampToggleButton_Click"
+                      Checked="CompletedStampToggleButton_Checked"
+                      Unchecked="CompletedStampToggleButton_Unchecked"
+                      >
             <ToggleButton.Style>
                 <!-- Default style for Windows.UI.Xaml.Controls.Primitives.ToggleButton -->
                 <Style TargetType="ToggleButton">
@@ -69,7 +82,7 @@
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">
                                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleButtonBackgroundPointerOver}" />
                                                     </ObjectAnimationUsingKeyFrames>
-                                                    
+
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleButtonForegroundPointerOver}" />
                                                     </ObjectAnimationUsingKeyFrames>
@@ -248,8 +261,9 @@
             <ToggleButton.Content>
                 <FontIcon FontFamily="Segoe MDL2 Assets" 
                           Glyph="&#xE0E7;" 
-                          FontSize="10"/>
+                          FontSize="12"/>
             </ToggleButton.Content>
         </ToggleButton>
-    </RelativePanel>
+
+    </Grid>
 </UserControl>

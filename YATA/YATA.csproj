@@ -99,6 +99,7 @@
       <DependentUpon>ListedTask.xaml</DependentUpon>
     </Compile>
     <Compile Include="Core\DeviceDetection.cs" />
+    <Compile Include="Core\PageStuff.cs" />
     <Compile Include="CreateTaskPage.xaml.cs">
       <DependentUpon>CreateTaskPage.xaml</DependentUpon>
     </Compile>
