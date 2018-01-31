@@ -12,11 +12,9 @@ namespace YATA.Core.Audio
 {
     public class SoundFX
     {
-        private static MediaPlayer SoundFXSystem = new MediaPlayer { AudioCategory = MediaPlayerAudioCategory.SoundEffects, Volume = 10, IsLoopingEnabled = false };
-        private static MediaPlayer FinishedSoundFXSystem = new MediaPlayer { AudioCategory = MediaPlayerAudioCategory.SoundEffects, Volume = 10, IsLoopingEnabled = false };
-        private static MediaSource CompletedStampSoundSource = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/CompletedStamp.mp3"));
-        private static MediaSource RemoveCompletedStampSoundSource = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/RemoveCompletedStamp.mp3"));
-        private static MediaSource CreateTaskSoundSource = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/CreateNewTask.mp3"));
+        private static MediaPlayer SoundFXSystem = new MediaPlayer { AudioCategory = MediaPlayerAudioCategory.SoundEffects, Volume = 0.1, IsLoopingEnabled = false };
+        private static MediaPlayer FinishedSoundFXSystem = new MediaPlayer { AudioCategory = MediaPlayerAudioCategory.SoundEffects, Volume = 0.1, IsLoopingEnabled = false };
+        private static MediaSource CompletedStampSoundSource = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/RemoveCompletedStamp.mp3"));
         private static MediaSource FinishCreatingTaskSoundSource = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/FinshedCreatingTask.mp3"));
 
 
@@ -26,18 +24,7 @@ namespace YATA.Core.Audio
             SoundFXSystem.Play();
         }
 
-
-        public static void PlayRemoveCompletedStampSound()
-        {
-            SoundFXSystem.Source = RemoveCompletedStampSoundSource;
-            SoundFXSystem.Play();
-        }
-
-        public static void PlayCreateTaskSound()
-        {
-            SoundFXSystem.Source = CreateTaskSoundSource;
-            SoundFXSystem.Play();
-        }
+       
 
         public static void PlayFinishCreatingTaskSound()
         {

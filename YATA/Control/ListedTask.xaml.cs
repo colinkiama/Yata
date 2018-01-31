@@ -108,13 +108,17 @@ namespace YATA.Control
 
         private void CompletedStampToggleButton_Checked(object sender, RoutedEventArgs e)
         {
-            SoundFX.PlayCompletedSound();
-            Haptics.ApplyCompletedStampHaptics();
+            if (PageStuff.navigating == false)
+            {
+                SoundFX.PlayCompletedSound();
+                SoundFX.PlayCompletedSound();
+            }
+
         }
 
         private void CompletedStampToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
-            SoundFX.PlayRemoveCompletedStampSound();
+            
             Haptics.ApplyEraseCompletedStampHaptics();
         }
 

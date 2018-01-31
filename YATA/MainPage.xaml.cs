@@ -57,6 +57,8 @@ namespace YATA
 
             }
         }
+        
+        
 
         private async Task animateScoreTextBlock()
         {
@@ -88,5 +90,11 @@ namespace YATA
                 PageStuff.OnPageSizeChanged(widthToSend);
             }
         }
+
+        private void CurrentPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            PageStuff.navigating = false;
+        }
+
     }
 }

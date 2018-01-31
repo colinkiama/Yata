@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using YATA.Core;
 using YATA.Core.Audio;
 using YATA.Model;
 using YATA.Phone;
@@ -57,6 +58,7 @@ namespace YATA
             SoundFX.PlayFinishCreatingTaskSound();
             Haptics.ApplyCreateTaskButtonPressHaptics();
            ToDoTask.CreateNote(taskDetailsTextBox.Text);
+            PageStuff.navigating = true;
             Frame.Navigate(typeof(MainPage));
         }
 
