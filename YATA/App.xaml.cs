@@ -8,6 +8,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -67,6 +68,8 @@ namespace YATA
             }
 
 
+
+
             var TopBarColor = (Color)Application.Current.Resources["SystemAccentColor"];
             if (DeviceDetection.DetectDeviceType() == DeviceType.Phone)
             {
@@ -118,6 +121,45 @@ namespace YATA
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+
+
+            rootFrame.Navigated += RootFrame_Navigated;
+            //After  Window.Current.Content = rootFrame; 
+            // Register a handler for BackRequested events and set the  
+            // visibility of the Back button  
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                 rootFrame.CanGoBack ?
+                 AppViewBackButtonVisibility.Visible :
+                 AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            if (rootFrame.CanGoBack)
+            {
+                e.Handled = true;
+                rootFrame.GoBack();
+            }
+        }
+
+        private void RootFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            var navigatedFrame = (Frame)sender;
+            if (navigatedFrame.CurrentSourcePageType == typeof(MainPage))
+            {
+                navigatedFrame.BackStack.Clear();
+            }
+
+            // Each time a navigation event occurs, update the Back button's visibility  
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                ((Frame)sender).CanGoBack ?
+                AppViewBackButtonVisibility.Visible :
+                AppViewBackButtonVisibility.Collapsed;
+
         }
 
         /// <summary>
