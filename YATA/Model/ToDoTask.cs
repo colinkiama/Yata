@@ -9,14 +9,14 @@ using YATA.Services;
 
 namespace YATA.Model
 {
-    [DataContract]
+    
     public class ToDoTask
     {
-        [DataMember]
+        
         public DateTime DateCreated { get; set; }
-        [DataMember]
+        
         public string Content { get; set; }
-        [DataMember]
+        
         public bool isCompleted { get; set; }
 
         
@@ -32,14 +32,14 @@ namespace YATA.Model
             noteToCreate.DateCreated = DateTime.Now;
             noteToCreate.isCompleted = false;
             listOfTasks.Add(noteToCreate);
-            await SaveData();
+            //await SaveData();
         }
 
         public async Task changeIsCompletedState()
         {
             isCompleted = !isCompleted;
             isCompletedChanged?.Invoke(this, EventArgs.Empty);
-            await SaveData();
+            //await SaveData();
             
         }
 

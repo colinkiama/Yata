@@ -34,7 +34,15 @@ namespace YATA
         public App()
         {
             this.InitializeComponent();
-            this.Suspending += OnSuspending;            
+            this.Suspending += OnSuspending;
+            this.EnteredBackground += App_EnteredBackground;
+        }
+
+        private async void App_EnteredBackground(object sender, EnteredBackgroundEventArgs e)
+        {
+            var deferral = e.GetDeferral();
+            await new FileIOService().saveData();
+            deferral.Complete();
         }
 
         /// <summary>

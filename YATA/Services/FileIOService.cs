@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Windows.Storage;
 using YATA.Model;
 
@@ -49,7 +50,7 @@ namespace YATA.Services
 
         private async Task loadFileIntoClass()
         {
-            var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<ToDoTask>));
+            var serializer = new XmlSerializer(typeof(ObservableCollection<ToDoTask>));
             var ToDoTasksFile = await getToDoTaskFile();
 
             try
@@ -57,7 +58,7 @@ namespace YATA.Services
                 using (Stream stream = await ToDoTasksFile.OpenStreamForReadAsync())
                 {
                     ObservableCollection<ToDoTask> loadedToDoTasks = new ObservableCollection<ToDoTask>();
-                    loadedToDoTasks = (ObservableCollection<ToDoTask>)serializer.ReadObject(stream);
+                    loadedToDoTasks = (ObservableCollection<ToDoTask>)serializer.Deserialize(stream);
                     ToDoTask.listOfTasks = loadedToDoTasks;
                     await stream.FlushAsync();
                 }
@@ -86,7 +87,7 @@ namespace YATA.Services
             {
                 foreach (var file in listOfFiles)
                 {
-                    if (file.Name == "ToDoTasks.json")
+                    if (file.Name == "ToDoTasks.txt")
                     {
                         fileExists = true;
                         break;
@@ -104,14 +105,14 @@ namespace YATA.Services
         {
             bool dataSaved = false;
 
-            var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<ToDoTask>));
+            var serializer = new XmlSerializer(typeof(ObservableCollection<ToDoTask>));
             var ToDoTasksFile = await createToDoTaskFile();
 
             try
             {
                 using (Stream stream = await ToDoTasksFile.OpenStreamForWriteAsync())
                 {
-                    serializer.WriteObject(stream, ToDoTask.listOfTasks);
+                    serializer.Serialize(stream, ToDoTask.listOfTasks);
                     await stream.FlushAsync();
                 }
             }
@@ -131,7 +132,7 @@ namespace YATA.Services
 
         private async Task<StorageFile> getToDoTaskFile()
         {
-            StorageFile ToDoTasksFile = await localFolder.GetFileAsync("ToDoTasks.json");
+            StorageFile ToDoTasksFile = await localFolder.GetFileAsync("ToDoTasks.txt");
 
             return ToDoTasksFile;
         }
@@ -139,7 +140,7 @@ namespace YATA.Services
 
         private async Task<StorageFile> createToDoTaskFile()
         {
-            StorageFile ToDoTasksFile = await localFolder.CreateFileAsync("ToDoTasks.json", CreationCollisionOption.OpenIfExists);
+            StorageFile ToDoTasksFile = await localFolder.CreateFileAsync("ToDoTasks.txt", CreationCollisionOption.OpenIfExists);
 
             return ToDoTasksFile;
         }
