@@ -96,9 +96,9 @@ namespace YATA.Control
             mainPanel.Width = PageStuff.currentWidth - (mainPanel.Padding.Left + mainPanel.Padding.Right);
         }
 
-        private async void CompletedStampToggleButton_Click(object sender, RoutedEventArgs e)
+        private void CompletedStampToggleButton_Click(object sender, RoutedEventArgs e)
         {
-           await this.TaskItem.changeIsCompletedState();
+            this.TaskItem.changeIsCompletedState();
         }
 
         private void CompletedStampToggleButton_Checked(object sender, RoutedEventArgs e)

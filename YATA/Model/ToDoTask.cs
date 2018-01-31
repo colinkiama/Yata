@@ -25,7 +25,7 @@ namespace YATA.Model
         public event EventHandler isCompletedChanged;
 
       
-        public async static Task CreateNote(string content)
+        public static void CreateNote(string content)
         {
             ToDoTask noteToCreate = new ToDoTask();
             noteToCreate.Content = content;
@@ -35,7 +35,7 @@ namespace YATA.Model
             //await SaveData();
         }
 
-        public async Task changeIsCompletedState()
+        public void changeIsCompletedState()
         {
             isCompleted = !isCompleted;
             isCompletedChanged?.Invoke(this, EventArgs.Empty);

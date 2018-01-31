@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Json;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Windows.Storage;
@@ -140,7 +136,7 @@ namespace YATA.Services
 
         private async Task<StorageFile> createToDoTaskFile()
         {
-            StorageFile ToDoTasksFile = await localFolder.CreateFileAsync("ToDoTasks.txt", CreationCollisionOption.OpenIfExists);
+            StorageFile ToDoTasksFile = await localFolder.CreateFileAsync("ToDoTasks.txt", CreationCollisionOption.ReplaceExisting);
 
             return ToDoTasksFile;
         }
