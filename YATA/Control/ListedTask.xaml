@@ -10,6 +10,15 @@
     d:DesignWidth="400"
     Loaded="UserControl_Loaded"
     >
+    <UserControl.ContextFlyout>
+        <MenuFlyout>
+            <MenuFlyoutItem x:Name="FlyoutDeleteButton"
+                            Click="FlyoutDeleteButton_Click">
+                Delete
+            </MenuFlyoutItem>
+        </MenuFlyout>
+    </UserControl.ContextFlyout>
+    
 
     <Grid Padding="8" Background="Transparent"
          Name="mainPanel">

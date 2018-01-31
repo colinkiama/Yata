@@ -110,5 +110,10 @@ namespace YATA.Control
         {
             Haptics.ApplyEraseCompletedStampHaptics();
         }
+
+        private void FlyoutDeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            ToDoTask.listOfTasks.Remove(this.TaskItem);
+        }
     }
 }
