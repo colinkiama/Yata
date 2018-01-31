@@ -27,7 +27,8 @@
                        FontSize="36"
                        FontWeight="SemiBold"
                        Width="auto"
-                       Height="auto"/>
+                       Height="auto"
+                       Foreground="White"/>
             <TextBlock Text="{x:Bind title}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"

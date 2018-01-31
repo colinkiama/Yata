@@ -101,6 +101,11 @@ namespace YATA
                 titleBar.ButtonInactiveBackgroundColor = TopBarColor;
                 
             }
+
+            var appView = ApplicationView.GetForCurrentView();
+            appView.SetPreferredMinSize(new Size(256, 256));
+            
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
