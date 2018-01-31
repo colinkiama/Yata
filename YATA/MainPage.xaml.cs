@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -33,6 +34,20 @@ namespace YATA
         {
             this.InitializeComponent();
             localListOfTasks = ToDoTask.listOfTasks;
+            ScoreTextBlock.Text = ToDoTask.CompletedTasks.ToString();
+            ToDoTask.CompletedTasksCountChanged += ToDoTask_CompletedTasksCountChanged;
+            
+        }
+
+        private async void ToDoTask_CompletedTasksCountChanged(object sender, EventArgs e)
+        {
+            int numOfCompletedTasks = ToDoTask.CompletedTasks;
+            ScoreTextBlock.Text = numOfCompletedTasks.ToString();
+            if (numOfCompletedTasks% 10 == 0 && ToDoTask.CompletedTasks != 0 && ((ToDoTask)sender).isCompleted)
+            {
+                await ScoreTextBlock.Scale(1.5f, 1.5f, (float)ScoreTextBlock.ActualWidth / 2, (float)ScoreTextBlock.ActualHeight / 2, 300).StartAsync();
+                await ScoreTextBlock.Scale(1, 1, (float)ScoreTextBlock.ActualWidth / 2, (float)ScoreTextBlock.ActualHeight / 2, 300).StartAsync();
+            }
         }
 
         private void AddTaskButton_Click(object sender, RoutedEventArgs e)

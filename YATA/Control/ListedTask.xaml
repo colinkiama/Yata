@@ -38,8 +38,8 @@
                    Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
                    FontWeight="SemiBold"
                    RelativePanel.Below="TaskTextBlock"   
-                   Visibility="Collapsed"
-                   TextWrapping="WrapWholeWords"/>
+                   TextWrapping="WrapWholeWords"
+                   Opacity="0"/>
 
        
     </RelativePanel>

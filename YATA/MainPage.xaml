@@ -18,7 +18,15 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
-              Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+              Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+              Padding="12,0">
+            <TextBlock Name="ScoreTextBlock"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       FontSize="36"
+                       FontWeight="SemiBold"
+                       Width="auto"
+                       Height="auto"/>
             <TextBlock Text="{x:Bind title}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"

@@ -19,11 +19,24 @@ namespace YATA.Model
         
         public bool isCompleted { get; set; }
 
-        
+        public static int CompletedTasks { get; set; } = 0;
+
         public static ObservableCollection<ToDoTask> listOfTasks = new ObservableCollection<ToDoTask>();
 
+        public static event EventHandler CompletedTasksCountChanged;
         public event EventHandler isCompletedChanged;
 
+        public static void RestoreNumberOfCompletedTasks()
+        {
+            int length = listOfTasks.Count;
+            for (int i = 0; i < length; i++)
+            {
+                if (listOfTasks[i].isCompleted == true)
+                {
+                    CompletedTasks++;
+                }
+            }
+        }
       
         public static void CreateNote(string content)
         {
@@ -39,6 +52,8 @@ namespace YATA.Model
         {
             isCompleted = !isCompleted;
             isCompletedChanged?.Invoke(this, EventArgs.Empty);
+            CompletedTasks = isCompleted ? CompletedTasks + 1 : CompletedTasks - 1;
+            CompletedTasksCountChanged?.Invoke(this, EventArgs.Empty);
             //await SaveData();
             
         }

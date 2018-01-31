@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using YATA.Core;
 using YATA.Enums;
+using YATA.Model;
 using YATA.Services;
 
 namespace YATA
@@ -63,7 +64,11 @@ namespace YATA
                     //Show Latest updates
                     break;
                 case Mango.Enums.appVersionStatus.Current:
-                    await new FileIOService().loadData();
+                   bool isDataLoaded = await new FileIOService().loadData();
+                    if (isDataLoaded)
+                    {
+                        ToDoTask.RestoreNumberOfCompletedTasks();
+                    }
                     break;
             }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace YATA.Control
     public sealed partial class ListedTask : UserControl
     {
         public ToDoTask TaskItem { get { return DataContext as ToDoTask; } }
-
+        private SolidColorBrush transparentColor = new SolidColorBrush(Colors.Transparent);
         private bool isDataContextNull = true;
         public ListedTask()
         {
@@ -45,7 +46,7 @@ namespace YATA.Control
                     if (TaskItem.isCompleted)
                     {
                         this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["TextBoxDisabledForegroundThemeBrush"];
-                        TaskCompleteTag.Visibility = Visibility.Visible;
+                        TaskCompleteTag.Opacity = 1;
                         CompletedStampToggleButton.IsChecked = true;
                     }
                     TaskItem.isCompletedChanged += TaskItem_isCompletedChanged;
@@ -61,17 +62,19 @@ namespace YATA.Control
             mainPanel.Width = PageStuff.currentWidth - (mainPanel.Padding.Left + mainPanel.Padding.Right);
         }
 
-        private void TaskItem_isCompletedChanged(object sender, EventArgs e)
+        private async void TaskItem_isCompletedChanged(object sender, EventArgs e)
         {
             if (TaskItem.isCompleted)
             {
                 this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["TextBoxDisabledForegroundThemeBrush"];
-                TaskCompleteTag.Visibility = Visibility.Visible;
+                TaskCompleteTag.Opacity = 0;
+                await TaskCompleteTag.Offset(0, -10, 0).StartAsync();
+                await TaskCompleteTag.Fade(1, 200).Offset(duration: 200).StartAsync();
             }
             else
             {
                 this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["DefaultTextForegroundThemeBrush"];
-                TaskCompleteTag.Visibility = Visibility.Collapsed;
+                await TaskCompleteTag.Fade(0, 200).Offset(offsetY: -10, duration: 200).StartAsync();
             }
         }
 
@@ -85,7 +88,7 @@ namespace YATA.Control
                     if (TaskItem.isCompleted)
                     {
                         this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["TextBoxDisabledForegroundThemeBrush"];
-                        TaskCompleteTag.Visibility = Visibility.Visible;
+                        TaskCompleteTag.Opacity = 1;
                         CompletedStampToggleButton.IsChecked = true;
                     }
                     TaskItem.isCompletedChanged += TaskItem_isCompletedChanged;
