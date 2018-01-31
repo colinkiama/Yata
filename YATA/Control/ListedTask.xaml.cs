@@ -26,17 +26,39 @@ namespace YATA.Control
     public sealed partial class ListedTask : UserControl
     {
         public ToDoTask TaskItem { get { return DataContext as ToDoTask; } }
+
+        private bool isDataContextNull = true;
         public ListedTask()
         {
             this.InitializeComponent();
-            this.DataContextChanged += (s, e) => Bindings.Update();
+            this.DataContextChanged += ListedTask_DataContextChanged;
             PageStuff.pageSizeChanged += PageStuff_pageSizeChanged;
             mainPanel.Width = PageStuff.currentWidth - (mainPanel.Padding.Left + mainPanel.Padding.Right);
         }
 
+        private void ListedTask_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            Bindings.Update();
+            if (isDataContextNull == true)
+            {
+                if (TaskItem != null)
+                {
+                    if (TaskItem.isCompleted)
+                    {
+                        this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["TextBoxDisabledForegroundThemeBrush"];
+                        TaskCompleteTag.Visibility = Visibility.Visible;
+                        CompletedStampToggleButton.IsChecked = true;
+                    }
+                    TaskItem.isCompletedChanged += TaskItem_isCompletedChanged;
+                    isDataContextNull = false;
+                }
+            }
+
+        }
+
         private void PageStuff_pageSizeChanged(object sender, EventArgs e)
         {
-            
+
             mainPanel.Width = PageStuff.currentWidth - (mainPanel.Padding.Left + mainPanel.Padding.Right);
         }
 
@@ -57,13 +79,21 @@ namespace YATA.Control
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (TaskItem.isCompleted)
+            if (isDataContextNull == true)
             {
-                this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["TextBoxDisabledForegroundThemeBrush"];
-                TaskCompleteTag.Visibility = Visibility.Visible;
-                CompletedStampToggleButton.IsChecked = true;
+                if (TaskItem != null)
+                {
+                    if (TaskItem.isCompleted)
+                    {
+                        this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["TextBoxDisabledForegroundThemeBrush"];
+                        TaskCompleteTag.Visibility = Visibility.Visible;
+                        CompletedStampToggleButton.IsChecked = true;
+                    }
+                    TaskItem.isCompletedChanged += TaskItem_isCompletedChanged;
+
+                }
+
             }
-            TaskItem.isCompletedChanged += TaskItem_isCompletedChanged;
         }
 
         private void CompletedStampToggleButton_Click(object sender, RoutedEventArgs e)

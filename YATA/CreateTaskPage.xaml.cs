@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,11 +27,23 @@ namespace YATA
     public sealed partial class CreateTaskPage : Page
     {
         private string title = "Creating a New Task...";
-        
+        InputPane onScreenInput = InputPane.GetForCurrentView();
 
         public CreateTaskPage()
         {
             this.InitializeComponent();
+            onScreenInput.Showing += CreateTaskPage_Showing;
+            onScreenInput.Hiding += CreateTaskPage_Hiding;
+        }
+
+        private void CreateTaskPage_Hiding(InputPane sender, InputPaneVisibilityEventArgs args)
+        {
+            KeyboardCommandBar.Visibility = Visibility.Collapsed;  
+        }
+
+        private void CreateTaskPage_Showing(InputPane sender, InputPaneVisibilityEventArgs args)
+        {
+            KeyboardCommandBar.Visibility = Visibility.Visible;
         }
 
         private void myGrid_OnTapped(object sender, TappedRoutedEventArgs e)
@@ -43,6 +56,30 @@ namespace YATA
             Haptics.ApplyCreateTaskButtonPressHaptics();
            ToDoTask.CreateNote(taskDetailsTextBox.Text);
             Frame.Navigate(typeof(MainPage));
+        }
+
+        private void taskDetailsTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var changedTextBlock = sender as TextBox;
+            if (changedTextBlock != null)
+            {
+                if (changedTextBlock.Text.TrimStart() == String.Empty)
+                {
+                    CreateTaskButton.IsEnabled = false;
+                }
+
+                else
+                {
+                    CreateTaskButton.IsEnabled = true;
+                }
+            }
+            
+        }
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            Haptics.ApplyEraseCompletedStampHaptics();
+            onScreenInput.TryHide();
         }
     }
 }

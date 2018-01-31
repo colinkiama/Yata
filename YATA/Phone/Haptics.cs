@@ -36,6 +36,8 @@ namespace YATA.Phone
             VibrateDevice(TimeSpan.FromMilliseconds(20));
         }
 
+
+
         static void VibrateDevice(TimeSpan VibrationTime)
         {
             if (DeviceDetection.DetectDeviceType() == DeviceType.Phone)

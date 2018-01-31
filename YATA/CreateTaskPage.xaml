@@ -41,6 +41,7 @@
                          BorderThickness="0"
                          Padding="8,8,12,8"
                          Name="taskDetailsTextBox"
+                    TextChanged="taskDetailsTextBox_TextChanged"
                         >
                     <TextBox.Style>
                         <!-- Default style for Windows.UI.Xaml.Controls.TextBox -->
@@ -486,7 +487,7 @@
                         Height="60"
                         Width="60"
                         Background="Transparent"
-                    
+                    IsEnabled="False"
                     BorderThickness="2"
                     BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                     HorizontalAlignment="Center"
@@ -510,4 +511,15 @@
 
         </Grid>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar Visibility="Collapsed"
+                    Name="KeyboardCommandBar"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                    Foreground="{ThemeResource SystemControlForegroundAccentBrush}">
+            <AppBarButton Icon="Accept"
+                          Label="Finish"
+                          Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+                          Click="AppBarButton_Click"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
