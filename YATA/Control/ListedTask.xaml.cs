@@ -33,7 +33,6 @@ namespace YATA.Control
             this.InitializeComponent();
             this.DataContextChanged += ListedTask_DataContextChanged;
             PageStuff.pageSizeChanged += PageStuff_pageSizeChanged;
-            mainPanel.Width = PageStuff.currentWidth - (mainPanel.Padding.Left + mainPanel.Padding.Right);
         }
 
         private void ListedTask_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
@@ -94,11 +93,12 @@ namespace YATA.Control
                 }
 
             }
+            mainPanel.Width = PageStuff.currentWidth - (mainPanel.Padding.Left + mainPanel.Padding.Right);
         }
 
-        private void CompletedStampToggleButton_Click(object sender, RoutedEventArgs e)
+        private async void CompletedStampToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            this.TaskItem.changeIsCompletedState();
+           await this.TaskItem.changeIsCompletedState();
         }
 
         private void CompletedStampToggleButton_Checked(object sender, RoutedEventArgs e)

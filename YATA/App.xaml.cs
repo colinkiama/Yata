@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using YATA.Core;
 using YATA.Enums;
+using YATA.Services;
 
 namespace YATA
 {
@@ -33,7 +34,7 @@ namespace YATA
         public App()
         {
             this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            this.Suspending += OnSuspending;            
         }
 
         /// <summary>
@@ -41,8 +42,23 @@ namespace YATA
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            var result = Mango.App.appVersionChecker.getAppVersionStatus();
+            switch (result)
+            {
+                case Mango.Enums.appVersionStatus.FirstTime:
+                    await new FileIOService().saveData();
+                    break;
+                case Mango.Enums.appVersionStatus.Old:
+                    //Show Latest updates
+                    break;
+                case Mango.Enums.appVersionStatus.Current:
+                    await new FileIOService().loadData();
+                    break;
+            }
+
+
             var TopBarColor = (Color)Application.Current.Resources["SystemAccentColor"];
             if (DeviceDetection.DetectDeviceType() == DeviceType.Phone)
             {
@@ -119,5 +135,6 @@ namespace YATA
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
     }
 }

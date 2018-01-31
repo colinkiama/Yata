@@ -48,8 +48,6 @@ namespace YATA
 
         private void tasksListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            //var clickedTask = (ToDoTask)e.ClickedItem;
-            //clickedTask.changeIsCompletedState();
             
         }
 

@@ -51,10 +51,10 @@ namespace YATA
             taskDetailsTextBox.Focus(FocusState.Pointer);
         }
 
-        private void CreateTaskButton_Click(object sender, RoutedEventArgs e)
+        private async void CreateTaskButton_Click(object sender, RoutedEventArgs e)
         {
             Haptics.ApplyCreateTaskButtonPressHaptics();
-           ToDoTask.CreateNote(taskDetailsTextBox.Text);
+          await ToDoTask.CreateNote(taskDetailsTextBox.Text);
             Frame.Navigate(typeof(MainPage));
         }
 
