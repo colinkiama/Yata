@@ -23,8 +23,17 @@ namespace YATA.Model
 
         public static ObservableCollection<ToDoTask> listOfTasks = new ObservableCollection<ToDoTask>();
 
+        
+
         public static event EventHandler CompletedTasksCountChanged;
         public event EventHandler isCompletedChanged;
+
+
+        public static void UpdateCompletedTasks(int score)
+        {
+            CompletedTasks = score;
+            CompletedTasksCountChanged?.Invoke(true, EventArgs.Empty);
+        }
 
         public static void RestoreNumberOfCompletedTasks()
         {

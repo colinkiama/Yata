@@ -102,8 +102,10 @@
     <Compile Include="Control\ListedTask.xaml.cs">
       <DependentUpon>ListedTask.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Core\Audio\SoundFX.cs" />
     <Compile Include="Core\DeviceDetection.cs" />
     <Compile Include="Core\PageStuff.cs" />
+    <Compile Include="Core\Syncing\RoamingSync.cs" />
     <Compile Include="CreateTaskPage.xaml.cs">
       <DependentUpon>CreateTaskPage.xaml</DependentUpon>
     </Compile>

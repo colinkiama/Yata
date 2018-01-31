@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -16,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using YATA.Core;
+using YATA.Core.Syncing;
 using YATA.Model;
 using YATA.Phone;
 
@@ -43,11 +45,41 @@ namespace YATA
         {
             int numOfCompletedTasks = ToDoTask.CompletedTasks;
             ScoreTextBlock.Text = numOfCompletedTasks.ToString();
-            if (numOfCompletedTasks% 10 == 0 && ToDoTask.CompletedTasks != 0 && ((ToDoTask)sender).isCompleted)
+            RoamingSync.UpdateScore(numOfCompletedTasks);
+
+            bool isFromToDoTask = false;
+            ToDoTask castedToDoTask = new ToDoTask();
+
+            var castedSender = sender as bool?;
+            if (sender == null)
             {
-                await ScoreTextBlock.Scale(1.5f, 1.5f, (float)ScoreTextBlock.ActualWidth / 2, (float)ScoreTextBlock.ActualHeight / 2, 300).StartAsync();
-                await ScoreTextBlock.Scale(1, 1, (float)ScoreTextBlock.ActualWidth / 2, (float)ScoreTextBlock.ActualHeight / 2, 300).StartAsync();
+                isFromToDoTask = true;
+                castedToDoTask = sender as ToDoTask;
             }
+
+
+            if (isFromToDoTask)
+            {
+                if (numOfCompletedTasks % 10 == 0 && ToDoTask.CompletedTasks != 0 && castedToDoTask.isCompleted)
+                {
+                    await animateScoreTextBlock();
+                   
+                }
+            }
+
+            else
+            {
+                if (numOfCompletedTasks % 10 == 0 && ToDoTask.CompletedTasks != 0)
+                {
+                    await animateScoreTextBlock();
+                }
+            }
+        }
+
+        private async Task animateScoreTextBlock()
+        {
+            await ScoreTextBlock.Scale(1.5f, 1.5f, (float)ScoreTextBlock.ActualWidth / 2, (float)ScoreTextBlock.ActualHeight / 2, 300).StartAsync();
+            await ScoreTextBlock.Scale(1, 1, (float)ScoreTextBlock.ActualWidth / 2, (float)ScoreTextBlock.ActualHeight / 2, 300).StartAsync();
         }
 
         private void AddTaskButton_Click(object sender, RoutedEventArgs e)

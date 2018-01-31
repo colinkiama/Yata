@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -18,6 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using YATA.Core;
+using YATA.Core.Syncing;
 using YATA.Enums;
 using YATA.Model;
 using YATA.Services;
@@ -29,6 +31,9 @@ namespace YATA
     /// </summary>
     sealed partial class App : Application
     {
+
+        
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -38,6 +43,12 @@ namespace YATA
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             this.EnteredBackground += App_EnteredBackground;
+            ApplicationData.Current.DataChanged += Current_DataChanged;
+        }
+
+        private void Current_DataChanged(ApplicationData sender, object args)
+        {
+            RoamingSync.UpdateDataChange();
         }
 
         private async void App_EnteredBackground(object sender, EnteredBackgroundEventArgs e)
@@ -64,16 +75,12 @@ namespace YATA
                     //Show Latest updates
                     break;
                 case Mango.Enums.appVersionStatus.Current:
-                   bool isDataLoaded = await new FileIOService().loadData();
-                    if (isDataLoaded)
-                    {
-                        ToDoTask.RestoreNumberOfCompletedTasks();
-                    }
+                    await new FileIOService().loadData();
                     break;
             }
 
 
-
+            RoamingSync.RestoreScore();
 
             var TopBarColor = (Color)Application.Current.Resources["SystemAccentColor"];
             if (DeviceDetection.DetectDeviceType() == DeviceType.Phone)
@@ -139,6 +146,8 @@ namespace YATA
                  AppViewBackButtonVisibility.Visible :
                  AppViewBackButtonVisibility.Collapsed;
         }
+
+       
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
