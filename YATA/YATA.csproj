@@ -125,6 +125,10 @@
     <None Include="YATA_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\CompletedStamp.mp3" />
+    <Content Include="Assets\CreateNewTask.mp3" />
+    <Content Include="Assets\FinshedCreatingTask.mp3" />
+    <Content Include="Assets\RemoveCompletedStamp.mp3" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

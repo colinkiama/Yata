@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using YATA.Core;
+using YATA.Core.Audio;
 using YATA.Core.Syncing;
 using YATA.Model;
 using YATA.Phone;
@@ -38,7 +39,7 @@ namespace YATA
             localListOfTasks = ToDoTask.listOfTasks;
             ScoreTextBlock.Text = ToDoTask.CompletedTasks.ToString();
             ToDoTask.CompletedTasksCountChanged += ToDoTask_CompletedTasksCountChanged;
-            
+
         }
 
         private async void ToDoTask_CompletedTasksCountChanged(object sender, EventArgs e)
@@ -47,32 +48,13 @@ namespace YATA
             ScoreTextBlock.Text = numOfCompletedTasks.ToString();
             RoamingSync.UpdateScore(numOfCompletedTasks);
 
-            bool isFromToDoTask = false;
-            ToDoTask castedToDoTask = new ToDoTask();
 
-            var castedSender = sender as bool?;
-            if (sender == null)
+
+
+            if (numOfCompletedTasks % 10 == 0 && ToDoTask.CompletedTasks != 0)
             {
-                isFromToDoTask = true;
-                castedToDoTask = sender as ToDoTask;
-            }
+                await animateScoreTextBlock();
 
-
-            if (isFromToDoTask)
-            {
-                if (numOfCompletedTasks % 10 == 0 && ToDoTask.CompletedTasks != 0 && castedToDoTask.isCompleted)
-                {
-                    await animateScoreTextBlock();
-                   
-                }
-            }
-
-            else
-            {
-                if (numOfCompletedTasks % 10 == 0 && ToDoTask.CompletedTasks != 0)
-                {
-                    await animateScoreTextBlock();
-                }
             }
         }
 
@@ -90,12 +72,12 @@ namespace YATA
             navThemeTransition.DefaultNavigationTransitionInfo = new EntranceNavigationTransitionInfo();
             Frame.ContentTransitions.Add(navThemeTransition);
             Frame.Navigate(typeof(CreateTaskPage));
-            
+
         }
 
         private void tasksListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            
+
         }
 
         private void CurrentPage_SizeChanged(object sender, SizeChangedEventArgs e)

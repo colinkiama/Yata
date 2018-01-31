@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.UI.Xaml.Controls;
 
 namespace YATA.Core.Audio
 {
     public class SoundFX
     {
-        private static MediaElement SoundFXSystem = new MediaElement();
-        private static Uri CompletedStampSoundSource = new Uri("InsertSourceHere");
-        private static Uri RemoveCompletedStampSoundSource = new Uri("InsertSourceHere");
-        private static Uri CreateTaskSoundSource = new Uri("InsertSourceHere");
-        private static Uri FinishCreatingTaskSoundSource = new Uri("InsertSourceHere");
+        private static MediaPlayer SoundFXSystem = new MediaPlayer { AudioCategory = MediaPlayerAudioCategory.SoundEffects, Volume = 10, IsLoopingEnabled = false };
+        private static MediaPlayer FinishedSoundFXSystem = new MediaPlayer { AudioCategory = MediaPlayerAudioCategory.SoundEffects, Volume = 10, IsLoopingEnabled = false };
+        private static MediaSource CompletedStampSoundSource = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/CompletedStamp.mp3"));
+        private static MediaSource RemoveCompletedStampSoundSource = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/RemoveCompletedStamp.mp3"));
+        private static MediaSource CreateTaskSoundSource = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/CreateNewTask.mp3"));
+        private static MediaSource FinishCreatingTaskSoundSource = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/FinshedCreatingTask.mp3"));
 
 
         public static void PlayCompletedSound()
@@ -22,6 +25,7 @@ namespace YATA.Core.Audio
             SoundFXSystem.Source = CompletedStampSoundSource;
             SoundFXSystem.Play();
         }
+
 
         public static void PlayRemoveCompletedStampSound()
         {
@@ -37,8 +41,8 @@ namespace YATA.Core.Audio
 
         public static void PlayFinishCreatingTaskSound()
         {
-            SoundFXSystem.Source = FinishCreatingTaskSoundSource;
-            SoundFXSystem.Play();
+            FinishedSoundFXSystem.Source = FinishCreatingTaskSoundSource;
+            FinishedSoundFXSystem.Play();
         }
 
     }

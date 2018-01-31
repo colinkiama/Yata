@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using YATA.Core;
+using YATA.Core.Audio;
 using YATA.Model;
 using YATA.Phone;
 
@@ -101,16 +102,19 @@ namespace YATA.Control
 
         private void CompletedStampToggleButton_Click(object sender, RoutedEventArgs e)
         {
+          
             this.TaskItem.changeIsCompletedState();
         }
 
         private void CompletedStampToggleButton_Checked(object sender, RoutedEventArgs e)
         {
+            SoundFX.PlayCompletedSound();
             Haptics.ApplyCompletedStampHaptics();
         }
 
         private void CompletedStampToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
+            SoundFX.PlayRemoveCompletedStampSound();
             Haptics.ApplyEraseCompletedStampHaptics();
         }
 
