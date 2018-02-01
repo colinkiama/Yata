@@ -110,7 +110,7 @@ namespace YATA.Control
         {
             if (PageStuff.navigating == false)
             {
-                SoundFX.PlayCompletedSound();
+                Haptics.ApplyCompletedStampHaptics();
                 SoundFX.PlayCompletedSound();
             }
 
