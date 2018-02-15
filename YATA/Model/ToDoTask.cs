@@ -45,7 +45,6 @@ namespace YATA.Model
             noteToCreate.isCompleted = false;
             listOfTasks.Add(noteToCreate);
             ListOfTasksChanged?.Invoke(listOfTasks, EventArgs.Empty);
-            //await SaveData();
         }
 
         public void changeIsCompletedState()
@@ -54,8 +53,6 @@ namespace YATA.Model
             isCompletedChanged?.Invoke(this, EventArgs.Empty);
             CompletedTasks = isCompleted ? CompletedTasks + 1 : CompletedTasks - 1;
             CompletedTasksCountChanged?.Invoke(this, EventArgs.Empty);
-            //await SaveData();
-            
         }
 
         public void DeleteNote()
@@ -64,9 +61,5 @@ namespace YATA.Model
             ListOfTasksChanged?.Invoke(listOfTasks, EventArgs.Empty);
         }
 
-        private async static Task SaveData()
-        {
-            await new FileIOService().saveData();
-        }
     }
 }

@@ -41,6 +41,7 @@ namespace YATA.Services
                 await saveData();
             }
 
+            TileService.UpdateLiveTile(ToDoTask.listOfTasks);
             return dataLoaded;
         }
 

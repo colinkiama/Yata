@@ -244,20 +244,19 @@ namespace YATA.Services
                         TileMedium = new TileBinding()
                         {
                             Branding = TileBranding.Logo,
-                            DisplayName = "Monday 22",
                             Content = new TileBindingContentAdaptive()
                             {
                                 Children =
                 {
                     new AdaptiveText()
                     {
-                        Text = "No Tasks",
+                        Text = "No Tasks To Do",
                         HintStyle = AdaptiveTextStyle.CaptionSubtle,
                         HintWrap = true
                     },
                     new AdaptiveText()
                     {
-                        Text = "Add tasks so they show up here!",
+                        Text = "Add new tasks so they show up here!",
                         HintWrap = true
                     }
                 }
@@ -266,19 +265,18 @@ namespace YATA.Services
                         TileWide = new TileBinding()
                         {
                             Branding = TileBranding.Logo,
-                            DisplayName = "Monday 22",
                             Content = new TileBindingContentAdaptive()
                             {
                                 Children =
                 {
                     new AdaptiveText()
                     {
-                        Text = "No tasks",
+                        Text = "No Tasks To Do",
                         HintStyle = AdaptiveTextStyle.CaptionSubtle
                     },
                     new AdaptiveText()
                     {
-                        Text = "Add tasks so they show up here!",
+                        Text = "Add new tasks so they show up here!",
                         HintWrap = true
                     }
                 }
@@ -293,14 +291,14 @@ namespace YATA.Services
                 {
                     new AdaptiveText()
                     {
-                        Text = "No tasks",
+                        Text = "No Tasks To Do",
                         HintStyle = AdaptiveTextStyle.SubtitleSubtle,
                         HintWrap = true,
                         HintMaxLines = 2
                     },
                     new AdaptiveText()
                     {
-                        Text = "Add tasks so they show up here!",
+                        Text = "Add new tasks so they show up here!",
                         HintStyle = AdaptiveTextStyle.Subtitle,
                         HintWrap = true
                     }
