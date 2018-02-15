@@ -125,7 +125,7 @@ namespace YATA.Control
 
         private void FlyoutDeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            ToDoTask.listOfTasks.Remove(this.TaskItem);
+            this.TaskItem.DeleteNote();
         }
     }
 }

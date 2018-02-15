@@ -58,9 +58,9 @@ namespace YATA.Model
             
         }
 
-        public void DeleteNote(ToDoTask NoteToDelete)
+        public void DeleteNote()
         {
-            listOfTasks.Remove(NoteToDelete);
+            listOfTasks.Remove(this);
             ListOfTasksChanged?.Invoke(listOfTasks, EventArgs.Empty);
         }
 

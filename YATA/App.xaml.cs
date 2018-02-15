@@ -33,7 +33,7 @@ namespace YATA
     sealed partial class App : Application
     {
 
-        
+
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -45,10 +45,11 @@ namespace YATA
             this.Suspending += OnSuspending;
             this.EnteredBackground += App_EnteredBackground;
             ApplicationData.Current.DataChanged += Current_DataChanged;
-            ToDoTask.listOfTasks.CollectionChanged += ListOfTasks_CollectionChanged;
+            ToDoTask.ListOfTasksChanged += ToDoTask_ListOfTasksChanged;
         }
 
-        private void ListOfTasks_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+
+        private void ToDoTask_ListOfTasksChanged(object sender, EventArgs e)
         {
             TileService.UpdateLiveTile(sender as ObservableCollection<ToDoTask>);
         }
@@ -106,12 +107,12 @@ namespace YATA
                 titleBar.ButtonBackgroundColor = TopBarColor;
                 titleBar.InactiveBackgroundColor = TopBarColor;
                 titleBar.ButtonInactiveBackgroundColor = TopBarColor;
-                
+
             }
 
             var appView = ApplicationView.GetForCurrentView();
             appView.SetPreferredMinSize(new Size(256, 256));
-            
+
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -161,7 +162,7 @@ namespace YATA
                  AppViewBackButtonVisibility.Collapsed;
         }
 
-       
+
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
