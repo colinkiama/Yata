@@ -19,6 +19,7 @@ using YATA.Core;
 using YATA.Core.Audio;
 using YATA.Model;
 using YATA.Phone;
+using YATA.Services;
 
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236

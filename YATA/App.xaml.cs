@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -44,6 +45,12 @@ namespace YATA
             this.Suspending += OnSuspending;
             this.EnteredBackground += App_EnteredBackground;
             ApplicationData.Current.DataChanged += Current_DataChanged;
+            ToDoTask.listOfTasks.CollectionChanged += ListOfTasks_CollectionChanged;
+        }
+
+        private void ListOfTasks_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            TileService.UpdateLiveTile(sender as ObservableCollection<ToDoTask>);
         }
 
         private void Current_DataChanged(ApplicationData sender, object args)

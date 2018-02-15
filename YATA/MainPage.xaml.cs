@@ -21,6 +21,7 @@ using YATA.Core.Audio;
 using YATA.Core.Syncing;
 using YATA.Model;
 using YATA.Phone;
+using YATA.Services;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -56,6 +57,8 @@ namespace YATA
                 await animateScoreTextBlock();
 
             }
+
+            TileService.UpdateLiveTile(localListOfTasks);
         }
         
         

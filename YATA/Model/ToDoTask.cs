@@ -23,11 +23,12 @@ namespace YATA.Model
 
         public static ObservableCollection<ToDoTask> listOfTasks = new ObservableCollection<ToDoTask>();
 
-        
 
         public static event EventHandler CompletedTasksCountChanged;
+
         public event EventHandler isCompletedChanged;
 
+        public static event EventHandler ListOfTasksChanged;
 
         public static void UpdateCompletedTasks(int score)
         {
@@ -35,18 +36,7 @@ namespace YATA.Model
             CompletedTasksCountChanged?.Invoke(true, EventArgs.Empty);
         }
 
-        public static void RestoreNumberOfCompletedTasks()
-        {
-            int length = listOfTasks.Count;
-            for (int i = 0; i < length; i++)
-            {
-                if (listOfTasks[i].isCompleted == true)
-                {
-                    CompletedTasks++;
-                }
-            }
-        }
-      
+
         public static void CreateNote(string content)
         {
             ToDoTask noteToCreate = new ToDoTask();
@@ -54,6 +44,7 @@ namespace YATA.Model
             noteToCreate.DateCreated = DateTime.Now;
             noteToCreate.isCompleted = false;
             listOfTasks.Add(noteToCreate);
+            ListOfTasksChanged?.Invoke(listOfTasks, EventArgs.Empty);
             //await SaveData();
         }
 
@@ -65,6 +56,12 @@ namespace YATA.Model
             CompletedTasksCountChanged?.Invoke(this, EventArgs.Empty);
             //await SaveData();
             
+        }
+
+        public void DeleteNote(ToDoTask NoteToDelete)
+        {
+            listOfTasks.Remove(NoteToDelete);
+            ListOfTasksChanged?.Invoke(listOfTasks, EventArgs.Empty);
         }
 
         private async static Task SaveData()
