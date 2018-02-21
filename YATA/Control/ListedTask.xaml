@@ -39,7 +39,8 @@
                    FontWeight="SemiBold"
                    RelativePanel.Below="TaskTextBlock"   
                    TextWrapping="WrapWholeWords"
-                   Opacity="0"/>
+                   Opacity="0"
+                   Visibility="Collapsed"/>
 
        
     </RelativePanel>

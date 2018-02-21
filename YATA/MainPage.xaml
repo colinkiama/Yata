@@ -10,7 +10,8 @@
     mc:Ignorable="d"
     x:Name="CurrentPage"
     SizeChanged="CurrentPage_SizeChanged"
-    Loaded="CurrentPage_Loaded">
+    Loaded="CurrentPage_Loaded"
+   IsTabStop="True">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>

@@ -40,7 +40,7 @@ namespace YATA
             localListOfTasks = ToDoTask.listOfTasks;
             ScoreTextBlock.Text = ToDoTask.CompletedTasks.ToString();
             ToDoTask.CompletedTasksCountChanged += ToDoTask_CompletedTasksCountChanged;
-
+            
         }
 
         private async void ToDoTask_CompletedTasksCountChanged(object sender, EventArgs e)
@@ -97,7 +97,9 @@ namespace YATA
         private void CurrentPage_Loaded(object sender, RoutedEventArgs e)
         {
             PageStuff.navigating = false;
+            this.Focus(FocusState.Pointer);
         }
 
+        
     }
 }

@@ -12,6 +12,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -60,7 +61,6 @@ namespace YATA.Control
 
         private void PageStuff_pageSizeChanged(object sender, EventArgs e)
         {
-
             mainPanel.Width = PageStuff.currentWidth - (mainPanel.Padding.Left + mainPanel.Padding.Right);
         }
 
@@ -69,6 +69,7 @@ namespace YATA.Control
             if (TaskItem.isCompleted)
             {
                 this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["TextBoxDisabledForegroundThemeBrush"];
+                TaskCompleteTag.Visibility = Visibility.Visible;
                 TaskCompleteTag.Opacity = 0;
                 await TaskCompleteTag.Offset(0, -10, 0).StartAsync();
                 await TaskCompleteTag.Fade(1, 200).Offset(duration: 200).StartAsync();
@@ -77,6 +78,7 @@ namespace YATA.Control
             {
                 this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["DefaultTextForegroundThemeBrush"];
                 await TaskCompleteTag.Fade(0, 200).Offset(offsetY: -10, duration: 200).StartAsync();
+                TaskCompleteTag.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -87,6 +89,7 @@ namespace YATA.Control
             {
                 if (TaskItem != null)
                 {
+                    
                     if (TaskItem.isCompleted)
                     {
                         this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["TextBoxDisabledForegroundThemeBrush"];

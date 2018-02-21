@@ -57,7 +57,8 @@ namespace YATA.Model
 
         public void DeleteNote()
         {
-            listOfTasks.Remove(this);
+            var itemToDelete = listOfTasks.Where(p => p.Content == this.Content && p.DateCreated == this.DateCreated).First();
+            listOfTasks.Remove(itemToDelete);
             ListOfTasksChanged?.Invoke(listOfTasks, EventArgs.Empty);
         }
 
