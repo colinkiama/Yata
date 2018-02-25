@@ -100,6 +100,9 @@ namespace YATA
             this.Focus(FocusState.Pointer);
         }
 
-        
+        private void AskForSyncButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(OnboardingPage));
+        }
     }
 }

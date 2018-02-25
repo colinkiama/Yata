@@ -143,7 +143,9 @@ namespace YATA
                     // configuring the new page by passing required information as a navigation
                     // parameter
                     PageStuff.navigating = true;
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    //rootFrame.Navigate(typeof(MainPage), e.Arguments);
+
+                    rootFrame.Navigate(typeof(OnboardingPage), e.Arguments);
 
                 }
                 // Ensure the current window is active
