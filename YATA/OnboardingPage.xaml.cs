@@ -1,6 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -12,9 +13,11 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using YATA.Services;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -47,20 +50,48 @@ namespace YATA
             if (canSync)
             {
                 await PrepareUIForSyncing();
-                StartSyncing();
+                await StartSyncing();
             }
         }
 
-        private void StartSyncing()
+        private async Task StartSyncing()
         {
+            syncRing.IsActive = true;
+            var syncService = new CloudSyncService();
             
+            if (await syncService.Begin())
+            {
+                Debug.WriteLine("Yes We Can");
+                ChangePageTitleText();
+
+                
+               
+            }
+            else
+            {
+                Debug.WriteLine("No we can't!");
+            }
+        }
+
+        private void ChangePageTitleText()
+        {
+            PageTitleTextBlock.Inlines.Clear();
+            PageTitleTextBlock.Inlines.Add(new Run { Text = "Syncing " });
+            Bold yourInBold = new Bold();
+            Bold secondYourInBold = new Bold();
+            yourInBold.Inlines.Add(new Run { Text = "your " });
+            secondYourInBold.Inlines.Add(new Run { Text = "your " });
+            PageTitleTextBlock.Inlines.Add(yourInBold);
+            PageTitleTextBlock.Inlines.Add(new Run { Text = "tasks between " });
+            PageTitleTextBlock.Inlines.Add(secondYourInBold);
+            PageTitleTextBlock.Inlines.Add(new Run { Text = "devices" });
+
         }
 
         private async Task PrepareUIForSyncing()
         {
             await decisionStackPanel.Fade(0).StartAsync();
             decisionStackPanel.Visibility = Visibility.Collapsed;
-
             syncStatusTextBlock.Text = "Starting...";
             await syncStatusStackPanel.Fade(0,0).StartAsync();
             syncStatusStackPanel.Visibility = Visibility.Visible;
@@ -71,6 +102,11 @@ namespace YATA
         {
             await this.Fade(0,duration:0).StartAsync();
             await this.Fade(1, duration: 400,delay:200).StartAsync();
+
+        }
+
+        private void continueButton_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

@@ -12,7 +12,7 @@
           Loaded="Grid_Loaded">
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Name="PageTitleTextBlock"
                    VerticalAlignment="Top"
@@ -23,29 +23,30 @@
                    Width="auto"
                    TextWrapping="WrapWholeWords"
                    >Sync <Bold>your</Bold> tasks between <Bold>your</Bold> devices</TextBlock>
-        
+
         <!--Sync Status UI To Show During Syncing-->
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Name="syncStatusStackPanel"
                     Visibility="Collapsed">
-        <TextBlock Text="Sync Staus:"
-                   HorizontalAlignment="Center"
-                   Margin="0"/>
-        <TextBlock Text="currentStatus"
+            <TextBlock Text="currentStatus"
                    Name="syncStatusTextBlock"
                    HorizontalAlignment="Center"
-                   Margin="8"/>
-         <ProgressRing Name="syncRing"
+                    Margin="0,0,0,20"
+                   FontSize="16"
+                       FontWeight="SemiBold"/>
+            <ProgressRing Name="syncRing"
                        Width="100"
                        Height="100"
                        Foreground="Blue"
                        IsActive="False"/>
         </StackPanel>
+        <!--Bottom area that is first shown-->
         <StackPanel Grid.Row="1"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Name="decisionStackPanel">
+                    Name="decisionStackPanel"
+                    Visibility="Visible">
             <TextBlock Text="Would you like to enable syncing?"
                        HorizontalAlignment="Center"
                        Margin="0,0,0,12"/>
@@ -63,5 +64,21 @@
                     HorizontalAlignment="Center"
                     FontSize="12" Click="NoButton_Click"/>
         </StackPanel>
+
+        <!--////////////////////////////////////////////-->
+        
+        
+        <!--Area shows After Syncing has been Completed-->
+        <Button Name="continueButton"
+                    Content="See My Tasks"
+                    Style="{ThemeResource AccentButtonStyle}"
+                    HorizontalAlignment="Center"
+                    FontWeight="SemiBold"
+                    Width="150"
+                    Margin="0,0,0,8" Click="continueButton_Click"
+                    Visibility="Collapsed"
+                VerticalAlignment="Bottom"
+                Grid.Row="1"/>
+        <!--///////////////////////////////////////////-->
     </Grid>
 </Page>

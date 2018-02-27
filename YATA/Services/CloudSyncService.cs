@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,28 @@ namespace YATA.Services
 {
    public class CloudSyncService
     {
-        public void Begin()
+
+        OneDriveStorageFolder rootFolder;
+        public async Task<bool> Begin()
         {
-            OneDriveService.Instance.Initialize(OneDriveScopes.AppFolder);
+           bool canLogin = OneDriveService.Instance.Initialize(OneDriveScopes.AppFolder);
+            if (!canLogin)
+            {
+                canLogin = OneDriveService.Instance.Initialize("00000000482119BC", OneDriveEnums.AccountProviderType.Msa, OneDriveScopes.AppFolder);
+            }
+
+            if (!canLogin)
+            {
+                Debug.WriteLine("Login Failed");
+            }
+
+            if (canLogin)
+            {
+                rootFolder = await OneDriveService.Instance.AppRootFolderAsync();
+                
+            }
+           
+           return canLogin;
         }
 
         public async Task<bool> Sync()
