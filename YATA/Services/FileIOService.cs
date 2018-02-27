@@ -18,7 +18,7 @@ namespace YATA.Services
         {
             bool dataLoaded = false;
 
-            bool ToDoTasksFilePresent = await checkIfToDoTasksFileIsPresent();
+            bool ToDoTasksFilePresent = await this.checkIfToDoTasksFileIsPresent();
 
             if (ToDoTasksFilePresent)
             {
@@ -48,7 +48,7 @@ namespace YATA.Services
         private async Task loadFileIntoClass()
         {
             var serializer = new XmlSerializer(typeof(ObservableCollection<ToDoTask>));
-            var ToDoTasksFile = await getToDoTaskFile();
+            var ToDoTasksFile = await this.getToDoTaskFile();
 
             try
             {
@@ -103,7 +103,7 @@ namespace YATA.Services
             bool dataSaved = false;
 
             var serializer = new XmlSerializer(typeof(ObservableCollection<ToDoTask>));
-            var ToDoTasksFile = await createToDoTaskFile();
+            var ToDoTasksFile = await this.createToDoTaskFile();
 
             try
             {

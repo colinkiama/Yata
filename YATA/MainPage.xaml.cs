@@ -73,8 +73,10 @@ namespace YATA
         {
             Haptics.ApplyAddTaskButtonPressHaptics();
             Frame.ContentTransitions = new TransitionCollection();
-            var navThemeTransition = new NavigationThemeTransition();
-            navThemeTransition.DefaultNavigationTransitionInfo = new EntranceNavigationTransitionInfo();
+            var navThemeTransition = new NavigationThemeTransition
+            {
+                DefaultNavigationTransitionInfo = new EntranceNavigationTransitionInfo()
+            };
             Frame.ContentTransitions.Add(navThemeTransition);
             Frame.Navigate(typeof(CreateTaskPage));
 

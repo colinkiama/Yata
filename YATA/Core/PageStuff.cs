@@ -11,7 +11,7 @@ namespace YATA.Core
         public static event EventHandler pageSizeChanged;
         public static double currentWidth = 0;
         public static bool navigating = false;
-        public static void OnPageSizeChanged(Double pageWidth)
+        public static void OnPageSizeChanged(double pageWidth)
         {
             currentWidth = pageWidth;
             pageSizeChanged?.Invoke(null, EventArgs.Empty);

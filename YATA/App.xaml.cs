@@ -81,7 +81,7 @@ namespace YATA
                     TileService.UpdateLiveTile(ToDoTask.listOfTasks);
                     break;
                 case Mango.Enums.appVersionStatus.Old:
-                    //Show Latest updates
+                    // Show Latest updates
                     break;
                 case Mango.Enums.appVersionStatus.Current:
                     await new FileIOService().loadData();
@@ -128,7 +128,7 @@ namespace YATA
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: Load state from previously suspended application
+                    // TODO: Load state from previously suspended application
                 }
 
                 // Place the frame in the current Window
@@ -143,7 +143,7 @@ namespace YATA
                     // configuring the new page by passing required information as a navigation
                     // parameter
                     PageStuff.navigating = true;
-                    //rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    // rootFrame.Navigate(typeof(MainPage), e.Arguments);
 
                     rootFrame.Navigate(typeof(OnboardingPage), e.Arguments);
 
@@ -154,7 +154,7 @@ namespace YATA
 
 
             rootFrame.Navigated += RootFrame_Navigated;
-            //After  Window.Current.Content = rootFrame; 
+            // After  Window.Current.Content = rootFrame; 
             // Register a handler for BackRequested events and set the  
             // visibility of the Back button  
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
@@ -214,7 +214,7 @@ namespace YATA
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
+            // TODO: Save application state and stop any background activity
             deferral.Complete();
         }
 

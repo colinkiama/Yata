@@ -21,8 +21,16 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
               Background="{ThemeResource SystemControlBackgroundAccentBrush}"
-              Padding="12,0">
-            <TextBlock Name="ScoreTextBlock"
+              Padding="0,0,12,0">
+            <Control:SyncButton HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="36"
+                                FontWeight="SemiBold"
+                                Foreground="White"
+                                Width="60"
+                                Height="60"
+                                />
+                <TextBlock Name="ScoreTextBlock"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        FontSize="36"

@@ -64,8 +64,7 @@ namespace YATA
 
         private void taskDetailsTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var changedTextBlock = sender as TextBox;
-            if (changedTextBlock != null)
+            if (sender is TextBox changedTextBlock)
             {
                 if (changedTextBlock.Text.TrimStart() == String.Empty)
                 {
@@ -77,7 +76,7 @@ namespace YATA
                     CreateTaskButton.IsEnabled = true;
                 }
             }
-            
+
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)

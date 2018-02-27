@@ -93,15 +93,15 @@ namespace YATA
             await decisionStackPanel.Fade(0).StartAsync();
             decisionStackPanel.Visibility = Visibility.Collapsed;
             syncStatusTextBlock.Text = "Starting...";
-            await syncStatusStackPanel.Fade(0,0).StartAsync();
+            await syncStatusStackPanel.Fade(0, 0).StartAsync();
             syncStatusStackPanel.Visibility = Visibility.Visible;
             await syncStatusStackPanel.Fade(1).StartAsync();
         }
 
         private async void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            await this.Fade(0,duration:0).StartAsync();
-            await this.Fade(1, duration: 400,delay:200).StartAsync();
+            await this.Fade(0, duration: 0).StartAsync();
+            await this.Fade(1, duration: 400, delay: 200).StartAsync();
 
         }
 
