@@ -30,16 +30,27 @@ namespace YATA.Control
 
         public event EventHandler SyncButtonClicked;
         public bool nowSyncing = false;
+        public bool dialogOpened = false;
 
         public SyncButton()
         {
             this.InitializeComponent();
+            SyncDialog.CloseDialogButtonClicked += SyncDialog_CloseDialogButtonClicked;
         }
 
-        private async void theSyncButton_Click(object sender, RoutedEventArgs e)
+        private void SyncDialog_CloseDialogButtonClicked(object sender, EventArgs e)
+        {
+            dialogOpened = false;
+        }
+
+        private void theSyncButton_Click(object sender, RoutedEventArgs e)
         {
             // Show synicng menu
-            SyncButtonClicked?.Invoke(this, EventArgs.Empty);
+            if (!dialogOpened)
+            {
+                dialogOpened = true;
+                SyncButtonClicked?.Invoke(this, EventArgs.Empty);
+            }
 
         }
 

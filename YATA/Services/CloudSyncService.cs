@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Toolkit.Uwp.Services.OneDrive;
+using Windows.Storage;
+using YATA.Model;
 
 namespace YATA.Services
 {
@@ -28,7 +30,7 @@ namespace YATA.Services
             if (canLogin)
             {
                 rootFolder = await OneDriveService.Instance.AppRootFolderAsync();
-                
+                StorageFile exportedTasks = await ToDoTask.ExportTasks();
             }
            
            return canLogin;
@@ -37,6 +39,7 @@ namespace YATA.Services
         public async Task<bool> Sync()
         {
             bool isSynced = false;
+            
             return isSynced;
         }
 

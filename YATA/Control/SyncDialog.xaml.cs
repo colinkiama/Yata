@@ -20,6 +20,7 @@ namespace YATA.Control
 {
     public sealed partial class SyncDialog : UserControl
     {
+        
         public SyncDialog()
         {
             this.InitializeComponent();
@@ -48,8 +49,8 @@ namespace YATA.Control
 
         private async void CloseDialogButton_Click(object sender, RoutedEventArgs e)
         {
-            await this.Fade(0).StartAsync();
             CloseDialogButtonClicked?.Invoke(this, EventArgs.Empty);
+            await this.Fade(0).StartAsync();
         }
     }
 }

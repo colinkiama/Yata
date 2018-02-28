@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 using YATA.Services;
 
 namespace YATA.Model
@@ -36,6 +37,10 @@ namespace YATA.Model
             CompletedTasksCountChanged?.Invoke(true, EventArgs.Empty);
         }
 
+        internal async static Task<StorageFile> ExportTasks()
+        {
+            
+        }
 
         public static void CreateNote(string content)
         {

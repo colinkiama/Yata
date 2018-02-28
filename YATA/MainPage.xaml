@@ -58,7 +58,16 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Grid Grid.RowSpan="2"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Background="Black"
+                  Name="MaskGrid"
+                  Visibility="Collapsed"
+                  Opacity="0"
+                  Canvas.ZIndex="20"/>
         </Grid>
+       
         <Grid Grid.Row="2">
             <Grid.Resources>
                 <Style x:Key="ButtonCircleStyle"

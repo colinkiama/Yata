@@ -46,13 +46,15 @@ namespace YATA
 
         }
 
-        private void SyncDialog_CloseDialogButtonClicked(object sender, EventArgs e)
+        private async void SyncDialog_CloseDialogButtonClicked(object sender, EventArgs e)
         {
             SyncDialog dialogToRemove = (SyncDialog)sender;
 
             if (dialogToRemove != null)
             {
+                await MaskGrid.Fade(0).StartAsync();
                 listGrid.Children.Remove(dialogToRemove);
+                MaskGrid.Visibility = Visibility.Collapsed;
             }
             
         }
@@ -64,14 +66,18 @@ namespace YATA
                 Width = 300,
                 Height = 400,
                 Opacity = 0,
-
+                
             };
 
-
+            
 
             var mainGrid = (Grid)this.Content;
             listGrid.Children.Add(dialogToShow);
-            await dialogToShow.Fade(1).StartAsync();
+            Canvas.SetZIndex(dialogToShow, 30);
+            MaskGrid.Visibility = Visibility.Visible;
+
+            await Task.WhenAll(dialogToShow.Fade(1).StartAsync(), MaskGrid.Fade(0.5f).StartAsync());
+            
 
 
         }
