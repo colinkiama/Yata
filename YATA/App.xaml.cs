@@ -34,6 +34,7 @@ namespace YATA
     {
 
 
+       public static CloudSyncService syncService = new CloudSyncService();
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -87,6 +88,8 @@ namespace YATA
                     await new FileIOService().loadData();
                     break;
             }
+
+            
 
 
             RoamingSync.RestoreScore();

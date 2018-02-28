@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -37,10 +39,6 @@ namespace YATA.Model
             CompletedTasksCountChanged?.Invoke(true, EventArgs.Empty);
         }
 
-        internal async static Task<StorageFile> ExportTasks()
-        {
-            
-        }
 
         public static void CreateNote(string content)
         {

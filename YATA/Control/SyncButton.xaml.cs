@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using YATA.Enums;
+using YATA.Services;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -36,6 +37,26 @@ namespace YATA.Control
         {
             this.InitializeComponent();
             SyncDialog.CloseDialogButtonClicked += SyncDialog_CloseDialogButtonClicked;
+            CloudSyncService.syncCompleted += CloudSyncService_syncCompleted;
+            CloudSyncService.syncFailed += CloudSyncService_syncFailed;
+            CloudSyncService.syncStarted += CloudSyncService_syncStarted;
+        }
+
+        private async void CloudSyncService_syncStarted(object sender, EventArgs e)
+        {
+            await changeStatusIcon(SyncStatus.Syncing);
+        }
+
+        private async void CloudSyncService_syncFailed(object sender, EventArgs e)
+        {
+            nowSyncing = false;
+            await changeStatusIcon(SyncStatus.Failed);
+        }
+
+        private async void CloudSyncService_syncCompleted(object sender, EventArgs e)
+        {
+            nowSyncing = false;
+            await changeStatusIcon(SyncStatus.Completed);
         }
 
         private void SyncDialog_CloseDialogButtonClicked(object sender, EventArgs e)
@@ -62,6 +83,7 @@ namespace YATA.Control
             }
             else
             {
+                
                 string glyphToUse = syncStatus == SyncStatus.Failed ? _syncFailedGlyph : _syncCompleteGlyph;
                 statusIcon.Foreground = glyphToUse.Equals(_syncFailedGlyph) ? RedBrush : GreenBrush;
                 await PlayIconChangeAnimation();
@@ -72,6 +94,7 @@ namespace YATA.Control
 
         private async Task PlayIconChangeAnimation()
         {
+            nowSyncing = false;
             var centreX = (float)(statusIcon.ActualWidth / 2);
             var centreY = (float)(statusIcon.ActualHeight / 2);
             await statusIcon.Scale(0.2f, 0.2f, centreX, centreY, 0).StartAsync();

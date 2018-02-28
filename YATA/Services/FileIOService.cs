@@ -11,6 +11,7 @@ namespace YATA.Services
 {
     public class FileIOService
     {
+        public static readonly string saveFileName = "ToDoTasks.txt";
         StorageFolder localFolder = ApplicationData.Current.LocalFolder;
 
 
@@ -111,6 +112,7 @@ namespace YATA.Services
                 {
                     serializer.Serialize(stream, ToDoTask.listOfTasks);
                     await stream.FlushAsync();
+                    dataSaved = true;
                 }
             }
 
@@ -129,7 +131,7 @@ namespace YATA.Services
 
         private async Task<StorageFile> getToDoTaskFile()
         {
-            StorageFile ToDoTasksFile = await localFolder.GetFileAsync("ToDoTasks.txt");
+            StorageFile ToDoTasksFile = await localFolder.GetFileAsync(saveFileName);
 
             return ToDoTasksFile;
         }
@@ -137,9 +139,15 @@ namespace YATA.Services
 
         private async Task<StorageFile> createToDoTaskFile()
         {
-            StorageFile ToDoTasksFile = await localFolder.CreateFileAsync("ToDoTasks.txt", CreationCollisionOption.ReplaceExisting);
+            StorageFile ToDoTasksFile = await localFolder.CreateFileAsync(saveFileName, CreationCollisionOption.ReplaceExisting);
 
             return ToDoTasksFile;
         }
-    }
+
+        public async Task<StorageFile> GiveBackToDoTaskFile()
+        {
+            return await localFolder.GetFileAsync("ToDoTasks.txt");
+
+        }
+    } 
 }
