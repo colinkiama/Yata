@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace YATA.Control
         {
             this.InitializeComponent();
         }
+        public static event EventHandler CloseDialogButtonClicked;
 
         private void ResetScoreButton_Click(object sender, RoutedEventArgs e)
         {
@@ -37,6 +39,17 @@ namespace YATA.Control
         private void EnableSyncToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void CloseDialogButton_Click(object sender, RoutedEventArgs e)
+        {
+            await this.Fade(0).StartAsync();
+            CloseDialogButtonClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

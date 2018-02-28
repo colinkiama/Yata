@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using YATA.Control;
 using YATA.Core;
 using YATA.Core.Audio;
 using YATA.Core.Syncing;
@@ -40,7 +41,39 @@ namespace YATA
             localListOfTasks = ToDoTask.listOfTasks;
             ScoreTextBlock.Text = ToDoTask.CompletedTasks.ToString();
             ToDoTask.CompletedTasksCountChanged += ToDoTask_CompletedTasksCountChanged;
+            SyncButton.SyncButtonClicked += SyncButton_SyncButtonClicked;
+            SyncDialog.CloseDialogButtonClicked += SyncDialog_CloseDialogButtonClicked;
+
+        }
+
+        private void SyncDialog_CloseDialogButtonClicked(object sender, EventArgs e)
+        {
+            SyncDialog dialogToRemove = (SyncDialog)sender;
+
+            if (dialogToRemove != null)
+            {
+                listGrid.Children.Remove(dialogToRemove);
+            }
             
+        }
+
+        private async void SyncButton_SyncButtonClicked(object sender, EventArgs e)
+        {
+            var dialogToShow = new SyncDialog
+            {
+                Width = 300,
+                Height = 400,
+                Opacity = 0,
+
+            };
+
+
+
+            var mainGrid = (Grid)this.Content;
+            listGrid.Children.Add(dialogToShow);
+            await dialogToShow.Fade(1).StartAsync();
+
+
         }
 
         private async void ToDoTask_CompletedTasksCountChanged(object sender, EventArgs e)
@@ -60,8 +93,8 @@ namespace YATA
 
             TileService.UpdateLiveTile(localListOfTasks);
         }
-        
-        
+
+
 
         private async Task animateScoreTextBlock()
         {

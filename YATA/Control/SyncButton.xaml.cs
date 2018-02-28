@@ -28,6 +28,7 @@ namespace YATA.Control
         readonly SolidColorBrush GreenBrush = new SolidColorBrush(Colors.Green);
         readonly SolidColorBrush RedBrush = new SolidColorBrush(Colors.Red);
 
+        public event EventHandler SyncButtonClicked;
         public bool nowSyncing = false;
 
         public SyncButton()
@@ -37,12 +38,8 @@ namespace YATA.Control
 
         private async void theSyncButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!nowSyncing)
-            {
-                await animateSyncingIcon();
-
-            }
             // Show synicng menu
+            SyncButtonClicked?.Invoke(this, EventArgs.Empty);
 
         }
 
@@ -76,7 +73,7 @@ namespace YATA.Control
             var centerX = (float)syncIcon.ActualWidth / 2;
             var centerY = (float)syncIcon.ActualHeight / 2;
             const int maxRotation = 360;
-            double rotationsToPerform = 5;
+            double rotationsToPerform = 10;
             double rotationsPerSecond = (double)(1 / rotationsToPerform);
             var duration = (float)(rotationsPerSecond / maxRotation);
             int rotation = 1;
@@ -87,7 +84,6 @@ namespace YATA.Control
                     await syncIcon.Rotate(0, centerX, centerY, 0).StartAsync();
                     rotation = 0;
                 }
-                //await syncIcon.Rotate(360, centerX, centerY,1000).StartAsync();
                 await syncIcon.Rotate(rotation, centerX, centerY, duration).StartAsync();
                 rotation += (int)rotationsToPerform;
 
