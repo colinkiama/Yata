@@ -27,7 +27,19 @@ namespace YATA.Control
         public SyncDialog()
         {
             this.InitializeComponent();
+            CloudSyncService.syncFailed += CloudSyncService_syncFailed;
+            
         }
+
+
+        private void CloudSyncService_syncFailed(object sender, EventArgs e)
+        {
+            disableSyncButton();
+            // Update status saying why syncing has failed!
+        }
+
+
+
         public static event EventHandler CloseDialogButtonClicked;
 
         private void ResetScoreButton_Click(object sender, RoutedEventArgs e)
@@ -37,6 +49,7 @@ namespace YATA.Control
 
         private async void SyncButton_Click(object sender, RoutedEventArgs e)
         {
+            disableSyncButton();
             bool canLogin;
             bool synced = false;
 
@@ -53,13 +66,19 @@ namespace YATA.Control
             if (canLogin)
             {
                 synced = await App.syncService.Sync();
+                enableSyncButton();
                 Debug.WriteLine("Has synced " + synced);
+            }
+            else
+            {
+                enableSyncButton();
             }
         }
 
         private void EnableSyncToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-
+            var toggle = (ToggleSwitch)sender;
+            SyncButton.IsEnabled = toggle.IsOn;
         }
 
 
@@ -67,6 +86,16 @@ namespace YATA.Control
         {
             CloseDialogButtonClicked?.Invoke(this, EventArgs.Empty);
             await this.Fade(0).StartAsync();
+        }
+
+        private void enableSyncButton()
+        {
+            SyncButton.IsEnabled = true;
+        }
+
+        private void disableSyncButton()
+        {
+            SyncButton.IsEnabled = false;
         }
     }
 }

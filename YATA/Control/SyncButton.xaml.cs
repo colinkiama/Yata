@@ -79,6 +79,7 @@ namespace YATA.Control
         {
             if (syncStatus == SyncStatus.Syncing)
             {
+                await hideStatusIcon();
                 await animateSyncingIcon();
             }
             else
@@ -92,13 +93,18 @@ namespace YATA.Control
 
         }
 
+        private async Task hideStatusIcon()
+        {
+            await statusIcon.Fade(0).StartAsync();
+        }
+
         private async Task PlayIconChangeAnimation()
         {
             nowSyncing = false;
             var centreX = (float)(statusIcon.ActualWidth / 2);
             var centreY = (float)(statusIcon.ActualHeight / 2);
             await statusIcon.Scale(0.2f, 0.2f, centreX, centreY, 0).StartAsync();
-            await statusIcon.Fade(1, 200).Scale(1, 1, centreX, centreY, 500).StartAsync();
+            await statusIcon.Fade(1, 50).Scale(1, 1, centreX, centreY, 100).StartAsync();
         }
 
         private async Task animateSyncingIcon()
@@ -110,10 +116,10 @@ namespace YATA.Control
             double rotationsToPerform = 10;
             double rotationsPerSecond = (double)(1 / rotationsToPerform);
             var duration = (float)(rotationsPerSecond / maxRotation);
-            int rotation = 1;
+            int rotation = 0;
             while (nowSyncing)
             {
-                if (rotation == maxRotation)
+                if (rotation >= maxRotation)
                 {
                     await syncIcon.Rotate(0, centerX, centerY, 0).StartAsync();
                     rotation = 0;
@@ -122,6 +128,9 @@ namespace YATA.Control
                 rotation += (int)rotationsToPerform;
 
             }
+            double degreesLeft = maxRotation - rotation;
+            await syncIcon.Rotate((float)degreesLeft, centerX, centerY, 1000).StartAsync();
+            await syncIcon.Rotate(0, centerX, centerY, 0).StartAsync();
         }
     }
 }
