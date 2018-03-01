@@ -45,6 +45,14 @@ namespace YATA.Services
         {
             syncStarted?.Invoke(this, EventArgs.Empty);
             bool isSynced = false;
+            bool fileExistOnCloud = await CheckIfFileIsOnCloud();
+
+            if (fileExistOnCloud)
+            {
+                
+                long lastDateModified = await GetDateModifiedDate();
+                
+            }
             try
             {
                 bool isDataSaved = await new FileIOService().saveData();
@@ -55,7 +63,7 @@ namespace YATA.Services
                 syncFailed?.Invoke(this, EventArgs.Empty);
                 return false;
             }
-            
+
             StorageFile exportedTasks = await new FileIOService().GiveBackToDoTaskFile();
             using (var stream = await exportedTasks.OpenReadAsync())
             {
@@ -79,6 +87,31 @@ namespace YATA.Services
 
             return isSynced;
         }
+
+        private async Task<long> GetDateModifiedDate()
+        {
+            OneDriveStorageFile fileToReturn = await rootFolder.GetFileAsync(FileIOService.saveFileName);
+            return fileToReturn.DateModified.Value.DateTime.Ticks;
+        }
+
+        private async Task<bool> CheckIfFileIsOnCloud()
+        {
+            bool fileExists = false;
+            try
+            {
+                OneDriveStorageFile fileToReturn = await rootFolder.GetFileAsync(FileIOService.saveFileName);
+                fileExists = true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                Debug.WriteLine("File does not exist in the cloud");
+            }
+
+            return fileExists;
+        }
+
+
 
         public async Task<bool> Load()
         {
