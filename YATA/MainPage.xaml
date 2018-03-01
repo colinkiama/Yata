@@ -61,7 +61,7 @@
             <Grid Grid.RowSpan="2"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch"
-                  Background="Black"
+                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   Name="MaskGrid"
                   Visibility="Collapsed"
                   Opacity="0"

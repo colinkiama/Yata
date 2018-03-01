@@ -32,8 +32,6 @@ namespace YATA
     /// </summary>
     sealed partial class App : Application
     {
-
-
        public static CloudSyncService syncService = new CloudSyncService();
 
         /// <summary>
