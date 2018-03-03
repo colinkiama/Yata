@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Toolkit.Uwp.Services.OneDrive;
 using Windows.Storage;
+using YATA.Core.Syncing;
 using YATA.Model;
 
 namespace YATA.Services
@@ -45,47 +46,63 @@ namespace YATA.Services
         {
             syncStarted?.Invoke(this, EventArgs.Empty);
             bool isSynced = false;
-            bool fileExistOnCloud = await CheckIfFileIsOnCloud();
 
-            if (fileExistOnCloud)
+            if (syncedOnDevice())
             {
-                
-                long lastDateModified = await GetDateModifiedDate();
-                
-            }
-            try
-            {
-                bool isDataSaved = await new FileIOService().saveData();
-                Debug.WriteLine("Local Data Saved = " + isDataSaved);
-            }
-            catch (Exception ex)
-            {
-                syncFailed?.Invoke(this, EventArgs.Empty);
-                return false;
-            }
-
-            StorageFile exportedTasks = await new FileIOService().GiveBackToDoTaskFile();
-            using (var stream = await exportedTasks.OpenReadAsync())
-            {
-                try
+                if (await CheckIfFileIsOnCloud())
                 {
 
-                    await rootFolder.UploadFileAsync(FileIOService.saveFileName, stream, CreationCollisionOption.ReplaceExisting, 320 * 2048);
-                    //await stream.FlushAsync();
-                    isSynced = true;
-                    syncCompleted?.Invoke(this, EventArgs.Empty);
-                    Debug.WriteLine("Sync Complete!");
-                }
-                catch (Exception ex)
-                {
-                    syncFailed?.Invoke(this, EventArgs.Empty);
-                    Debug.WriteLine(ex);
+                    long lastDateModified = await GetDateModifiedDate();
 
+                    try
+                    {
+                        bool isDataSaved = await new FileIOService().saveData();
+                        Debug.WriteLine("Local Data Saved = " + isDataSaved);
+                    }
+                    catch (Exception ex)
+                    {
+                        syncFailed?.Invoke(this, EventArgs.Empty);
+                        return false;
+                    }
+                    isSynced = await decideToUploadOrDownloadFile(lastDateModified);
                 }
 
             }
+            return isSynced;
+        }
+
+        private async Task<bool> decideToUploadOrDownloadFile(long lastDateModified)
+        {
+            bool isSynced = false;
+
+            bool shouldUpload = CheckIfLocalDateIsOld(lastDateModified);
+
+            isSynced = shouldUpload ? await Upload() : await Download();
 
             return isSynced;
+        }
+
+        private bool CheckIfLocalDateIsOld(long lastDateModified)
+        {
+            bool isOld = false;
+            long localSyncDate = (long)OneDriveSync.GetLastSyncDate();
+            if (lastDateModified > localSyncDate)
+            {
+                isOld = true;
+            }
+            return isOld;
+        }
+
+        private bool syncedOnDevice()
+        {
+            bool hasBeenSyncedBefore = false;
+            var lastSyncDate = (long?)OneDriveSync.GetLastSyncDate();
+            if (lastSyncDate != null)
+            {
+                hasBeenSyncedBefore = true;
+            }
+
+            return hasBeenSyncedBefore;
         }
 
         private async Task<long> GetDateModifiedDate()
@@ -113,15 +130,33 @@ namespace YATA.Services
 
 
 
-        public async Task<bool> Load()
+        public async Task<bool> Download()
         {
             bool isLoaded = false;
             return isLoaded;
         }
 
-        public async Task<bool> Save()
+        public async Task<bool> Upload()
         {
             bool isSaved = false;
+            StorageFile exportedTasks = await new FileIOService().GiveBackToDoTaskFile();
+            using (var stream = await exportedTasks.OpenReadAsync())
+            {
+                try
+                {
+                    await rootFolder.UploadFileAsync(FileIOService.saveFileName, stream, CreationCollisionOption.ReplaceExisting, 320 * 2048);
+                    //await stream.FlushAsync();
+                    syncCompleted?.Invoke(this, EventArgs.Empty);
+                    Debug.WriteLine("Sync Complete!");
+                }
+                catch (Exception ex)
+                {
+                    syncFailed?.Invoke(this, EventArgs.Empty);
+                    Debug.WriteLine(ex);
+
+                }
+
+            }
             return isSaved;
         }
     }
