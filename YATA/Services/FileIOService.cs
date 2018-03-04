@@ -13,6 +13,7 @@ namespace YATA.Services
     {
         public static readonly string saveFileName = "ToDoTasks.txt";
         StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+        public static StorageFolder tempFolder = ApplicationData.Current.TemporaryFolder;
 
 
         public async Task<bool> loadData()
@@ -148,6 +149,43 @@ namespace YATA.Services
         {
             return await localFolder.GetFileAsync("ToDoTasks.txt");
 
+        }
+
+        internal static async Task<bool> replaceOldTasksWithNewTasks(StorageFile tempLoadedTask)
+        {
+            bool finishedSyncing = false;
+            ObservableCollection<ToDoTask> listOfNewTasks = await getListOfTasksFromFile(tempLoadedTask);
+            if (listOfNewTasks != null)
+            {
+                ToDoTask.ReplaceOldTasksWithNewTasks(listOfNewTasks);
+                finishedSyncing = await new FileIOService().saveData();
+            }
+
+            return finishedSyncing;
+        }
+
+        private static async Task<ObservableCollection<ToDoTask>> getListOfTasksFromFile(StorageFile tempLoadedTask)
+        {
+            var serializer = new XmlSerializer(typeof(ObservableCollection<ToDoTask>));
+            var ToDoTasksFile = tempLoadedTask;
+            ObservableCollection<ToDoTask> loadedToDoTasks = new ObservableCollection<ToDoTask>();
+            try
+            {
+                using (Stream stream = await ToDoTasksFile.OpenStreamForReadAsync())
+                {
+                   
+                    loadedToDoTasks = (ObservableCollection<ToDoTask>)serializer.Deserialize(stream);
+                    ToDoTask.listOfTasks = loadedToDoTasks;
+                    await stream.FlushAsync();
+                    return loadedToDoTasks;
+                }
+
+            }
+            catch
+            {
+                Debug.WriteLine("Error with saving cloud file during syncing");
+                return loadedToDoTasks;
+            }
         }
     } 
 }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Toolkit.Uwp.Services.OneDrive;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using YATA.Core.Syncing;
 using YATA.Model;
 
@@ -67,6 +69,13 @@ namespace YATA.Services
                     isSynced = await decideToUploadOrDownloadFile(lastDateModified);
                 }
 
+            }
+            else
+            {
+                if (await CheckIfFileIsOnCloud())
+                {
+                    // Cloud Clash!!!
+                }
             }
             return isSynced;
         }
@@ -133,7 +142,49 @@ namespace YATA.Services
         public async Task<bool> Download()
         {
             bool isLoaded = false;
+            bool isDownloaded = false;
+            var taskOnCloud = await rootFolder.GetFileAsync(FileIOService.saveFileName);
+            var downloadStream = await taskOnCloud.OpenAsync();
+            ulong size = downloadStream.Size;
+
+
+            string textContent = "";
+
+            using (var inputStream = downloadStream.GetInputStreamAt(0))
+            {
+
+                using (var dataReader = new Windows.Storage.Streams.DataReader(inputStream))
+                {
+                    uint numBytesLoaded = await dataReader.LoadAsync((uint)size);
+                    textContent = dataReader.ReadString(numBytesLoaded);
+                    Debug.WriteLine(textContent);
+                }
+
+            }
+
+            StorageFile tempLoadedTask = await FileIOService.tempFolder.CreateFileAsync(FileIOService.saveFileName, CreationCollisionOption.ReplaceExisting);
+            try
+            {
+                await FileIO.WriteTextAsync(tempLoadedTask, textContent);
+                isLoaded = await FileIOService.replaceOldTasksWithNewTasks(tempLoadedTask);
+                UpdateLocalSyncDate();
+                syncCompleted?.Invoke(this, EventArgs.Empty);
+            }
+
+            catch (Exception ex)
+            {
+                syncFailed?.Invoke(this, EventArgs.Empty);
+                Debug.WriteLine(ex);
+            }
+
             return isLoaded;
+        }
+
+        private void UpdateLocalSyncDate()
+        {
+            var currentDate = DateTime.Now;
+            long currentDateInTicks = currentDate.Ticks;
+            OneDriveSync.SetLastSyncDate(currentDateInTicks);
         }
 
         public async Task<bool> Upload()

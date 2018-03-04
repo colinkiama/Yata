@@ -10,12 +10,12 @@ namespace YATA.Core.Syncing
     public static class OneDriveSync
     { 
 
-        public static int? GetLastSyncDate()
+        public static long? GetLastSyncDate()
         {
-           return (int?)GetLocalSettings().Values["lastSyncDate"];
+           return (long?)GetLocalSettings().Values["lastSyncDate"];
         }
 
-        public static void SetLastSyncDate(int dateToSave)
+        public static void SetLastSyncDate(long dateToSave)
         {
             GetLocalSettings().Values["lastSyncDate"] = dateToSave;
         }

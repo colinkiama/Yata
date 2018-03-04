@@ -65,5 +65,13 @@ namespace YATA.Model
             ListOfTasksChanged?.Invoke(listOfTasks, EventArgs.Empty);
         }
 
+        internal static void ReplaceOldTasksWithNewTasks(ObservableCollection<ToDoTask> listOfNewTasks)
+        {
+            listOfTasks.Clear();
+            foreach (var task in listOfNewTasks)
+            {
+                listOfTasks.Add(task);
+            }
+        }
     }
 }
