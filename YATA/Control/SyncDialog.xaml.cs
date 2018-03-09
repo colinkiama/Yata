@@ -71,7 +71,7 @@ namespace YATA.Control
             }
             else
             {
-                enableSyncButton();
+                disableSyncButton();
             }
         }
 

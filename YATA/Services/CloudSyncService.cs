@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Toolkit.Uwp.Services.OneDrive;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml.Controls;
 using YATA.Core.Syncing;
 using YATA.Model;
 
@@ -75,31 +77,54 @@ namespace YATA.Services
                 if (await CheckIfFileIsOnCloud())
                 {
                     // Cloud Clash!!!
+                    var clashDialog = new ContentDialog
+                    {
+                        Title = "Cloud Clash",
+                        Content = "Do you want to continue using the data on your device (Local data) or do you want to use data from the cloud instead?",
+                        PrimaryButtonText = "Local",
+                        SecondaryButtonText = "Cloud"
+                    };
+
+                    clashDialog.PrimaryButtonClick += ClashDialog_PrimaryButtonClick;
+                    clashDialog.SecondaryButtonClick += ClashDialog_SecondaryButtonClick;
+                    await clashDialog.ShowAsync();
                 }
             }
             return isSynced;
+        }
+
+        private async void ClashDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            //Use cloud data
+            await Download();
+        }
+
+        private async void ClashDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            //Use local data
+            await Upload();
         }
 
         private async Task<bool> decideToUploadOrDownloadFile(long lastDateModified)
         {
             bool isSynced = false;
 
-            bool shouldUpload = CheckIfLocalDateIsOld(lastDateModified);
+            bool shouldUpload = CheckIfLocalDateIsNewer(lastDateModified);
 
             isSynced = shouldUpload ? await Upload() : await Download();
 
             return isSynced;
         }
 
-        private bool CheckIfLocalDateIsOld(long lastDateModified)
+        private bool CheckIfLocalDateIsNewer(long lastDateModified)
         {
-            bool isOld = false;
+            bool isLocalDataNewer = false;
             long localSyncDate = (long)OneDriveSync.GetLastSyncDate();
-            if (lastDateModified > localSyncDate)
+            if (localSyncDate > lastDateModified)
             {
-                isOld = true;
+                isLocalDataNewer = true;
             }
-            return isOld;
+            return isLocalDataNewer;
         }
 
         private bool syncedOnDevice()
@@ -144,39 +169,42 @@ namespace YATA.Services
             bool isLoaded = false;
             bool isDownloaded = false;
             var taskOnCloud = await rootFolder.GetFileAsync(FileIOService.saveFileName);
-            var downloadStream = await taskOnCloud.OpenAsync();
-            ulong size = downloadStream.Size;
+           
+            
 
 
             string textContent = "";
 
-            using (var inputStream = downloadStream.GetInputStreamAt(0))
-            {
-
-                using (var dataReader = new Windows.Storage.Streams.DataReader(inputStream))
-                {
-                    uint numBytesLoaded = await dataReader.LoadAsync((uint)size);
-                    textContent = dataReader.ReadString(numBytesLoaded);
-                    Debug.WriteLine(textContent);
-                }
-
-            }
-
             StorageFile tempLoadedTask = await FileIOService.tempFolder.CreateFileAsync(FileIOService.saveFileName, CreationCollisionOption.ReplaceExisting);
             try
             {
-                await FileIO.WriteTextAsync(tempLoadedTask, textContent);
+
+
+                using (var downloadStream = await taskOnCloud.OpenAsync())
+                {
+                    byte[] buffer = new byte[downloadStream.Size];
+                    var localBuffer = await downloadStream.ReadAsync(buffer.AsBuffer(), (uint)downloadStream.Size, InputStreamOptions.ReadAhead);
+                    using (var localStream = await tempLoadedTask.OpenAsync(FileAccessMode.ReadWrite))
+                    {
+                        await localStream.WriteAsync(localBuffer);
+                        await localStream.FlushAsync();
+
+                    }
+
+
+
+                }
                 isLoaded = await FileIOService.replaceOldTasksWithNewTasks(tempLoadedTask);
+
                 UpdateLocalSyncDate();
                 syncCompleted?.Invoke(this, EventArgs.Empty);
             }
 
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                syncFailed?.Invoke(this, EventArgs.Empty);
                 Debug.WriteLine(ex);
+                syncFailed?.Invoke(this, EventArgs.Empty);
             }
-
             return isLoaded;
         }
 
@@ -208,6 +236,7 @@ namespace YATA.Services
                 }
 
             }
+            UpdateLocalSyncDate();
             return isSaved;
         }
     }
