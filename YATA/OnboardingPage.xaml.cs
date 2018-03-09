@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using YATA.Core;
 using YATA.Services;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -31,6 +32,40 @@ namespace YATA
         public OnboardingPage()
         {
             this.InitializeComponent();
+            CloudSyncService.syncCompleted += CloudSyncService_syncCompleted;
+            CloudSyncService.syncFailed += CloudSyncService_syncFailed;
+        }
+
+        private void CloudSyncService_syncFailed(object sender, EventArgs e)
+        {
+            showFailedSyncingUI();
+            showContinueButton();
+        }
+
+        private void showFailedSyncingUI()
+        {
+            syncRing.IsActive = false;
+            syncRing.Visibility = Visibility.Collapsed;
+            syncStatusTextBlock.Text = "Sync Failed! - Please check if you have a solid internet connection. Also, sync does not work without an active Microsoft Account Logged in.";
+        }
+
+        private void CloudSyncService_syncCompleted(object sender, EventArgs e)
+        {
+            showFinishedSyncingUI();
+            showContinueButton();
+        }
+
+        private void showContinueButton()
+        {
+            continueButton.Visibility = Visibility.Visible;
+        }
+
+        private void showFinishedSyncingUI()
+        {
+            syncRing.IsActive = false;
+            syncRing.Visibility = Visibility.Collapsed;
+            syncStatusTextBlock.Text = "Sync Complete!";
+
         }
 
         private async void NoButton_Click(object sender, RoutedEventArgs e)
@@ -39,6 +74,7 @@ namespace YATA
             var animation = this.Offset(0, yToAnimateBy).Fade(0);
             animation.SetDurationForAll(400);
             await animation.StartAsync();
+            Settings.SetOnBoardingPageAsViewed();
             Frame.Navigate(typeof(MainPage), "No");
         }
 
@@ -52,6 +88,17 @@ namespace YATA
                 await PrepareUIForSyncing();
                 await StartSyncing();
             }
+            else
+            {
+                var errorDialog = new ContentDialog
+                {
+                    Title = "Connection error",
+                    Content = "Make sure you have an active internet connection",
+                    CloseButtonText = "Okay"
+                };
+
+                await errorDialog.ShowAsync();
+            }
         }
 
         private async Task StartSyncing()
@@ -63,7 +110,7 @@ namespace YATA
             {
                 Debug.WriteLine("Yes We Can");
                 ChangePageTitleText();
-
+                await syncService.Sync();
                 
                
             }
@@ -107,7 +154,8 @@ namespace YATA
 
         private void continueButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Settings.SetOnBoardingPageAsViewed();
+            Frame.Navigate(typeof(MainPage));
         }
     }
 }

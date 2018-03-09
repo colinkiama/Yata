@@ -112,6 +112,7 @@
     <Compile Include="Core\Audio\SoundFX.cs" />
     <Compile Include="Core\DeviceDetection.cs" />
     <Compile Include="Core\PageStuff.cs" />
+    <Compile Include="Core\Settings.cs" />
     <Compile Include="Core\Syncing\OneDriveSync.cs" />
     <Compile Include="Core\Syncing\RoamingSync.cs" />
     <Compile Include="CreateTaskPage.xaml.cs">

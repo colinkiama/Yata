@@ -42,10 +42,7 @@ namespace YATA.Control
 
         public static event EventHandler CloseDialogButtonClicked;
 
-        private void ResetScoreButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
+        
 
         private async void SyncButton_Click(object sender, RoutedEventArgs e)
         {
@@ -75,11 +72,6 @@ namespace YATA.Control
             }
         }
 
-        private void EnableSyncToggleSwitch_Toggled(object sender, RoutedEventArgs e)
-        {
-            var toggle = (ToggleSwitch)sender;
-            SyncButton.IsEnabled = toggle.IsOn;
-        }
 
 
         private async void CloseDialogButton_Click(object sender, RoutedEventArgs e)

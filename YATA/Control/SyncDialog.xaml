@@ -23,17 +23,14 @@
                    FontWeight="SemiBold"
                    FontSize="24"
                    Margin="0,0,0,12"/>
-        <ToggleSwitch Name="EnableSyncToggleSwitch"
-                      Header="Enable Syncing"
-                      Margin="0,0,0,12"
-                      Toggled="EnableSyncToggleSwitch_Toggled"/>
-            <TextBlock Text="Last Synced:"/>
+     
+            <!--<TextBlock Text="Last Synced:"/>
             <TextBlock Foreground="Gray"
                        Text="23/01/1999"
                        Margin="0,0,0,12"/>
             <TextBlock Text="Status:"/>
             <TextBlock Text="Just exisiting tbh"
-                           Foreground="Gray"/>
+                           Foreground="Gray"/>-->
 
         </StackPanel>
         <Button HorizontalAlignment="Right"
@@ -55,12 +52,6 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Name="ResetScoreButton"
-                    Content="Reset Score"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Margin="4,0"
-                    Click="ResetScoreButton_Click"/>
             <Button Name="SyncButton"
                     Content="Sync Now"
                     Grid.Column="1"

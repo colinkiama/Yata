@@ -65,6 +65,7 @@ namespace YATA.Services
                     }
                     catch (Exception ex)
                     {
+                        Debug.WriteLine(ex);
                         syncFailed?.Invoke(this, EventArgs.Empty);
                         return false;
                     }
@@ -167,13 +168,9 @@ namespace YATA.Services
         public async Task<bool> Download()
         {
             bool isLoaded = false;
-            bool isDownloaded = false;
             var taskOnCloud = await rootFolder.GetFileAsync(FileIOService.saveFileName);
            
             
-
-
-            string textContent = "";
 
             StorageFile tempLoadedTask = await FileIOService.tempFolder.CreateFileAsync(FileIOService.saveFileName, CreationCollisionOption.ReplaceExisting);
             try

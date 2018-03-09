@@ -31,7 +31,7 @@ namespace YATA.Services
                 }
                 catch (Exception ex)
                 {
-
+                    Debug.WriteLine(ex);
 
                 }
 
