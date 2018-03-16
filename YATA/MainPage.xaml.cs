@@ -33,17 +33,22 @@ namespace YATA
     /// </summary> 
     public sealed partial class MainPage : Page
     {
-        public ObservableCollection<ToDoTask> localListOfTasks;
+        public  ObservableCollection<ToDoTask> localListOfTasks = ToDoTask.listOfTasks;
         private string title = "Tasks";
         public MainPage()
         {
             this.InitializeComponent();
-            localListOfTasks = ToDoTask.listOfTasks;
             ScoreTextBlock.Text = ToDoTask.CompletedTasks.ToString();
             ToDoTask.CompletedTasksCountChanged += ToDoTask_CompletedTasksCountChanged;
             SyncButton.SyncButtonClicked += SyncButton_SyncButtonClicked;
             SyncDialog.CloseDialogButtonClicked += SyncDialog_CloseDialogButtonClicked;
+            ToDoTask.listOfTasks.CollectionChanged += ListOfTasks_CollectionChanged;
 
+        }
+
+        private void ListOfTasks_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            localListOfTasks = ToDoTask.listOfTasks;
         }
 
         private async void SyncDialog_CloseDialogButtonClicked(object sender, EventArgs e)

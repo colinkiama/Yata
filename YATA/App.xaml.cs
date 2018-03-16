@@ -145,14 +145,15 @@ namespace YATA
                     // parameter
                     PageStuff.navigating = true;
 
-                    if (Settings.GetWhetherOnBoardingPageHasBeenViewed() == null)
-                    {
-                        rootFrame.Navigate(typeof(OnboardingPage), e.Arguments);
-                    }
-                    else
-                    {
-                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                    }
+                    //if (Settings.GetWhetherOnBoardingPageHasBeenViewed() == null)
+                    //{
+                    //    rootFrame.Navigate(typeof(OnboardingPage), e.Arguments);
+                    //}
+                    //else
+                    //{
+                    //    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    //}
+                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
 
 
                 }

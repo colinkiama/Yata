@@ -29,7 +29,8 @@
                                 Foreground="White"
                                 Width="60"
                                 Height="60"
-                                x:Name="SyncButton"/>
+                                x:Name="SyncButton"
+                                Visibility="Collapsed"/>
                 <TextBlock Name="ScoreTextBlock"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
@@ -207,9 +208,9 @@
             </Button>
             
             <!--Experimental-->
-            <Button Name="AskForSyncButton"
+            <!--<Button Name="AskForSyncButton"
                     Click="AskForSyncButton_Click"
-                    Content="SyncPlz"/>
+                    Content="SyncPlz"/>-->
             <!--End of experimental-->
             <TextBlock Text="Add a Task"
                        VerticalAlignment="Bottom"

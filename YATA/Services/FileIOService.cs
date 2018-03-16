@@ -168,13 +168,13 @@ namespace YATA.Services
         {
             var serializer = new XmlSerializer(typeof(ObservableCollection<ToDoTask>));
             var ToDoTasksFile = tempLoadedTask;
-            ObservableCollection<ToDoTask> loadedToDoTasks = new ObservableCollection<ToDoTask>();
+            
             try
             {
                 using (Stream stream = await ToDoTasksFile.OpenStreamForReadAsync())
                 {
-                   
-                    loadedToDoTasks = (ObservableCollection<ToDoTask>)serializer.Deserialize(stream);
+
+                    ObservableCollection<ToDoTask> loadedToDoTasks = (ObservableCollection<ToDoTask>)serializer.Deserialize(stream);
                     ToDoTask.listOfTasks = loadedToDoTasks;
                     await stream.FlushAsync();
                     return loadedToDoTasks;
@@ -184,7 +184,7 @@ namespace YATA.Services
             catch
             {
                 Debug.WriteLine("Error with saving cloud file during syncing");
-                return loadedToDoTasks;
+                return null;
             }
         }
     } 

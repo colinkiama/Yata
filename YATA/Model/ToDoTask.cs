@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
@@ -12,14 +13,14 @@ using YATA.Services;
 
 namespace YATA.Model
 {
-    
+
     public class ToDoTask
     {
-        
+
         public DateTime DateCreated { get; set; }
-        
+
         public string Content { get; set; }
-        
+
         public bool isCompleted { get; set; }
 
         public static int CompletedTasks { get; set; } = 0;
@@ -65,13 +66,32 @@ namespace YATA.Model
             ListOfTasksChanged?.Invoke(listOfTasks, EventArgs.Empty);
         }
 
-        internal static void ReplaceOldTasksWithNewTasks(ObservableCollection<ToDoTask> listOfNewTasks)
+        public static void ReplaceOldTasksWithNewTasks(ObservableCollection<ToDoTask> listOfNewTasks)
         {
-            listOfTasks.Clear();
-            foreach (var task in listOfNewTasks)
+            Debug.WriteLine(listOfNewTasks.Count);
+
+            
+            
+            if (listOfNewTasks.Count > 0)
             {
-                listOfTasks.Add(task);
+                for (int i = 0; i < listOfNewTasks.Count; i++)
+                {
+                    listOfTasks[i] = listOfNewTasks[i];
+                }
+
+                for (int i = 0; i < listOfTasks.Count; i++)
+                {
+                    if (i > listOfNewTasks.Count - 1)
+                    {
+                        listOfTasks.RemoveAt(i);
+                    }
+                }
             }
+            else
+            {
+                listOfTasks.Clear();
+            }
+            
         }
     }
 }
