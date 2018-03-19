@@ -75,7 +75,7 @@ namespace YATA
             animation.SetDurationForAll(400);
             await animation.StartAsync();
             Settings.SetOnBoardingPageAsViewed();
-            Frame.Navigate(typeof(MainPage), "No");
+            App.NavService.Navigate(typeof(MainPage), "No");
         }
 
         private async void YesButton_Click(object sender, RoutedEventArgs e)
@@ -155,7 +155,7 @@ namespace YATA
         private void continueButton_Click(object sender, RoutedEventArgs e)
         {
             Settings.SetOnBoardingPageAsViewed();
-            Frame.Navigate(typeof(MainPage));
+            App.NavService.Navigate(typeof(MainPage));
         }
     }
 }

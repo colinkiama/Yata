@@ -59,7 +59,7 @@ namespace YATA
             Haptics.ApplyCreateTaskButtonPressHaptics();
            ToDoTask.CreateNote(taskDetailsTextBox.Text);
             PageStuff.navigating = true;
-            Frame.Navigate(typeof(MainPage));
+            App.NavService.Navigate(typeof(MainPage));
         }
 
         private void taskDetailsTextBox_TextChanged(object sender, TextChangedEventArgs e)

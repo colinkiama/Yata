@@ -122,7 +122,7 @@ namespace YATA
                 DefaultNavigationTransitionInfo = new EntranceNavigationTransitionInfo()
             };
             Frame.ContentTransitions.Add(navThemeTransition);
-            Frame.Navigate(typeof(CreateTaskPage));
+            App.NavService.Navigate(typeof(CreateTaskPage));
 
         }
 
@@ -148,7 +148,7 @@ namespace YATA
 
         private void AskForSyncButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(OnboardingPage));
+            App.NavService.Navigate(typeof(OnboardingPage));
         }
     }
 }

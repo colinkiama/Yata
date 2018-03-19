@@ -121,6 +121,9 @@
     <Compile Include="Enums\DeviceType.cs" />
     <Compile Include="Enums\SyncStatus.cs" />
     <Compile Include="External\Engagement.cs" />
+    <Compile Include="Fluent\CreateTaskPage.xaml.cs">
+      <DependentUpon>CreateTaskPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Fluent\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -128,7 +131,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\ToDoTask.cs" />
-    <Compile Include="Navigation\Navigation.cs" />
+    <Compile Include="Services\Navigation.cs" />
     <Compile Include="OnboardingPage.xaml.cs">
       <DependentUpon>OnboardingPage.xaml</DependentUpon>
     </Compile>
@@ -218,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CreateTaskPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Fluent\CreateTaskPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

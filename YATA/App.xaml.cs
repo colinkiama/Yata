@@ -34,6 +34,7 @@ namespace YATA
     sealed partial class App : Application
     {
         public static CloudSyncService syncService = new CloudSyncService();
+        public static Navigation NavService { get; set; }
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -146,7 +147,7 @@ namespace YATA
                     // configuring the new page by passing required information as a navigation
                     // parameter
                     PageStuff.navigating = true;
-
+                    NavService = new Navigation(ref rootFrame);
                     //if (Settings.GetWhetherOnBoardingPageHasBeenViewed() == null)
                     //{
                     //    rootFrame.Navigate(typeof(OnboardingPage), e.Arguments);
@@ -155,7 +156,7 @@ namespace YATA
                     //{
                     //    rootFrame.Navigate(typeof(MainPage), e.Arguments);
                     //}
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    NavService.Navigate(typeof(MainPage), e.Arguments);
 
 
                 }
