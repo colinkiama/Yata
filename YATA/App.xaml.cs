@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Navigation;
 using YATA.Core;
 using YATA.Core.Syncing;
 using YATA.Enums;
+using YATA.External;
 using YATA.Model;
 using YATA.Services;
 
@@ -72,6 +73,7 @@ namespace YATA
         /// <param name="e">Details about the launch request and process.</param>
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            await Engagement.RegisterEngagementService();
             var result = Mango.App.appVersionChecker.getAppVersionStatus();
             switch (result)
             {
