@@ -66,7 +66,7 @@ namespace YATA.Services
 
         private bool isAtLeastOnFallCreatorsUpdate()
         {
-            return ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5);
+            return new FluentService().isAtLeastOnFallCreatorsUpdate();
         }
     }
 }

@@ -12,14 +12,14 @@
     Loaded="CurrentPage_Loaded"
    IsTabStop="True">
 
-    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    <Grid Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush }">
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="84"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
-              Background="{ThemeResource SystemControlAccentAcrylicWindowAccentMediumHighBrush  }"
+              Background="{ThemeResource SystemControlAccentAcrylicWindowAccentMediumHighBrush}"
               Padding="0,0,12,0">
             <Control:SyncButton HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
@@ -37,13 +37,15 @@
                        FontWeight="SemiBold"
                        Width="auto"
                        Height="auto"
-                       Foreground="White"/>
+                       Foreground="White"
+                       Margin="0,10,0,0"/>
             <TextBlock Text="{x:Bind title}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="24"
                        FontWeight="SemiBold"
-                       Foreground="White"/>
+                       Foreground="White"
+                       Margin="0,10,0,0"/>
         </Grid>
         <Grid Grid.Row="1"
               Name="listGrid">

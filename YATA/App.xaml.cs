@@ -23,6 +23,7 @@ using YATA.Core;
 using YATA.Core.Syncing;
 using YATA.Enums;
 using YATA.External;
+using YATA.Fluent;
 using YATA.Model;
 using YATA.Services;
 
@@ -104,12 +105,15 @@ namespace YATA
 
             else
             {
-                var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-                titleBar.BackgroundColor = TopBarColor;
-                titleBar.ForegroundColor = Colors.White;
-                titleBar.ButtonBackgroundColor = TopBarColor;
-                titleBar.InactiveBackgroundColor = TopBarColor;
-                titleBar.ButtonInactiveBackgroundColor = TopBarColor;
+                if (new FluentService().tryMakingTitleBarFluent() == false)
+                {
+                    var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                    titleBar.BackgroundColor = TopBarColor;
+                    titleBar.ForegroundColor = Colors.White;
+                    titleBar.ButtonBackgroundColor = TopBarColor;
+                    titleBar.InactiveBackgroundColor = TopBarColor;
+                    titleBar.ButtonInactiveBackgroundColor = TopBarColor;
+                }
 
             }
 
@@ -191,7 +195,7 @@ namespace YATA
         private void RootFrame_Navigated(object sender, NavigationEventArgs e)
         {
             var navigatedFrame = (Frame)sender;
-            if (navigatedFrame.CurrentSourcePageType == typeof(MainPage))
+            if (navigatedFrame.CurrentSourcePageType == typeof(MainPage) || navigatedFrame.CurrentSourcePageType == typeof(FluentMainPage))
             {
                 navigatedFrame.BackStack.Clear();
             }

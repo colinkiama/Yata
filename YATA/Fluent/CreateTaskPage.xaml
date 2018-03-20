@@ -10,7 +10,7 @@
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
         <Grid Background="Transparent">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="84"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
@@ -21,7 +21,8 @@
                        VerticalAlignment="Center"
                        FontSize="24"
                        FontWeight="SemiBold"
-                       Foreground="White"/>
+                       Foreground="White"
+                           Margin="0,10,0,0"/>
             </Grid>
             <ScrollViewer Grid.Row="1">
                 <Grid Padding="20"
@@ -154,7 +155,7 @@
                                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlBorderBrushPointerOver}" />
                                                                 </ObjectAnimationUsingKeyFrames>
                                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement" Storyboard.TargetProperty="Background">
-                                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlBackgroundPointerOver}" />
+                                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlAcrylicWindowBrush}" />
                                                                 </ObjectAnimationUsingKeyFrames>
                                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PlaceholderTextContentPresenter" Storyboard.TargetProperty="Foreground">
                                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlPlaceholderForegroundPointerOver}" />

@@ -53,6 +53,7 @@ namespace YATA.Control
                         CompletedStampToggleButton.IsChecked = true;
                     }
                     TaskItem.isCompletedChanged += TaskItem_isCompletedChanged;
+                    TaskItem_isCompletedChanged(this, EventArgs.Empty);
                     isDataContextNull = false;
                 }
             }
