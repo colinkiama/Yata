@@ -83,8 +83,6 @@ namespace YATA
                     TileService.UpdateLiveTile(ToDoTask.listOfTasks);
                     break;
                 case Mango.Enums.appVersionStatus.Old:
-                    // Show Latest updates
-                    break;
                 case Mango.Enums.appVersionStatus.Current:
                     await new FileIOService().loadData();
                     break;
