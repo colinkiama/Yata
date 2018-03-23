@@ -9,6 +9,7 @@ using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
@@ -32,6 +33,7 @@ namespace YATA.Control
         public ToDoTask TaskItem { get { return DataContext as ToDoTask; } }
         private SolidColorBrush transparentColor = new SolidColorBrush(Colors.Transparent);
         private bool isDataContextNull = true;
+        public string toggleButtonName = "";
         public ListedTask()
         {
             this.InitializeComponent();
@@ -55,10 +57,14 @@ namespace YATA.Control
                     TaskItem.isCompletedChanged += TaskItem_isCompletedChanged;
                     TaskItem_isCompletedChanged(this, EventArgs.Empty);
                     isDataContextNull = false;
+                    UpdateUIAutomation();
+                   
                 }
             }
 
         }
+
+        
 
         private void PageStuff_pageSizeChanged(object sender, EventArgs e)
         {
@@ -98,6 +104,7 @@ namespace YATA.Control
                         CompletedStampToggleButton.IsChecked = true;
                     }
                     TaskItem.isCompletedChanged += TaskItem_isCompletedChanged;
+                    UpdateUIAutomation();
 
                 }
 
@@ -109,6 +116,18 @@ namespace YATA.Control
         {
           
             this.TaskItem.changeIsCompletedState();
+            UpdateUIAutomation();
+        }
+
+
+        public void UpdateUIAutomation()
+        {
+            string taskItemValue = TaskItem.isCompleted ? $"{ TaskItem.Content} is completed" : TaskItem.Content;
+            string buttonNameValue = TaskItem.Content + " " + "completed toggle checked" + "is" + TaskItem.isCompleted + " ";
+            buttonNameValue += "Click here to toggle task completion";
+
+            AutomationProperties.SetName(this, taskItemValue);
+            AutomationProperties.SetName(CompletedStampToggleButton, buttonNameValue);
         }
 
         private void CompletedStampToggleButton_Checked(object sender, RoutedEventArgs e)
