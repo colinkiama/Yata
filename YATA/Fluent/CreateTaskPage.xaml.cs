@@ -30,11 +30,34 @@ namespace YATA.Fluent
         private string title = "Creating a New Task...";
         InputPane onScreenInput = InputPane.GetForCurrentView();
 
+        bool isAltDown = false;
         public FluentCreateTaskPage()
         {
             this.InitializeComponent();
             onScreenInput.Showing += CreateTaskPage_Showing;
             onScreenInput.Hiding += CreateTaskPage_Hiding;
+            KeyUp += FluentCreateTaskPage_KeyUp;
+            KeyDown += FluentCreateTaskPage_KeyDown;
+        }
+
+        private void FluentCreateTaskPage_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Menu)
+            {
+                isAltDown = true;
+            }
+        }
+
+        private void FluentCreateTaskPage_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Escape || (isAltDown && e.Key == Windows.System.VirtualKey.Left))
+            {
+                Frame.GoBack();
+            }
+            if (e.Key == Windows.System.VirtualKey.Menu)
+            {
+                isAltDown = false;
+            }
         }
 
         private void CreateTaskPage_Hiding(InputPane sender, InputPaneVisibilityEventArgs args)
