@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}">
+    <Grid Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
         <Grid Background="Transparent">
             <Grid.RowDefinitions>
                 <RowDefinition Height="84"/>
@@ -48,7 +48,7 @@
                                 <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}" />
                                 <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}" />
                                 <Setter Property="Foreground" Value="{ThemeResource TextControlForeground}" />
-                                <Setter Property="Background" Value="{ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}" />
+                                <Setter Property="Background" Value="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}" />
                                 <Setter Property="BorderBrush" Value="{ThemeResource TextControlBorderBrush}" />
                                 <Setter Property="SelectionHighlightColor" Value="{ThemeResource TextControlSelectionHighlightColor}" />
                                 <Setter Property="BorderThickness" Value="{ThemeResource TextControlBorderThemeThickness}" />

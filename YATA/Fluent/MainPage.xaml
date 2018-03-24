@@ -12,7 +12,7 @@
     Loaded="CurrentPage_Loaded"
    IsTabStop="True">
 
-    <Grid Background="{ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}">
+    <Grid Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="84"/>
             <RowDefinition Height="*"/>
