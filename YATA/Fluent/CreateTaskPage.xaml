@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    <Grid Background="{ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}">
         <Grid Background="Transparent">
             <Grid.RowDefinitions>
                 <RowDefinition Height="84"/>
@@ -15,7 +15,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0"
-              Background="{ThemeResource SystemControlAccentAcrylicWindowAccentMediumHighBrush}">
+              Background="{ThemeResource SystemControlAccentDark2AcrylicWindowAccentDark2MediumHighBrush}">
                 <TextBlock Text="{x:Bind title}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -48,7 +48,7 @@
                                 <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}" />
                                 <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}" />
                                 <Setter Property="Foreground" Value="{ThemeResource TextControlForeground}" />
-                                <Setter Property="Background" Value="{ThemeResource SystemControlAcrylicWindowBrush}" />
+                                <Setter Property="Background" Value="{ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}" />
                                 <Setter Property="BorderBrush" Value="{ThemeResource TextControlBorderBrush}" />
                                 <Setter Property="SelectionHighlightColor" Value="{ThemeResource TextControlSelectionHighlightColor}" />
                                 <Setter Property="BorderThickness" Value="{ThemeResource TextControlBorderThemeThickness}" />
@@ -155,7 +155,7 @@
                                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlBorderBrushPointerOver}" />
                                                                 </ObjectAnimationUsingKeyFrames>
                                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement" Storyboard.TargetProperty="Background">
-                                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlAcrylicWindowBrush}" />
+                                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{TemplateBinding Background}" />
                                                                 </ObjectAnimationUsingKeyFrames>
                                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PlaceholderTextContentPresenter" Storyboard.TargetProperty="Foreground">
                                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlPlaceholderForegroundPointerOver}" />

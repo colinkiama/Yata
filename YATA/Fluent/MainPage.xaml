@@ -12,14 +12,14 @@
     Loaded="CurrentPage_Loaded"
    IsTabStop="True">
 
-    <Grid Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush }">
+    <Grid Background="{ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="84"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
-              Background="{ThemeResource SystemControlAccentAcrylicWindowAccentMediumHighBrush}"
+              Background="{ThemeResource SystemControlAccentDark2AcrylicWindowAccentDark2MediumHighBrush}"
               Padding="0,0,12,0">
             <Control:SyncButton HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
