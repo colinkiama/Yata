@@ -201,7 +201,8 @@
                     BorderThickness="2"
                     BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                     HorizontalAlignment="Center"
-                    Margin="4">
+                    Margin="4"
+                    AutomationProperties.LabeledBy="{Binding ElementName=addTaskButtonLabel}">
                 <Button.Content>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
                 </Button.Content>
@@ -219,7 +220,7 @@
                        Margin="0,4,0,16"
                        Grid.Row="1"
                        FontWeight="SemiBold"
-                       />
+                       Name="addTaskButtonLabel"/>
         </Grid>
     </Grid>
 </Page>
