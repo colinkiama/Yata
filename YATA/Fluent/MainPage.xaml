@@ -221,6 +221,45 @@
                        Grid.Row="1"
                        FontWeight="SemiBold"
                        Name="addTaskButtonLabel"/>
+
+            <Button Name="settingsButton" 
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Margin="8"
+                    Style="{ThemeResource TextBlockButtonStyle}"
+                    VerticalAlignment="Bottom"
+                    ToolTipService.ToolTip="Settings">
+                <Button.Content>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE115;"
+                              FontSize="30"/>
+                </Button.Content>
+                <Button.Flyout>
+                    <Flyout Placement="Top"
+                            FlyoutPresenterStyle="{ThemeResource PivotTitleContentControlStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Settings"
+                                   FontSize="24"
+                                       FontWeight="SemiBold"
+                                       Margin="0,8"/>
+                            <TextBlock Text="Launch at startup:"
+                                       FontSize="14"/>
+                            <Button Content="Request launch at startup"
+                                    Margin="0,4,0,8"/>
+                            <TextBlock Text="Current status:"
+                                       FontSize="14"
+                                       Margin="0,8,0,4"/>
+                            <TextBlock Name="currentStatusTextBlock"
+                                      Text="What the current status would be"
+                                       Margin="0,0,0,8"
+                                       FontSize="12"/>
+                            <ToggleSwitch IsOn="True"
+                                          Header="Enable live tile:"/>
+                            <ToggleSwitch IsOn="False" Header="Left-Handed Mode"/>
+
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
         </Grid>
     </Grid>
 </Page>
