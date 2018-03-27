@@ -2,12 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -42,6 +45,10 @@ namespace YATA.Fluent
             SyncButton.SyncButtonClicked += SyncButton_SyncButtonClicked;
             SyncDialog.CloseDialogButtonClicked += SyncDialog_CloseDialogButtonClicked;
             ToDoTask.listOfTasks.CollectionChanged += ListOfTasks_CollectionChanged;
+            if (!new FluentService().isAtLeastOnFallCreatorsUpdate())
+            {
+                requestStartupButton.Visibility = Visibility.Collapsed;
+            }
 
         }
 
@@ -150,6 +157,37 @@ namespace YATA.Fluent
         private void AskForSyncButton_Click(object sender, RoutedEventArgs e)
         {
             App.NavService.Navigate(typeof(OnboardingPage));
+        }
+
+        private async void requestStartupButton_Click(object sender, RoutedEventArgs e)
+        {
+            StartupTask startupTask = await StartupTask.GetAsync("yataStartup");
+            MessageDialog dialog = new MessageDialog("Yata! is already running at startup.","Startup task has been enabled already.");
+            switch (startupTask.State)
+            {
+                case StartupTaskState.Disabled:
+                    // Task is disabled but can be enabled.
+                    StartupTaskState newState = await startupTask.RequestEnableAsync();
+                    Debug.WriteLine("Request to enable startup, result = {0}", newState);
+                    break;
+                case StartupTaskState.DisabledByUser:
+                    // Task is disabled and user must enable it manually.
+                    dialog.Content = "In order for this app to run at start up, you need to run task manager" +
+                        ", select the \"Start-up\" tab " +
+                        "then enable \"Yata!\" from there!";
+                    dialog.Title = "You need to this yourself 😞";
+                    await dialog.ShowAsync();
+                    break;
+                case StartupTaskState.DisabledByPolicy:
+                    dialog.Content =
+                       "Please contact your system administrator for more information";
+                        dialog.Title = "Disabled by group policy";
+                    await dialog.ShowAsync();
+                    break;
+                case StartupTaskState.Enabled:
+                    await dialog.ShowAsync();
+                    break;
+            }
         }
     }
 }

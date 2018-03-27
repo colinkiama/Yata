@@ -240,14 +240,9 @@
                             <TextBlock Text="Launch at startup:"
                                        FontSize="14"/>
                             <Button Content="Request launch at startup"
-                                    Margin="0,4,0,8"/>
-                            <TextBlock Text="Current status:"
-                                       FontSize="14"
-                                       Margin="0,8,0,4"/>
-                            <TextBlock Name="currentStatusTextBlock"
-                                      Text="What the current status would be"
-                                       Margin="0,0,0,8"
-                                       FontSize="12"/>
+                                    Margin="0,4,0,8"
+                                    Name="requestStartupButton"
+                                    Click="requestStartupButton_Click"/>
                             <ToggleSwitch IsOn="True"
                                           Header="Enable live tile:"/>
                             <ToggleSwitch IsOn="False" Header="Left-Handed Mode"/>
