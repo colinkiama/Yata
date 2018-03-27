@@ -209,11 +209,6 @@
 
             </Button>
 
-            <!--Experimental-->
-            <!--<Button Name="AskForSyncButton"
-                    Click="AskForSyncButton_Click"
-                    Content="SyncPlz"/>-->
-            <!--End of experimental-->
             <TextBlock Text="Add a Task"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"
