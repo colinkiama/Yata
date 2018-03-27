@@ -189,5 +189,10 @@ namespace YATA.Fluent
                     break;
             }
         }
+
+        private void enableLiveTileToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

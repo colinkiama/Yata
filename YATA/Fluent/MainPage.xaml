@@ -244,8 +244,11 @@
                                     Name="requestStartupButton"
                                     Click="requestStartupButton_Click"/>
                             <ToggleSwitch IsOn="True"
-                                          Header="Enable live tile:"/>
-                            <ToggleSwitch IsOn="False" Header="Left-Handed Mode"/>
+                                          Header="Enable live tile:"
+                                          Name="enableLiveTileToggle"
+                                          Toggled="enableLiveTileToggle_Toggled"/>
+                            <ToggleSwitch IsOn="False" Header="Left-Handed Mode"
+                                          Name="leftHandModeToggle"/>
 
                         </StackPanel>
                     </Flyout>

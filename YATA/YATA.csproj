@@ -141,6 +141,7 @@
     <Compile Include="Services\CloudSyncService.cs" />
     <Compile Include="Services\FileIOService.cs" />
     <Compile Include="Services\TileService.cs" />
+    <Compile Include="Services\TileService2.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

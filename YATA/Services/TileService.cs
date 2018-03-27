@@ -10,7 +10,7 @@ using YATA.Model;
 
 namespace YATA.Services
 {
-    public class TileService
+    public partial class TileService
     {
         internal static void UpdateLiveTile(ObservableCollection<ToDoTask> AllTasksToDo)
         {
