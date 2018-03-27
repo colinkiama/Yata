@@ -228,7 +228,8 @@
                     Margin="8"
                     Style="{ThemeResource TextBlockButtonStyle}"
                     VerticalAlignment="Bottom"
-                    ToolTipService.ToolTip="Settings">
+                    ToolTipService.ToolTip="Settings"
+                    HorizontalAlignment="Right">
                 <Button.Content>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE115;"
                               FontSize="30"/>
