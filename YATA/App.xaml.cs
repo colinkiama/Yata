@@ -232,5 +232,106 @@ namespace YATA
             deferral.Complete();
         }
 
+        protected async override void OnActivated(IActivatedEventArgs args)
+        {
+            base.OnActivated(args);
+            await Engagement.RegisterEngagementService();
+            var result = Mango.App.appVersionChecker.getAppVersionStatus();
+            switch (result)
+            {
+                case Mango.Enums.appVersionStatus.FirstTime:
+                    await new FileIOService().saveData();
+                    TileService.UpdateLiveTile(ToDoTask.listOfTasks);
+                    break;
+                case Mango.Enums.appVersionStatus.Old:
+                case Mango.Enums.appVersionStatus.Current:
+                    await new FileIOService().loadData();
+                    break;
+            }
+
+
+
+
+            RoamingSync.RestoreScore();
+
+            var TopBarColor = (Color)Application.Current.Resources["SystemAccentColor"];
+            if (DeviceDetection.DetectDeviceType() == DeviceType.Phone)
+            {
+                var statusBar = StatusBar.GetForCurrentView();
+                statusBar.BackgroundColor = TopBarColor;
+                statusBar.BackgroundOpacity = 1;
+                statusBar.ForegroundColor = Colors.White;
+            }
+
+            else
+            {
+                if (new FluentService().tryMakingTitleBarFluent() == false)
+                {
+                    var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                    titleBar.BackgroundColor = TopBarColor;
+                    titleBar.ForegroundColor = Colors.White;
+                    titleBar.ButtonBackgroundColor = TopBarColor;
+                    titleBar.InactiveBackgroundColor = TopBarColor;
+                    titleBar.ButtonInactiveBackgroundColor = TopBarColor;
+                }
+
+            }
+
+            var appView = ApplicationView.GetForCurrentView();
+            appView.SetPreferredMinSize(new Size(256, 256));
+
+
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active
+            if (rootFrame == null)
+            {
+                // Create a Frame to act as the navigation context and navigate to the first page
+                rootFrame = new Frame();
+
+                rootFrame.NavigationFailed += OnNavigationFailed;
+
+                // Place the frame in the current Window
+                Window.Current.Content = rootFrame;
+            }
+
+
+
+            // When the navigation stack isn't restored navigate to the first page,
+            // configuring the new page by passing required information as a navigation
+            // parameter
+            PageStuff.navigating = true;
+            NavService = new Navigation(ref rootFrame);
+            //if (Settings.GetWhetherOnBoardingPageHasBeenViewed() == null)
+            //{
+            //    rootFrame.Navigate(typeof(OnboardingPage), e.Arguments);
+            //}
+            //else
+            //{
+            //    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+            //}
+            NavService.Navigate(typeof(MainPage), args);
+
+
+        
+        // Ensure the current window is active
+        Window.Current.Activate();
+            
+
+
+            rootFrame.Navigated += RootFrame_Navigated;
+            // After  Window.Current.Content = rootFrame; 
+            // Register a handler for BackRequested events and set the  
+            // visibility of the Back button  
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                 rootFrame.CanGoBack?
+                 AppViewBackButtonVisibility.Visible :
+                 AppViewBackButtonVisibility.Collapsed;
+    
+    }
+
     }
 }
