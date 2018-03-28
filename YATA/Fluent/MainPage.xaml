@@ -77,7 +77,7 @@
                     <Setter Property="Background"
             Value="{ThemeResource ButtonBackground}" />
                     <Setter Property="Foreground"
-            Value="{ThemeResource SystemControlForegroundAccentBrush}" />
+            Value="{ThemeResource DefaultTextForegroundThemeBrush}" />
                     <Setter Property="BorderBrush"
             Value="{ThemeResource ButtonBorderBrush}" />
                     <Setter Property="BorderThickness"
@@ -131,7 +131,7 @@
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
                                                    Storyboard.TargetName="RootGrid">
                                                         <DiscreteObjectKeyFrame KeyTime="0"
-                                              Value="{ThemeResource SystemControlBackgroundAccentBrush}" />
+                                              Value="{ThemeResource DefaultTextForegroundThemeBrush}" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush"
                                                    Storyboard.TargetName="ContentPresenter">
@@ -141,7 +141,7 @@
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
                                                    Storyboard.TargetName="ContentPresenter">
                                                         <DiscreteObjectKeyFrame KeyTime="0"
-                                              Value="{ThemeResource ButtonForegroundPressed}" />
+                                              Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                     <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
                                                 </Storyboard>
@@ -199,7 +199,7 @@
                     Name="AddTaskButton"
                     Click="AddTaskButton_Click"
                     BorderThickness="2"
-                    BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
+                    BorderBrush="{ThemeResource DefaultTextForegroundThemeBrush}"
                     HorizontalAlignment="Center"
                     Margin="4"
                     AutomationProperties.LabeledBy="{Binding ElementName=addTaskButtonLabel}">
@@ -224,7 +224,8 @@
                     Style="{ThemeResource TextBlockButtonStyle}"
                     VerticalAlignment="Bottom"
                     ToolTipService.ToolTip="Settings"
-                    HorizontalAlignment="Right">
+                    HorizontalAlignment="Right"
+                    Foreground="{ThemeResource DefaultTextForegroundThemeBrush}">
                 <Button.Content>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE115;"
                               FontSize="30"/>
@@ -246,8 +247,7 @@
                             <ToggleSwitch Header="Enable live tile:"
                                           Name="enableLiveTileToggle"
                                           Toggled="enableLiveTileToggle_Toggled"/>
-                            <ToggleSwitch IsOn="False" Header="Left-Handed Mode"
-                                          Name="leftHandModeToggle"/>
+                          
 
                         </StackPanel>
                     </Flyout>

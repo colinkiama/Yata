@@ -35,7 +35,7 @@
                TextWrapping="WrapWholeWords"
                />
         <TextBlock Name="TaskCompleteTag" Text="COMPLETED"
-                   Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+                   Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
                    FontWeight="SemiBold"
                    RelativePanel.Below="TaskTextBlock"   
                    TextWrapping="WrapWholeWords"
@@ -61,8 +61,8 @@
                 <!-- Default style for Windows.UI.Xaml.Controls.Primitives.ToggleButton -->
                 <Style TargetType="ToggleButton">
                     <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundAccentBrush}" />
-                    <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundAccentBrush}" />
+                    <Setter Property="Foreground" Value="{ThemeResource DefaultTextForegroundThemeBrush}" />
+                    <Setter Property="BorderBrush" Value="{ThemeResource DefaultTextForegroundThemeBrush}" />
                     <Setter Property="BorderThickness" Value="{ThemeResource ToggleButtonBorderThemeThickness}" />
                     <Setter Property="HorizontalAlignment" Value="Left" />
                     <Setter Property="VerticalAlignment" Value="Center" />
@@ -104,13 +104,13 @@
 
                                                 <Storyboard>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">
-                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundAccentBrush}" />
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource DefaultTextForegroundThemeBrush}" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
                                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleButtonBorderBrushPressed}" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleButtonForegroundPressed}" />
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                     <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
                                                 </Storyboard>
@@ -134,10 +134,10 @@
 
                                                 <Storyboard>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">
-                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleButtonBackgroundChecked}" />
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource DefaultTextForegroundThemeBrush}" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleButtonForegroundChecked}" />
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
                                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleButtonBorderBrushChecked}" />
@@ -149,13 +149,13 @@
 
                                                 <Storyboard>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">
-                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleButtonBackgroundCheckedPointerOver}" />
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleButtonBackgroundPointerOver}" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
-                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleButtonBorderBrushCheckedPointerOver}" />
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource DefaultTextForegroundThemeBrush}" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleButtonForegroundCheckedPointerOver}" />
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                     <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
                                                 </Storyboard>
@@ -185,7 +185,7 @@
                                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleButtonForegroundCheckedDisabled}" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
-                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleButtonBorderBrushCheckedDisabled}" />
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource DefaultTextForegroundThemeBrush}" />
                                                     </ObjectAnimationUsingKeyFrames>
                                                 </Storyboard>
                                             </VisualState>

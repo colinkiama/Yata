@@ -75,7 +75,7 @@ namespace YATA.Control
         {
             if (TaskItem.isCompleted)
             {
-                this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["TextBoxDisabledForegroundThemeBrush"];
+                this.TaskTextBlock.Foreground = new SolidColorBrush(Color.FromArgb(255,211,211,211));
                 TaskCompleteTag.Visibility = Visibility.Visible;
                 TaskCompleteTag.Opacity = 0;
                 await TaskCompleteTag.Offset(0, -10, 0).StartAsync();
