@@ -192,7 +192,9 @@ namespace YATA.Fluent
 
         private void enableLiveTileToggle_Toggled(object sender, RoutedEventArgs e)
         {
-            
+            var toggledSwitch = (ToggleSwitch)sender;
+            bool newState = toggledSwitch.IsOn;
+            new TileService().ChangeTileServiceAvailability(newState);
         }
     }
 }

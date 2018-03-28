@@ -76,6 +76,7 @@ namespace YATA
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
             await Engagement.RegisterEngagementService();
+            TileService.turnOnTileServiceForFirstTime();
             var result = Mango.App.appVersionChecker.getAppVersionStatus();
             switch (result)
             {
@@ -236,6 +237,7 @@ namespace YATA
         {
             base.OnActivated(args);
             await Engagement.RegisterEngagementService();
+            TileService.turnOnTileServiceForFirstTime();
             var result = Mango.App.appVersionChecker.getAppVersionStatus();
             switch (result)
             {

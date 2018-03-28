@@ -14,20 +14,22 @@ namespace YATA.Services
     {
         internal static void UpdateLiveTile(ObservableCollection<ToDoTask> AllTasksToDo)
         {
-            List<ToDoTask> IncompleteTasks = GetListOfIncompleteTasks(AllTasksToDo);
-            TileContent tileContent = new TileContent();
-            if (IncompleteTasks.Count > 0)
+            if (getServiceAvailablilty() == true)
             {
-                tileContent = new TileContent()
+                List<ToDoTask> IncompleteTasks = GetListOfIncompleteTasks(AllTasksToDo);
+                TileContent tileContent = new TileContent();
+                if (IncompleteTasks.Count > 0)
                 {
-                    Visual = new TileVisual()
+                    tileContent = new TileContent()
                     {
-                        TileMedium = new TileBinding()
+                        Visual = new TileVisual()
                         {
-                            Branding = TileBranding.Logo,
-                            Content = new TileBindingContentAdaptive()
+                            TileMedium = new TileBinding()
                             {
-                                Children =
+                                Branding = TileBranding.Logo,
+                                Content = new TileBindingContentAdaptive()
+                                {
+                                    Children =
                 {
                     new AdaptiveText()
                     {
@@ -90,14 +92,14 @@ namespace YATA.Services
                         HintWrap = true
                     }
                 }
-                            }
-                        },
-                        TileWide = new TileBinding()
-                        {
-                            Branding = TileBranding.Logo,
-                            Content = new TileBindingContentAdaptive()
+                                }
+                            },
+                            TileWide = new TileBinding()
                             {
-                                Children =
+                                Branding = TileBranding.Logo,
+                                Content = new TileBindingContentAdaptive()
+                                {
+                                    Children =
                 {
                     new AdaptiveText()
                     {
@@ -159,14 +161,14 @@ namespace YATA.Services
                         HintWrap = true
                     }
                 }
-                            }
-                        },
-                        TileLarge = new TileBinding()
-                        {
-                            Branding = TileBranding.Logo,
-                            Content = new TileBindingContentAdaptive()
+                                }
+                            },
+                            TileLarge = new TileBinding()
                             {
-                                Children =
+                                Branding = TileBranding.Logo,
+                                Content = new TileBindingContentAdaptive()
+                                {
+                                    Children =
                 {
                     new AdaptiveText()
                     {
@@ -230,23 +232,23 @@ namespace YATA.Services
                         HintWrap = true
                     }
                 }
+                                }
                             }
                         }
-                    }
-                };
-            }
-            else
-            {
-                tileContent = new TileContent()
+                    };
+                }
+                else
                 {
-                    Visual = new TileVisual()
+                    tileContent = new TileContent()
                     {
-                        TileMedium = new TileBinding()
+                        Visual = new TileVisual()
                         {
-                            Branding = TileBranding.Logo,
-                            Content = new TileBindingContentAdaptive()
+                            TileMedium = new TileBinding()
                             {
-                                Children =
+                                Branding = TileBranding.Logo,
+                                Content = new TileBindingContentAdaptive()
+                                {
+                                    Children =
                 {
                     new AdaptiveText()
                     {
@@ -260,14 +262,14 @@ namespace YATA.Services
                         HintWrap = true
                     }
                 }
-                            }
-                        },
-                        TileWide = new TileBinding()
-                        {
-                            Branding = TileBranding.Logo,
-                            Content = new TileBindingContentAdaptive()
+                                }
+                            },
+                            TileWide = new TileBinding()
                             {
-                                Children =
+                                Branding = TileBranding.Logo,
+                                Content = new TileBindingContentAdaptive()
+                                {
+                                    Children =
                 {
                     new AdaptiveText()
                     {
@@ -280,14 +282,14 @@ namespace YATA.Services
                         HintWrap = true
                     }
                 }
-                            }
-                        },
-                        TileLarge = new TileBinding()
-                        {
-                            Branding = TileBranding.Logo,
-                            Content = new TileBindingContentAdaptive()
+                                }
+                            },
+                            TileLarge = new TileBinding()
                             {
-                                Children =
+                                Branding = TileBranding.Logo,
+                                Content = new TileBindingContentAdaptive()
+                                {
+                                    Children =
                 {
                     new AdaptiveText()
                     {
@@ -303,19 +305,25 @@ namespace YATA.Services
                         HintWrap = true
                     }
                 }
+                                }
                             }
                         }
-                    }
-                };
+                    };
+                }
+
+
+                // Create the tile notification
+                var tileNotif = new TileNotification(tileContent.GetXml());
+
+                // And send the notification to the primary tile
+                TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotif); 
             }
-
-
-            // Create the tile notification
-            var tileNotif = new TileNotification(tileContent.GetXml());
-
-            // And send the notification to the primary tile
-            TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotif);
+            else
+            {
+                TileUpdateManager.CreateTileUpdaterForApplication().Clear();
+            }
         }
+
 
         private static BindableString ReturnTextBasedOnCount(int countToCheckFor, List<ToDoTask> IncompleteTasks)
         {
