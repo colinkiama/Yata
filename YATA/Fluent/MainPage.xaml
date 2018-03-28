@@ -21,15 +21,7 @@
         <Grid Grid.Row="0"
               Background="{ThemeResource SystemControlAccentDark2AcrylicWindowAccentDark2MediumHighBrush}"
               Padding="0,0,12,0">
-            <Control:SyncButton HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                FontSize="36"
-                                FontWeight="SemiBold"
-                                Foreground="White"
-                                Width="60"
-                                Height="60"
-                                x:Name="SyncButton"
-                                Visibility="Collapsed"/>
+            
             <TextBlock Name="ScoreTextBlock"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"

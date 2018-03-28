@@ -36,7 +36,6 @@ namespace YATA
     /// </summary>
     sealed partial class App : Application
     {
-        public static CloudSyncService syncService = new CloudSyncService();
         public static Navigation NavService { get; set; }
         public static StatusBarService sBarService { get; set; }
         UISettings uiSettings = new UISettings();

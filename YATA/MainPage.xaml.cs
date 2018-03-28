@@ -43,8 +43,6 @@ namespace YATA
             this.InitializeComponent();
             ScoreTextBlock.Text = ToDoTask.CompletedTasks.ToString();
             ToDoTask.CompletedTasksCountChanged += ToDoTask_CompletedTasksCountChanged;
-            SyncButton.SyncButtonClicked += SyncButton_SyncButtonClicked;
-            SyncDialog.CloseDialogButtonClicked += SyncDialog_CloseDialogButtonClicked;
             ToDoTask.listOfTasks.CollectionChanged += ListOfTasks_CollectionChanged;
             enableLiveTileToggle.IsOn = TileService.getServiceAvailablilty();
         }
@@ -54,41 +52,9 @@ namespace YATA
             localListOfTasks = ToDoTask.listOfTasks;
         }
 
-        private async void SyncDialog_CloseDialogButtonClicked(object sender, EventArgs e)
-        {
-            SyncDialog dialogToRemove = (SyncDialog)sender;
+       
 
-            if (dialogToRemove != null)
-            {
-                await MaskGrid.Fade(0).StartAsync();
-                listGrid.Children.Remove(dialogToRemove);
-                MaskGrid.Visibility = Visibility.Collapsed;
-            }
-            
-        }
-
-        private async void SyncButton_SyncButtonClicked(object sender, EventArgs e)
-        {
-            var dialogToShow = new SyncDialog
-            {
-                Width = 300,
-                Height = 400,
-                Opacity = 0,
-                
-            };
-
-            
-
-            var mainGrid = (Grid)this.Content;
-            listGrid.Children.Add(dialogToShow);
-            Canvas.SetZIndex(dialogToShow, 30);
-            MaskGrid.Visibility = Visibility.Visible;
-
-            await Task.WhenAll(dialogToShow.Fade(1).StartAsync(), MaskGrid.Fade(0.5f).StartAsync());
-            
-
-
-        }
+       
 
         private async void ToDoTask_CompletedTasksCountChanged(object sender, EventArgs e)
         {
@@ -149,10 +115,6 @@ namespace YATA
             this.Focus(FocusState.Pointer);
         }
 
-        private void AskForSyncButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.NavService.Navigate(typeof(OnboardingPage));
-        }
 
 
         private void enableLiveTileToggle_Toggled(object sender, RoutedEventArgs e)
