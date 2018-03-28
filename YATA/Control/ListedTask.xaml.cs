@@ -42,19 +42,14 @@ namespace YATA.Control
             PageStuff.pageSizeChanged += PageStuff_pageSizeChanged;
         }
 
-        private void ListedTask_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        private async void ListedTask_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
             Bindings.Update();
             if (isDataContextNull == true)
             {
                 if (TaskItem != null)
                 {
-                    if (TaskItem.isCompleted)
-                    {
-                        this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["TextBoxDisabledForegroundThemeBrush"];
-                        TaskCompleteTag.Opacity = 1;
-                        CompletedStampToggleButton.IsChecked = true;
-                    }
+                    updateUIOnLoadOrCompletion();
                     TaskItem.isCompletedChanged += TaskItem_isCompletedChanged;
                     TaskItem_isCompletedChanged(this, EventArgs.Empty);
                     isDataContextNull = false;
@@ -74,39 +69,18 @@ namespace YATA.Control
 
         private async void TaskItem_isCompletedChanged(object sender, EventArgs e)
         {
-            if (TaskItem.isCompleted)
-            {
-                TaskCompleteTag.Visibility = Visibility.Visible;
-                TaskCompleteTag.Opacity = 0;
-
-                await TaskCompleteTag.Offset(0, -10, 0).StartAsync();
-                var fadeTaskTitleAnim =  this.TaskTextBlock.Fade(0.6f, 200).StartAsync();
-                var showTagAnim = TaskCompleteTag.Fade(1, 200).Offset(duration: 200).StartAsync();
-                await Task.WhenAll(fadeTaskTitleAnim, showTagAnim);
-            }
-            else
-            {
-                var showTitleAnim = this.TaskTextBlock.Fade(1, 200).StartAsync();
-                var fadeTagAnim = TaskCompleteTag.Fade(0, 200).Offset(offsetY: -10, duration: 200).StartAsync();
-                await Task.WhenAll(showTitleAnim, fadeTagAnim);
-                TaskCompleteTag.Visibility = Visibility.Collapsed;
-            }
+            await updateListedTaskFromCompletionResult(TaskItem.isCompleted);
         }
 
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (isDataContextNull == true)
             {
                 if (TaskItem != null)
                 {
-                    
-                    if (TaskItem.isCompleted)
-                    {
-                        this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["TextBoxDisabledForegroundThemeBrush"];
-                        TaskCompleteTag.Opacity = 1;
-                        CompletedStampToggleButton.IsChecked = true;
-                    }
+                    bool taskCompletionResult = TaskItem.isCompleted;
+                     updateUIOnLoadOrCompletion();
                     TaskItem.isCompletedChanged += TaskItem_isCompletedChanged;
                     UpdateUIAutomation();
 
@@ -153,6 +127,38 @@ namespace YATA.Control
         private void FlyoutDeleteButton_Click(object sender, RoutedEventArgs e)
         {
             this.TaskItem.DeleteNote();
+        }
+
+        private void updateUIOnLoadOrCompletion()
+        {
+            bool taskCompletionResult = TaskItem.isCompleted;
+            if (taskCompletionResult)
+            {
+                TaskCompleteTag.Opacity = 1;
+                TaskCompleteTag.Visibility = Visibility.Visible;
+                CompletedStampToggleButton.IsChecked = true;
+            }
+        }
+
+        private async Task updateListedTaskFromCompletionResult(bool isTaskCompleted)
+        {
+            if (isTaskCompleted)
+            {
+                TaskCompleteTag.Visibility = Visibility.Visible;
+                TaskCompleteTag.Opacity = 0;
+
+                await TaskCompleteTag.Offset(0, -10, 0).StartAsync();
+                var fadeTaskTitleAnim = this.TaskTextBlock.Fade(0.6f, 200).StartAsync();
+                var showTagAnim = TaskCompleteTag.Fade(1, 200).Offset(duration: 200).StartAsync();
+                await Task.WhenAll(fadeTaskTitleAnim, showTagAnim);
+            }
+            else
+            {
+                var showTitleAnim = this.TaskTextBlock.Fade(1, 200).StartAsync();
+                var fadeTagAnim = TaskCompleteTag.Fade(0, 200).Offset(offsetY: -10, duration: 200).StartAsync();
+                await Task.WhenAll(showTitleAnim, fadeTagAnim);
+                TaskCompleteTag.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

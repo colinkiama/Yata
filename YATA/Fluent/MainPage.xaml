@@ -237,13 +237,14 @@
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         <Setter Property="VerticalContentAlignment" Value="Stretch" />
                         <Setter Property="IsTabStop" Value="False" />
-                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                         <Setter Property="BorderBrush" Value="{ThemeResource DefaultTextForegroundThemeBrush}" />
                         <Setter Property="BorderThickness" Value="1" />
                         <Setter Property="Padding" Value="0" />
                         <Setter Property="MinWidth" Value="{ThemeResource FlyoutThemeMinWidth}" />
                         <Setter Property="MaxWidth" Value="160" />
                         <Setter Property="MinHeight" Value="{ThemeResource FlyoutThemeMinHeight}" />
+                        <Setter Property="MaxHeight" Value="256" />
                         <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Auto" />
                         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
                         <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto" />
@@ -257,8 +258,8 @@
                             ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
                             HorizontalScrollMode="Disabled"
                             HorizontalScrollBarVisibility="Hidden"
-                            VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
-                            VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                            VerticalScrollMode="Enabled"
+                            VerticalScrollBarVisibility="Visible"
                             AutomationProperties.AccessibilityView="Raw">
                                             <ContentPresenter Content="{TemplateBinding Content}"
                                 ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -297,8 +298,19 @@
                             <ToggleSwitch Header="Enable live tile:"
                                           Name="enableLiveTileToggle"
                                           Toggled="enableLiveTileToggle_Toggled"/>
-                          
 
+                            <TextBlock Text="Contact Us:"
+                                       Margin="0,8,0,0"/>
+                            <HyperlinkButton NavigateUri="mailto:colinkiama@hotmail.co.uk"
+                                             Content="Email"/>
+                            <HyperlinkButton NavigateUri="https://www.instagram.com/yatatodoapp"
+                                             Content="Instagram"/>
+                            <HyperlinkButton NavigateUri="https://twitter.com/yatatodoapp"
+                                             Content="Twitter"/>
+                            <HyperlinkButton NavigateUri="https://www.facebook.com/YATA-Yet-Another-To-Do-App-225936411298719/"
+                                             Content="Facebook"/>
+                            
+                            
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
