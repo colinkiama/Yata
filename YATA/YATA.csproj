@@ -131,6 +131,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\ToDoTask.cs" />
+    <Compile Include="Phone\StatusBarService.cs" />
     <Compile Include="Services\FluentService.cs" />
     <Compile Include="Services\Navigation.cs" />
     <Compile Include="OnboardingPage.xaml.cs">

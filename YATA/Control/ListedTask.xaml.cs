@@ -42,7 +42,7 @@ namespace YATA.Control
             PageStuff.pageSizeChanged += PageStuff_pageSizeChanged;
         }
 
-        private async void ListedTask_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        private void ListedTask_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
             Bindings.Update();
             if (isDataContextNull == true)
@@ -73,7 +73,7 @@ namespace YATA.Control
         }
 
 
-        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private  void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (isDataContextNull == true)
             {

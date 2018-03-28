@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -25,6 +26,7 @@ using YATA.Enums;
 using YATA.External;
 using YATA.Fluent;
 using YATA.Model;
+using YATA.Phone;
 using YATA.Services;
 
 namespace YATA
@@ -36,6 +38,8 @@ namespace YATA
     {
         public static CloudSyncService syncService = new CloudSyncService();
         public static Navigation NavService { get; set; }
+        public static StatusBarService sBarService { get; set; }
+        UISettings uiSettings = new UISettings();
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -46,8 +50,17 @@ namespace YATA
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             this.EnteredBackground += App_EnteredBackground;
+            this.LeavingBackground += App_LeavingBackground;
             ApplicationData.Current.DataChanged += Current_DataChanged;
             ToDoTask.ListOfTasksChanged += ToDoTask_ListOfTasksChanged;
+        }
+
+        private  void App_LeavingBackground(object sender, LeavingBackgroundEventArgs e)
+        {
+            if (sBarService != null)
+            {
+                sBarService.setAccentColor();
+            }          
         }
 
 
@@ -98,10 +111,7 @@ namespace YATA
             var TopBarColor = (Color)Application.Current.Resources["SystemAccentColor"];
             if (DeviceDetection.DetectDeviceType() == DeviceType.Phone)
             {
-                var statusBar = StatusBar.GetForCurrentView();
-                statusBar.BackgroundColor = TopBarColor;
-                statusBar.BackgroundOpacity = 1;
-                statusBar.ForegroundColor = Colors.White;
+                sBarService = new StatusBarService();
             }
 
             else
@@ -316,10 +326,10 @@ namespace YATA
             NavService.Navigate(typeof(MainPage), args);
 
 
-        
-        // Ensure the current window is active
-        Window.Current.Activate();
-            
+
+            // Ensure the current window is active
+            Window.Current.Activate();
+
 
 
             rootFrame.Navigated += RootFrame_Navigated;
@@ -329,11 +339,11 @@ namespace YATA
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
 
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                 rootFrame.CanGoBack?
+                 rootFrame.CanGoBack ?
                  AppViewBackButtonVisibility.Visible :
                  AppViewBackButtonVisibility.Collapsed;
-    
-    }
+
+        }
 
     }
 }

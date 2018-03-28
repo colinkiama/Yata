@@ -278,8 +278,7 @@
                 </Button.Resources>
                 <Button.Flyout>
                     <Flyout Placement="Top"
-                            FlyoutPresenterStyle="{ThemeResource myFlyoutPresenterStyle}"
-                            LightDismissOverlayMode="On">
+                            FlyoutPresenterStyle="{ThemeResource myFlyoutPresenterStyle}">
                         <StackPanel Background="Transparent"
                                     Margin="10">
                             <TextBlock Text="Settings"
