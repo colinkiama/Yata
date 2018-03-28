@@ -119,7 +119,7 @@ namespace YATA
             }
 
             var appView = ApplicationView.GetForCurrentView();
-            appView.SetPreferredMinSize(new Size(256, 256));
+            appView.SetPreferredMinSize(new Size(390, 460));
 
 
             Frame rootFrame = Window.Current.Content as Frame;
@@ -280,7 +280,7 @@ namespace YATA
             }
 
             var appView = ApplicationView.GetForCurrentView();
-            appView.SetPreferredMinSize(new Size(256, 256));
+            appView.SetPreferredMinSize(new Size(390, 460));
 
 
             Frame rootFrame = Window.Current.Content as Frame;

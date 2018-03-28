@@ -493,7 +493,9 @@
                     HorizontalAlignment="Center"
                     Margin="4"
                         Name="CreateTaskButton"
-                        Click="CreateTaskButton_Click">
+                        Click="CreateTaskButton_Click"
+                        AutomationProperties.LabeledBy="{Binding ElementName=finishCreatingTaskLabel}"
+                        >
                     <Button.Content>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE0E7;" />
                     </Button.Content>
@@ -505,7 +507,7 @@
                        Margin="0,4,0,16"
                        Grid.Row="1"
                        FontWeight="SemiBold"
-                       
+                       Name="finishCreatingTaskLabel"
                        />
             </Grid>
 

@@ -38,7 +38,8 @@
                        Width="auto"
                        Height="auto"
                        Foreground="White"
-                       Margin="0,10,0,0"/>
+                       Margin="0,10,0,0"
+                       />
             <TextBlock Text="{x:Bind title}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -230,20 +231,69 @@
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE115;"
                               FontSize="30"/>
                 </Button.Content>
+
+                <Button.Resources>
+                    <Style TargetType="FlyoutPresenter" x:Key="myFlyoutPresenterStyle">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                        <Setter Property="IsTabStop" Value="False" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="{ThemeResource DefaultTextForegroundThemeBrush}" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="MinWidth" Value="{ThemeResource FlyoutThemeMinWidth}" />
+                        <Setter Property="MaxWidth" Value="160" />
+                        <Setter Property="MinHeight" Value="{ThemeResource FlyoutThemeMinHeight}" />
+                        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Auto" />
+                        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+                        <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto" />
+                        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+                        <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="FlyoutPresenter">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                        <ScrollViewer x:Name="ScrollViewer"
+                            ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
+                            HorizontalScrollMode="Disabled"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                            VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                            AutomationProperties.AccessibilityView="Raw">
+                                            <ContentPresenter Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                ContentTransitions="{TemplateBinding ContentTransitions}"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                        </ScrollViewer>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Resources>
                 <Button.Flyout>
                     <Flyout Placement="Top"
-                            FlyoutPresenterStyle="{ThemeResource PivotTitleContentControlStyle}">
-                        <StackPanel>
+                            FlyoutPresenterStyle="{ThemeResource myFlyoutPresenterStyle}">
+                        <StackPanel Background="Transparent"
+                                    Margin="10">
                             <TextBlock Text="Settings"
                                    FontSize="24"
                                        FontWeight="SemiBold"
                                        Margin="0,8"/>
                             <TextBlock Text="Launch at startup:"
                                        FontSize="14"/>
-                            <Button Content="Request launch at startup"
+                            <Button 
                                     Margin="0,4,0,8"
                                     Name="requestStartupButton"
-                                    Click="requestStartupButton_Click"/>
+                                    Click="requestStartupButton_Click"
+                                    Width="140">
+                                <Button.Content>
+                                    <TextBlock Text="Request launch at startup" TextWrapping="WrapWholeWords"/>
+
+                                </Button.Content>
+                            </Button>
                             <ToggleSwitch Header="Enable live tile:"
                                           Name="enableLiveTileToggle"
                                           Toggled="enableLiveTileToggle_Toggled"/>

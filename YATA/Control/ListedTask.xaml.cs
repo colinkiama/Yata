@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -75,16 +76,19 @@ namespace YATA.Control
         {
             if (TaskItem.isCompleted)
             {
-                this.TaskTextBlock.Foreground = new SolidColorBrush(Color.FromArgb(255,211,211,211));
                 TaskCompleteTag.Visibility = Visibility.Visible;
                 TaskCompleteTag.Opacity = 0;
+
                 await TaskCompleteTag.Offset(0, -10, 0).StartAsync();
-                await TaskCompleteTag.Fade(1, 200).Offset(duration: 200).StartAsync();
+                var fadeTaskTitleAnim =  this.TaskTextBlock.Fade(0.6f, 200).StartAsync();
+                var showTagAnim = TaskCompleteTag.Fade(1, 200).Offset(duration: 200).StartAsync();
+                await Task.WhenAll(fadeTaskTitleAnim, showTagAnim);
             }
             else
             {
-                this.TaskTextBlock.Foreground = (SolidColorBrush)Application.Current.Resources["DefaultTextForegroundThemeBrush"];
-                await TaskCompleteTag.Fade(0, 200).Offset(offsetY: -10, duration: 200).StartAsync();
+                var showTitleAnim = this.TaskTextBlock.Fade(1, 200).StartAsync();
+                var fadeTagAnim = TaskCompleteTag.Fade(0, 200).Offset(offsetY: -10, duration: 200).StartAsync();
+                await Task.WhenAll(showTitleAnim, fadeTagAnim);
                 TaskCompleteTag.Visibility = Visibility.Collapsed;
             }
         }

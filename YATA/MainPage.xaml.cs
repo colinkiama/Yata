@@ -2,12 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -43,7 +46,7 @@ namespace YATA
             SyncButton.SyncButtonClicked += SyncButton_SyncButtonClicked;
             SyncDialog.CloseDialogButtonClicked += SyncDialog_CloseDialogButtonClicked;
             ToDoTask.listOfTasks.CollectionChanged += ListOfTasks_CollectionChanged;
-
+            enableLiveTileToggle.IsOn = TileService.getServiceAvailablilty();
         }
 
         private void ListOfTasks_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -149,6 +152,14 @@ namespace YATA
         private void AskForSyncButton_Click(object sender, RoutedEventArgs e)
         {
             App.NavService.Navigate(typeof(OnboardingPage));
+        }
+
+
+        private void enableLiveTileToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            var toggledSwitch = (ToggleSwitch)sender;
+            bool newState = toggledSwitch.IsOn;
+            new TileService().ChangeTileServiceAvailability(newState);
         }
     }
 }

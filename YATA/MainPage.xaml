@@ -200,7 +200,8 @@
                     BorderThickness="2"
                     BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                     HorizontalAlignment="Center"
-                    Margin="4">
+                    Margin="4"
+                     AutomationProperties.LabeledBy="{Binding ElementName=addTaskButtonLabel}">
                 <Button.Content>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
                 </Button.Content>
@@ -218,7 +219,80 @@
                        Margin="0,4,0,16"
                        Grid.Row="1"
                        FontWeight="SemiBold"
-                       />
+                        Name="addTaskButtonLabel"/>
+            <Button Name="settingsButton" 
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Margin="8"
+                    Style="{ThemeResource TextBlockButtonStyle}"
+                    VerticalAlignment="Bottom"
+                    ToolTipService.ToolTip="Settings"
+                    HorizontalAlignment="Right"
+                    Foreground="{ThemeResource DefaultTextForegroundThemeBrush}">
+                <Button.Content>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE115;"
+                              FontSize="30"/>
+                </Button.Content>
+
+                <Button.Resources>
+                    <Style TargetType="FlyoutPresenter" x:Key="myFlyoutPresenterStyle">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                        <Setter Property="IsTabStop" Value="False" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="{ThemeResource DefaultTextForegroundThemeBrush}" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="MinWidth" Value="{ThemeResource FlyoutThemeMinWidth}" />
+                        <Setter Property="MaxWidth" Value="160" />
+                        <Setter Property="MinHeight" Value="{ThemeResource FlyoutThemeMinHeight}" />
+                        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Auto" />
+                        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+                        <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto" />
+                        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+                        <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="FlyoutPresenter">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                        <ScrollViewer x:Name="ScrollViewer"
+                            ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
+                            HorizontalScrollMode="Disabled"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                            VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                            AutomationProperties.AccessibilityView="Raw">
+                                            <ContentPresenter Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                ContentTransitions="{TemplateBinding ContentTransitions}"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                        </ScrollViewer>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Resources>
+                <Button.Flyout>
+                    <Flyout Placement="Top"
+                            FlyoutPresenterStyle="{ThemeResource myFlyoutPresenterStyle}">
+                        <StackPanel Background="Transparent"
+                                    Margin="10">
+                            <TextBlock Text="Settings"
+                                   FontSize="24"
+                                       FontWeight="SemiBold"
+                                       Margin="0,8"/>
+                            <ToggleSwitch Header="Enable live tile:"
+                                          Name="enableLiveTileToggle"
+                                          Toggled="enableLiveTileToggle_Toggled"/>
+
+
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
         </Grid>
     </Grid>
 </Page>

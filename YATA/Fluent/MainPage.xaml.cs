@@ -46,10 +46,6 @@ namespace YATA.Fluent
             SyncDialog.CloseDialogButtonClicked += SyncDialog_CloseDialogButtonClicked;
             ToDoTask.listOfTasks.CollectionChanged += ListOfTasks_CollectionChanged;
             enableLiveTileToggle.IsOn = TileService.getServiceAvailablilty();
-            if (!new FluentService().isAtLeastOnFallCreatorsUpdate())
-            {
-                requestStartupButton.Visibility = Visibility.Collapsed;
-            }
 
         }
 
