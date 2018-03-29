@@ -160,5 +160,11 @@ namespace YATA.Control
                 TaskCompleteTag.Visibility = Visibility.Collapsed;
             }
         }
+
+        private void UserControl_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        }
     }
 }

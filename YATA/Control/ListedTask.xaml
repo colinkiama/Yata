@@ -9,15 +9,16 @@
     d:DesignHeight="300"
     d:DesignWidth="400"
     Loaded="UserControl_Loaded"
-    >
-    <UserControl.ContextFlyout>
+    RightTapped="UserControl_RightTapped">
+    <FlyoutBase.AttachedFlyout>
         <MenuFlyout>
             <MenuFlyoutItem x:Name="FlyoutDeleteButton"
                             Click="FlyoutDeleteButton_Click">
                 Delete
             </MenuFlyoutItem>
         </MenuFlyout>
-    </UserControl.ContextFlyout>
+    </FlyoutBase.AttachedFlyout>
+   
     
 
     <Grid Padding="8" Background="Transparent"

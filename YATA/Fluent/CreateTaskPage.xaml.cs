@@ -105,6 +105,7 @@ namespace YATA.Fluent
         {
             Haptics.ApplyEraseCompletedStampHaptics();
             onScreenInput.TryHide();
+            CreateTaskButton.Focus(FocusState.Programmatic);
         }
     }
 }
