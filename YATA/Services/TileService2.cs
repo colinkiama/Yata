@@ -11,10 +11,7 @@ namespace YATA.Services
     public partial class TileService
     {
         const string serviceSettingsKey = "tileServiceEnabled";
-        public void ChangeTileServiceAvailability()
-        {
-            
-        }
+        
 
 
         internal void ChangeTileServiceAvailability(bool newState)
