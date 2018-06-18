@@ -13,5 +13,5 @@ Available here: https://www.microsoft.com/store/apps/9P0WJ8142K81
 - Recommended (For Fluent Design): Windows 10 Fall Creators Update (Build 16299)
 
 ### Pages:
-- Pages inside "Fluent" Folder will are for systems running 16299 or higher.
+- Pages inside "Fluent" Folder are for systems running 16299 or higher.
 - Pages outside this folder are for systems running older versions of Windows 10.
