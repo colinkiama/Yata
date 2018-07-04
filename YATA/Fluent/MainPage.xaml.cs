@@ -46,12 +46,6 @@ namespace YATA.Fluent
 
         }
 
-      
-       
-        
-        
-
-       
 
         private async void ToDoTask_CompletedTasksCountChanged(object sender, EventArgs e)
         {

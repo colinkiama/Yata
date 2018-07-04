@@ -33,6 +33,7 @@ namespace YATA.Model
             { 
                 _isCompleted = value;
                 NotifyPropertyChanged();
+                ListOfTasksChanged?.Invoke(listOfTasks, EventArgs.Empty);
             }
         }
 
@@ -81,7 +82,6 @@ namespace YATA.Model
 
         public void DeleteNote()
         {
-            //var itemToDelete = listOfTasks.Where(p => p.Content == this.Content && p.DateCreated == this.DateCreated).First();
             listOfTasks.Remove(this);
             ListOfTasksChanged?.Invoke(listOfTasks, EventArgs.Empty);
         }
