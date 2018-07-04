@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -14,14 +16,25 @@ using YATA.Services;
 namespace YATA.Model
 {
 
-    public class ToDoTask
+    public class ToDoTask: INotifyPropertyChanged
     {
 
         public DateTime DateCreated { get; set; }
 
         public string Content { get; set; }
 
-        public bool isCompleted { get; set; }
+
+        private bool _isCompleted;
+
+        public bool IsCompleted
+        {
+            get { return _isCompleted; }
+            set
+            { 
+                _isCompleted = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         public static int CompletedTasks { get; set; } = 0;
 
@@ -34,10 +47,17 @@ namespace YATA.Model
 
         public static event EventHandler ListOfTasksChanged;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public static void UpdateCompletedTasks(int score)
         {
             CompletedTasks = score;
             CompletedTasksCountChanged?.Invoke(true, EventArgs.Empty);
+        }
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
 
@@ -46,23 +66,23 @@ namespace YATA.Model
             ToDoTask noteToCreate = new ToDoTask();
             noteToCreate.Content = content;
             noteToCreate.DateCreated = DateTime.Now;
-            noteToCreate.isCompleted = false;
+            noteToCreate.IsCompleted = false;
             listOfTasks.Add(noteToCreate);
             ListOfTasksChanged?.Invoke(listOfTasks, EventArgs.Empty);
         }
 
         public void changeIsCompletedState()
         {
-            isCompleted = !isCompleted;
+            IsCompleted = !IsCompleted;
             isCompletedChanged?.Invoke(this, EventArgs.Empty);
-            CompletedTasks = isCompleted ? CompletedTasks + 1 : CompletedTasks - 1;
+            CompletedTasks = IsCompleted ? CompletedTasks + 1 : CompletedTasks - 1;
             CompletedTasksCountChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void DeleteNote()
         {
-            var itemToDelete = listOfTasks.Where(p => p.Content == this.Content && p.DateCreated == this.DateCreated).First();
-            listOfTasks.Remove(itemToDelete);
+            //var itemToDelete = listOfTasks.Where(p => p.Content == this.Content && p.DateCreated == this.DateCreated).First();
+            listOfTasks.Remove(this);
             ListOfTasksChanged?.Invoke(listOfTasks, EventArgs.Empty);
         }
 

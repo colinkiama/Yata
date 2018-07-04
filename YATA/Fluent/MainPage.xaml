@@ -43,9 +43,9 @@
         <Grid Grid.Row="1"
               Name="listGrid">
             <ListView Name="tasksListView"
-                      ItemClick="tasksListView_ItemClick"
                       ItemsSource="{x:Bind localListOfTasks}"
-                      IsItemClickEnabled="True"
+                      CanReorderItems="True"
+                      AllowDrop="True"
                       SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>

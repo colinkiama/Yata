@@ -43,14 +43,11 @@ namespace YATA
             this.InitializeComponent();
             ScoreTextBlock.Text = ToDoTask.CompletedTasks.ToString();
             ToDoTask.CompletedTasksCountChanged += ToDoTask_CompletedTasksCountChanged;
-            ToDoTask.listOfTasks.CollectionChanged += ListOfTasks_CollectionChanged;
+            //ToDoTask.listOfTasks.CollectionChanged += ListOfTasks_CollectionChanged;
             enableLiveTileToggle.IsOn = TileService.getServiceAvailablilty();
         }
 
-        private void ListOfTasks_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            localListOfTasks = ToDoTask.listOfTasks;
-        }
+       
 
        
 
@@ -95,10 +92,7 @@ namespace YATA
 
         }
 
-        private void tasksListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
-        }
+       
 
         private void CurrentPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {

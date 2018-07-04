@@ -57,7 +57,7 @@
                       Click="CompletedStampToggleButton_Click"
                       Checked="CompletedStampToggleButton_Checked"
                       Unchecked="CompletedStampToggleButton_Unchecked"
-                      >
+                      IsChecked="{x:Bind TaskItem.IsCompleted, Mode=TwoWay}">
             <ToggleButton.Style>
                 <!-- Default style for Windows.UI.Xaml.Controls.Primitives.ToggleButton -->
                 <Style TargetType="ToggleButton">

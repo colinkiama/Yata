@@ -334,7 +334,7 @@ namespace YATA.Services
 
         private static List<ToDoTask> GetListOfIncompleteTasks(ObservableCollection<ToDoTask> allTasksToDo)
         {
-            List<ToDoTask> CompletedTasksToReturn = allTasksToDo.Where(p => !p.isCompleted).ToList();
+            List<ToDoTask> CompletedTasksToReturn = allTasksToDo.Where(p => !p.IsCompleted).ToList();
             return CompletedTasksToReturn;
         }
     }

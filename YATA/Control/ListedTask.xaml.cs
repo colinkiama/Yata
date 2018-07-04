@@ -33,83 +33,43 @@ namespace YATA.Control
     {
         public ToDoTask TaskItem { get { return DataContext as ToDoTask; } }
         private SolidColorBrush transparentColor = new SolidColorBrush(Colors.Transparent);
-        private bool isDataContextNull = true;
-        public string toggleButtonName = "";
         public ListedTask()
         {
             this.InitializeComponent();
-            this.DataContextChanged += ListedTask_DataContextChanged;
+            this.DataContextChanged += (s, e) => Bindings.Update();
             PageStuff.pageSizeChanged += PageStuff_pageSizeChanged;
         }
-
-        private void ListedTask_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
-        {
-            Bindings.Update();
-            if (isDataContextNull == true)
-            {
-                if (TaskItem != null)
-                {
-                    updateUIOnLoadOrCompletion();
-                    TaskItem.isCompletedChanged += TaskItem_isCompletedChanged;
-                    TaskItem_isCompletedChanged(this, EventArgs.Empty);
-                    isDataContextNull = false;
-                    UpdateUIAutomation();
-                   
-                }
-            }
-
-        }
-
-        
 
         private void PageStuff_pageSizeChanged(object sender, EventArgs e)
         {
             mainPanel.Width = PageStuff.currentWidth - (mainPanel.Padding.Left + mainPanel.Padding.Right);
         }
 
-        private async void TaskItem_isCompletedChanged(object sender, EventArgs e)
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            await updateListedTaskFromCompletionResult(TaskItem.isCompleted);
-        }
-
-
-        private  void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (isDataContextNull == true)
-            {
-                if (TaskItem != null)
-                {
-                    bool taskCompletionResult = TaskItem.isCompleted;
-                     updateUIOnLoadOrCompletion();
-                    TaskItem.isCompletedChanged += TaskItem_isCompletedChanged;
-                    UpdateUIAutomation();
-
-                }
-
-            }
             mainPanel.Width = PageStuff.currentWidth - (mainPanel.Padding.Left + mainPanel.Padding.Right);
         }
 
         private void CompletedStampToggleButton_Click(object sender, RoutedEventArgs e)
         {
-          
-            this.TaskItem.changeIsCompletedState();
             UpdateUIAutomation();
         }
 
 
         public void UpdateUIAutomation()
         {
-            string taskItemValue = TaskItem.isCompleted ? $"{ TaskItem.Content} is completed" : TaskItem.Content;
-            string buttonNameValue = TaskItem.Content + " " + "completed toggle checked" + "is" + TaskItem.isCompleted + " ";
+            string taskItemValue = TaskItem.IsCompleted ? $"{ TaskItem.Content} is completed" : TaskItem.Content;
+            string buttonNameValue = TaskItem.Content + " " + "completed toggle checked" + "is" + TaskItem.IsCompleted + " ";
             buttonNameValue += "Click here to toggle task completion";
 
             AutomationProperties.SetName(this, taskItemValue);
             AutomationProperties.SetName(CompletedStampToggleButton, buttonNameValue);
         }
 
-        private void CompletedStampToggleButton_Checked(object sender, RoutedEventArgs e)
+        private async void CompletedStampToggleButton_Checked(object sender, RoutedEventArgs e)
         {
+            await updateListedTaskFromCompletionResult();
             if (PageStuff.navigating == false)
             {
                 Haptics.ApplyCompletedStampHaptics();
@@ -118,9 +78,9 @@ namespace YATA.Control
 
         }
 
-        private void CompletedStampToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        private async void CompletedStampToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
-            
+            await updateListedTaskFromCompletionResult();
             Haptics.ApplyEraseCompletedStampHaptics();
         }
 
@@ -131,7 +91,7 @@ namespace YATA.Control
 
         private void updateUIOnLoadOrCompletion()
         {
-            bool taskCompletionResult = TaskItem.isCompleted;
+            bool taskCompletionResult = TaskItem.IsCompleted;
             if (taskCompletionResult)
             {
                 TaskCompleteTag.Opacity = 1;
@@ -140,9 +100,9 @@ namespace YATA.Control
             }
         }
 
-        private async Task updateListedTaskFromCompletionResult(bool isTaskCompleted)
+        private async Task updateListedTaskFromCompletionResult()
         {
-            if (isTaskCompleted)
+            if (CompletedStampToggleButton.IsChecked == true)
             {
                 TaskCompleteTag.Visibility = Visibility.Visible;
                 TaskCompleteTag.Opacity = 0;
@@ -163,7 +123,6 @@ namespace YATA.Control
 
         private void UserControl_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
     }
