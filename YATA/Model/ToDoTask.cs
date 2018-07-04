@@ -40,7 +40,7 @@ namespace YATA.Model
         public static int CompletedTasks { get; set; } = 0;
 
         public static ObservableCollection<ToDoTask> listOfTasks = new ObservableCollection<ToDoTask>();
-
+        
 
         public static event EventHandler CompletedTasksCountChanged;
 

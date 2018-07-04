@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -41,11 +42,17 @@ namespace YATA.Fluent
         {
             this.InitializeComponent();
             ScoreTextBlock.Text = ToDoTask.CompletedTasks.ToString();
+            ToDoTask.listOfTasks.CollectionChanged += ListOfTasks_CollectionChanged;
             ToDoTask.CompletedTasksCountChanged += ToDoTask_CompletedTasksCountChanged;
             enableLiveTileToggle.IsOn = TileService.getServiceAvailablilty();
 
         }
 
+        
+        private void ListOfTasks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            TileService.UpdateLiveTile(ToDoTask.listOfTasks);
+        }
 
         private async void ToDoTask_CompletedTasksCountChanged(object sender, EventArgs e)
         {
