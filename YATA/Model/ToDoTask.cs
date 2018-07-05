@@ -40,7 +40,6 @@ namespace YATA.Model
         public static int CompletedTasks { get; set; } = 0;
 
         public static ObservableCollection<ToDoTask> listOfTasks = new ObservableCollection<ToDoTask>();
-        
 
         public static event EventHandler CompletedTasksCountChanged;
 
@@ -49,6 +48,27 @@ namespace YATA.Model
         public static event EventHandler ListOfTasksChanged;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+
+
+
+
+
+
+        public static void addToTaskCompletedScore()
+        {
+            CompletedTasks += 1;
+            CompletedTasksCountChanged?.Invoke();
+        }
+
+        public static void subtractFromTaskCompletedScore()
+        {
+            CompletedTasks -= 1;
+            CompletedTasksCountChanged?.Invoke();
+        }
+
+
+
 
         public static void UpdateCompletedTasks(int score)
         {

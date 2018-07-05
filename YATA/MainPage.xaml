@@ -41,7 +41,7 @@
         <Grid Grid.Row="1"
               Name="listGrid">
             <ListView Name="tasksListView"
-                      ItemsSource="{x:Bind localListOfTasks}"
+                      ItemsSource="{x:Bind localListOfTasks, Mode=OneWay}"
                       SelectionMode="None"
                       CanReorderItems="True"
                       AllowDrop="True">
