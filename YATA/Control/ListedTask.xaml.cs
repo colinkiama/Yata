@@ -1,6 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -54,6 +55,14 @@ namespace YATA.Control
         private void CompletedStampToggleButton_Click(object sender, RoutedEventArgs e)
         {
             UpdateUIAutomation();
+            if (TaskItem != null)
+            {
+                ToDoTask.AcknowledgeIsCompletedStateChange(this.TaskItem.IsCompleted);
+            }
+            else
+            {
+                Debug.WriteLine("Crash Prevented! - Value of TaskItem was null");
+            }
         }
 
 

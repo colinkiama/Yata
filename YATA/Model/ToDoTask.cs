@@ -58,17 +58,14 @@ namespace YATA.Model
         public static void addToTaskCompletedScore()
         {
             CompletedTasks += 1;
-            CompletedTasksCountChanged?.Invoke();
+            CompletedTasksCountChanged?.Invoke(true, EventArgs.Empty);
         }
 
-        public static void subtractFromTaskCompletedScore()
+        public static void AcknowledgeIsCompletedStateChange(bool completedState)
         {
-            CompletedTasks -= 1;
-            CompletedTasksCountChanged?.Invoke();
+            CompletedTasks = completedState ? CompletedTasks + 1 : CompletedTasks - 1;
+            CompletedTasksCountChanged?.Invoke(null, EventArgs.Empty);
         }
-
-
-
 
         public static void UpdateCompletedTasks(int score)
         {
