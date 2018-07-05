@@ -55,6 +55,17 @@ namespace YATA.Control
         private void CompletedStampToggleButton_Click(object sender, RoutedEventArgs e)
         {
             UpdateUIAutomation();
+
+            if (TaskItem.IsCompleted == true)
+            {
+                Haptics.ApplyCompletedStampHaptics();
+                SoundFX.PlayCompletedSound();
+            }
+            else
+            {
+                Haptics.ApplyEraseCompletedStampHaptics();
+            }
+
             if (TaskItem != null)
             {
                 ToDoTask.AcknowledgeIsCompletedStateChange(this.TaskItem.IsCompleted);
@@ -79,18 +90,11 @@ namespace YATA.Control
         private async void CompletedStampToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             await updateListedTaskFromCompletionResult();
-            if (PageStuff.navigating == false)
-            {
-                Haptics.ApplyCompletedStampHaptics();
-                SoundFX.PlayCompletedSound();
-            }
-
         }
 
         private async void CompletedStampToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
             await updateListedTaskFromCompletionResult();
-            Haptics.ApplyEraseCompletedStampHaptics();
         }
 
         private void FlyoutDeleteButton_Click(object sender, RoutedEventArgs e)
