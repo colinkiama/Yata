@@ -80,7 +80,6 @@ namespace YATA.Fluent
             SoundFX.PlayFinishCreatingTaskSound();
             Haptics.ApplyCreateTaskButtonPressHaptics();
             ToDoTask.CreateNote(taskDetailsTextBox.Text);
-            PageStuff.navigating = true;
             App.NavService.Navigate(typeof(MainPage));
         }
 

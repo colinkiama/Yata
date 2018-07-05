@@ -105,7 +105,6 @@ namespace YATA
 
         private void CurrentPage_Loaded(object sender, RoutedEventArgs e)
         {
-            PageStuff.navigating = false;
             this.Focus(FocusState.Pointer);
         }
 
