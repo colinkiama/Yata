@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Navigation;
 using YATA.Control;
 using YATA.Core;
 using YATA.Core.Syncing;
+using YATA.External;
 using YATA.Model;
 using YATA.Phone;
 using YATA.Services;
@@ -149,9 +150,13 @@ namespace YATA.Fluent
             new TileService().ChangeTileServiceAvailability(newState);
         }
 
-        private void RemoveAdsButton_Click(object sender, RoutedEventArgs e)
+        private async void RemoveAdsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            bool shouldRemoveAds = await adverts.tryRemovingAds();
+            if (shouldRemoveAds)
+            {
+                mainGrid.Children.Remove(adStackPanel);
+            }
         }
     }
 }
