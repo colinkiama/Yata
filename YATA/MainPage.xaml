@@ -16,6 +16,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
@@ -38,11 +39,13 @@
                        FontWeight="SemiBold"
                        Foreground="White"/>
         </Grid>
-        <Grid Grid.Row="1"
+        
+        <Grid Grid.Row="2"
               Name="listGrid">
             <ListView Name="tasksListView"
                       ItemsSource="{x:Bind localListOfTasks, Mode=OneWay}"
                       SelectionMode="None"
+                      IsItemClickEnabled="True"
                       CanReorderItems="True"
                       AllowDrop="True">
                 <ListView.ItemTemplate>
@@ -51,14 +54,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Grid Grid.RowSpan="2"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch"
-                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  Name="MaskGrid"
-                  Visibility="Collapsed"
-                  Opacity="0"
-                  Canvas.ZIndex="20"/>
         </Grid>
        
         <Grid Grid.Row="2">

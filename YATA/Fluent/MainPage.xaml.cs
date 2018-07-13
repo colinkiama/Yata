@@ -148,5 +148,10 @@ namespace YATA.Fluent
             bool newState = toggledSwitch.IsOn;
             new TileService().ChangeTileServiceAvailability(newState);
         }
+
+        private void RemoveAdsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
