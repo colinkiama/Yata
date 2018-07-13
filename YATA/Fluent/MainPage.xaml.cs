@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+﻿using Microsoft.Advertising.WinRT.UI;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -42,6 +43,7 @@ namespace YATA.Fluent
         public FluentMainPage()
         {
             this.InitializeComponent();
+            decideToShowAds();
             ScoreTextBlock.Text = ToDoTask.CompletedTasks.ToString();
             ToDoTask.listOfTasks.CollectionChanged += ListOfTasks_CollectionChanged;
             ToDoTask.CompletedTasksCountChanged += ToDoTask_CompletedTasksCountChanged;
@@ -49,7 +51,49 @@ namespace YATA.Fluent
 
         }
 
-        
+        private void decideToShowAds()
+        {
+            bool userRemovedAds = adverts.checkIfUserRemovedAds();
+            if (userRemovedAds == false)
+            {
+                showAds();
+            }
+            else
+            {
+                removeAds();
+            }
+        }
+
+        private void removeAds()
+        {
+           
+            mainGrid.Children.Remove(adStackPanel);
+        }
+
+        private void showAds()
+        {
+
+#if DEBUG
+            advertControl.ErrorOccurred += advertControl_ErrorOccurred;
+            advertControl.ApplicationId = "3f83fe91-d6be-434d-a0ae-7351c5a997f1";
+            advertControl.AdUnitId = "test";
+
+
+
+#endif
+
+#if TRACE && !DEBUG
+            advertControl.ApplicationId = adverts.appID;
+            advertControl.AdUnitId = adverts.adUnitID;
+#endif
+
+        }
+
+        private void advertControl_ErrorOccurred(object sender, AdErrorEventArgs e)
+        {
+            Debug.WriteLine(e.ErrorCode + ": " + e.ErrorMessage);
+        }
+
         private void ListOfTasks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             TileService.UpdateLiveTile(ToDoTask.listOfTasks);
@@ -94,7 +138,7 @@ namespace YATA.Fluent
 
         }
 
-       
+
 
         private void CurrentPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -110,12 +154,12 @@ namespace YATA.Fluent
             this.Focus(FocusState.Pointer);
         }
 
-       
+
 
         private async void requestStartupButton_Click(object sender, RoutedEventArgs e)
         {
             StartupTask startupTask = await StartupTask.GetAsync("yataStartup");
-            MessageDialog dialog = new MessageDialog("Yata! is already running at startup.","Startup task has been enabled already.");
+            MessageDialog dialog = new MessageDialog("Yata! is already running at startup.", "Startup task has been enabled already.");
             switch (startupTask.State)
             {
                 case StartupTaskState.Disabled:
@@ -134,7 +178,7 @@ namespace YATA.Fluent
                 case StartupTaskState.DisabledByPolicy:
                     dialog.Content =
                        "Please contact your system administrator for more information";
-                        dialog.Title = "Disabled by group policy";
+                    dialog.Title = "Disabled by group policy";
                     await dialog.ShowAsync();
                     break;
                 case StartupTaskState.Enabled:
@@ -155,7 +199,9 @@ namespace YATA.Fluent
             bool shouldRemoveAds = await adverts.tryRemovingAds();
             if (shouldRemoveAds)
             {
-                mainGrid.Children.Remove(adStackPanel);
+                adverts.setRemoveAdsSettingToTrue();
+                removeAds();
+                
             }
         }
     }

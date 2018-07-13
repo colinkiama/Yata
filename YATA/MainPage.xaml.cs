@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+﻿using Microsoft.Advertising.WinRT.UI;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,6 +25,7 @@ using YATA.Control;
 using YATA.Core;
 using YATA.Core.Audio;
 using YATA.Core.Syncing;
+using YATA.External;
 using YATA.Model;
 using YATA.Phone;
 using YATA.Services;
@@ -37,15 +39,58 @@ namespace YATA
     /// </summary> 
     public sealed partial class MainPage : Page
     {
-        public  ObservableCollection<ToDoTask> localListOfTasks = ToDoTask.listOfTasks;
+        public ObservableCollection<ToDoTask> localListOfTasks = ToDoTask.listOfTasks;
         private string title = "Tasks";
         public MainPage()
         {
             this.InitializeComponent();
+            decideToShowAds();
             ScoreTextBlock.Text = ToDoTask.CompletedTasks.ToString();
             ToDoTask.CompletedTasksCountChanged += ToDoTask_CompletedTasksCountChanged;
             ToDoTask.listOfTasks.CollectionChanged += ListOfTasks_CollectionChanged;
             enableLiveTileToggle.IsOn = TileService.getServiceAvailablilty();
+        }
+
+        private void decideToShowAds()
+        {
+            bool userRemovedAds = adverts.checkIfUserRemovedAds();
+            if (userRemovedAds == false)
+            {
+                showAds();
+            }
+            else
+            {
+                removeAds();
+            }
+        }
+
+        private void removeAds()
+        {
+            mainGrid.Children.Remove(adStackPanel);
+        }
+
+        private void showAds()
+        {
+
+#if DEBUG
+            advertControl.ErrorOccurred += advertControl_ErrorOccurred;
+            advertControl.ApplicationId = "3f83fe91-d6be-434d-a0ae-7351c5a997f1";
+            advertControl.AdUnitId = "test";
+
+
+
+#endif
+
+#if TRACE && !DEBUG
+            advertControl.ApplicationId = adverts.appID;
+            advertControl.AdUnitId = adverts.adUnitID;
+#endif
+
+        }
+
+        private void advertControl_ErrorOccurred(object sender, AdErrorEventArgs e)
+        {
+            Debug.WriteLine(e.ErrorCode + ": " + e.ErrorMessage);
         }
 
         private void ListOfTasks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -92,7 +137,7 @@ namespace YATA
 
         }
 
-       
+
 
         private void CurrentPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -115,6 +160,17 @@ namespace YATA
             var toggledSwitch = (ToggleSwitch)sender;
             bool newState = toggledSwitch.IsOn;
             new TileService().ChangeTileServiceAvailability(newState);
+        }
+
+        private async void RemoveAdsButton_Click(object sender, RoutedEventArgs e)
+        {
+            bool shouldRemoveAds = await adverts.tryRemovingAds();
+            if (shouldRemoveAds)
+            {
+                adverts.setRemoveAdsSettingToTrue();
+                removeAds();
+
+            }
         }
     }
 }
