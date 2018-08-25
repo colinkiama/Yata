@@ -305,11 +305,11 @@
                                        Margin="0,8,0,0"/>
                             <HyperlinkButton NavigateUri="mailto:colinkiama@hotmail.co.uk"
                                              Content="Email"/>
-                            <HyperlinkButton NavigateUri="https://www.instagram.com/yatatodoapp"
+                            <HyperlinkButton NavigateUri="https://www.instagram.com/mangoappdev"
                                              Content="Instagram"/>
-                            <HyperlinkButton NavigateUri="https://twitter.com/yatatodoapp"
+                            <HyperlinkButton NavigateUri="https://twitter.com/mangoappdev"
                                              Content="Twitter"/>
-                            <HyperlinkButton NavigateUri="https://www.facebook.com/YATA-Yet-Another-To-Do-App-225936411298719/"
+                            <HyperlinkButton NavigateUri="https://www.facebook.com/mangoappdev"
                                              Content="Facebook"/>
 
                         </StackPanel>
